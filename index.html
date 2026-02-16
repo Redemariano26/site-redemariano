@@ -5,10 +5,6 @@
   <title>Rede Mariano</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- LEAFLET -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <style>
     body {
       margin: 0;
@@ -28,7 +24,6 @@
 
     .logo-area img {
       height: 90px;
-      display: block;
     }
 
     nav a {
@@ -56,12 +51,11 @@
       padding: 25px;
     }
 
-    /* MAPA */
     #mapa {
       height: 500px;
       width: 100%;
-      border-radius: 12px;
       margin-top: 30px;
+      border-radius: 12px;
     }
   </style>
 </head>
@@ -88,7 +82,7 @@
   <img src="/assets/img/banner2.png" alt="Banner Rede Mariano">
 </section>
 
-<!-- MAPA -->
+<!-- MAPA GOOGLE -->
 <section class="section">
   <h2>Encontre uma Farmácia Mariano</h2>
   <div id="mapa"></div>
@@ -100,38 +94,45 @@
   <p>A Rede Mariano a farmácia mais queridinha do povo.</p>
 </section>
 
-<!-- SERVIÇOS -->
-<section class="section">
-  <h2>Nossos serviços</h2>
-  <p>
-    Trabalhamos com automação, sistemas personalizados, soluções digitais
-    e ferramentas inteligentes para melhorar resultados e produtividade.
-  </p>
-</section>
-
 <footer>
   © 2026 Rede Mariano - Todos os direitos reservados
 </footer>
 
-<!-- SCRIPT DO MAPA -->
+<!-- GOOGLE MAPS API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDycCT4UaY2zqZDe4iz_ECktvU9fgBfNQ=iniciarMapa" async defer></script>
+
 <script>
-// Criar mapa centralizado em SC
-var mapa = L.map('mapa').setView([-26.9, -49.1], 8);
+function iniciarMapa() {
 
-// Base do mapa grátis
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
-}).addTo(mapa);
+  var centro = { lat: -26.9, lng: -49.1 };
 
-// EXEMPLO DE PINOS (vamos trocar depois pelas suas lojas)
-L.marker([-26.897, -49.235]).addTo(mapa)
-  .bindPopup("Farmácia Mariano - Indaial");
+  var mapa = new google.maps.Map(document.getElementById("mapa"), {
+    zoom: 8,
+    center: centro,
+  });
 
-L.marker([-26.823, -49.271]).addTo(mapa)
-  .bindPopup("Farmácia Mariano - Timbó");
+  // SUA LOGO COMO PINO
+  var icone = {
+    url: "/assets/img/logo-topo2.jpeg",
+    scaledSize: new google.maps.Size(50, 50)
+  };
 
-L.marker([-26.739, -49.178]).addTo(mapa)
-  .bindPopup("Farmácia Mariano - Timbó 2");
+  // LISTA DE FARMÁCIAS
+  var lojas = [
+    { nome: "Mariano Indaial", lat: -26.897, lng: -49.235 },
+    { nome: "Mariano Timbó", lat: -26.823, lng: -49.271 },
+    { nome: "Mariano Pomerode", lat: -26.739, lng: -49.178 }
+  ];
+
+  lojas.forEach(loja => {
+    new google.maps.Marker({
+      position: { lat: loja.lat, lng: loja.lng },
+      map: mapa,
+      title: loja.nome,
+      icon: icone
+    });
+  });
+}
 </script>
 
 </body>
