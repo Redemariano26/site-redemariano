@@ -6,6 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+.banner {
+  width: 100%;
+  background: #ffffff;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.banner img {
+  width: 90%;
+  max-width: 1100px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -29,7 +43,7 @@
     }
 
     .logo-area img {
-      height: 45px;
+      height: 80px;
     }
 
     .logo-text {
@@ -100,10 +114,11 @@
 <body>
 
 <header>
-  <div class="logo-area">
-    <img src="assets/img/logo.png" alt="Rede Mariano">
+    <div class="logo-area">
+    <img src="assets/img/logo-topo.jpeg">
     <div class="logo-text">Rede Mariano</div>
-  </div>
+    <img src="assets/img/banner.png">
+ </div>
 
   <nav>
     <a href="#">Início</a>
@@ -123,6 +138,10 @@
 
 <section class="section">
   <h2>Sobre a empresa</h2>
+  <section class="banner">
+  <img src="assets/img/banner.png" alt="Banner Rede Mariano">
+  </section>
+
   <p>
     A Rede Mariano atua com soluções inovadoras em tecnologia e gestão,
     oferecendo serviços confiáveis para empresas e parceiros.
