@@ -6,20 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-.banner {
-  width: 100%;
-  background: #ffffff;
-  padding: 50px 0;
-  text-align: center;
-}
-
-.banner img {
-  width: 90%;
-  max-width: 1100px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -29,27 +15,15 @@
 
     header {
       background: #ffffff;
-      padding: 18px 40px;
+      padding: 15px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     .logo-area img {
-      height: 80px;
-    }
-
-    .logo-text {
-      font-size: 22px;
-      font-weight: bold;
-      color: #c62828;
+      height: 70px;
     }
 
     nav a {
@@ -86,6 +60,20 @@
       font-weight: bold;
     }
 
+    .banner {
+      width: 100%;
+      background: #ffffff;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .banner img {
+      width: 90%;
+      max-width: 1100px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
     .section {
       background: white;
       padding: 60px 20px;
@@ -113,12 +101,11 @@
 
 <body>
 
+<!-- HEADER -->
 <header>
-    <div class="logo-area">
-    <img src="assets/img/logo-topo.jpeg">
-    <div class="logo-text">Rede Mariano</div>
-    <img src="assets/img/banner.png">
- </div>
+  <div class="logo-area">
+    <img src="assets/img/logo-topo.jpeg" alt="Rede Mariano">
+  </div>
 
   <nav>
     <a href="#">Início</a>
@@ -126,20 +113,31 @@
     <a href="#">Serviços</a>
     <a href="#">Contato</a>
     <a href="login.html">Área do colaborador</a>
-
   </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Bem-vindo à Rede Mariano</h1>
+  <p>Conectando soluções, tecnologia e pessoas.</p>
+  <a class="btn" href="#">Fale conosco</a>
+</section>
+
+<!-- BANNER -->
+<section class="banner">
+  <img src="assets/img/banner.png" alt="Banner Rede Mariano">
+</section>
+
+<!-- SOBRE -->
 <section class="section">
   <h2>Sobre a empresa</h2>
-  <section class="banner">
-  <img src="assets/img/banner.png" alt="Banner Rede Mariano">
-  </section>
-
   <p>
     A Rede Mariano atua com soluções inovadoras em tecnologia e gestão,
     oferecendo serviços confiáveis para empresas e parceiros.
   </p>
 </section>
 
+<!-- SERVIÇOS -->
 <section class="section">
   <h2>Nossos serviços</h2>
   <p>
