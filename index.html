@@ -98,42 +98,62 @@
   © 2026 Rede Mariano - Todos os direitos reservados
 </footer>
 
-<!-- SCRIPT DO MAPA -->
 <script>
 function initMap() {
-  const centro = { lat: -26.9194, lng: -49.0661 };
+  const centro = { lat: -27.1, lng: -49.6 };
 
   const map = new google.maps.Map(document.getElementById("mapa"), {
-    zoom: 8,
+    zoom: 9,
     center: centro,
   });
 
-  // Ícone personalizado (logo)
-  const logoPin = {
-    url: "/assets/img/pino-mariano26.png",
-    scaledSize: new google.maps.Size(50, 50),
+  const icone = {
+    url: "/assets/img/pino-mariano.png",
+    scaledSize: new google.maps.Size(50, 60),
   };
 
-  // LISTA DE FARMÁCIAS
   const farmacias = [
-    { nome: "Blumenau Centro", lat: -26.9194, lng: -49.0661 },
-    { nome: "Indaial", lat: -26.8996, lng: -49.2317 },
-    { nome: "Timbó", lat: -26.8247, lng: -49.2695 },
-    { nome: "Pomerode", lat: -26.7406, lng: -49.1767 },
-    { nome: "Gaspar", lat: -26.9319, lng: -48.9587 },
+    ["Apiúna 1 - Centro (363)", -27.037, -49.387],
+    ["Apiúna 2 - Centro (nº2)", -27.0375, -49.386],
+    ["Dona Emma", -26.978, -49.726],
+    ["Rodeio 1 - Centro 1", -26.922, -49.364],
+    ["Sindicato - Centro 2", -26.921, -49.362],
+    ["Lontras 1 - Willy Schroeder", -27.168, -49.542],
+    ["Lontras 2 - Oswaldo Schroeder", -27.170, -49.540],
+    ["Ascurra 1 - Dom Bosco", -26.957, -49.378],
+    ["Ascurra 2 - Brasília", -26.955, -49.376],
+    ["Timbó 1 - Blumenau", -26.823, -49.269],
+    ["Timbó 2 - Sete Setembro", -26.824, -49.268],
+    ["Trombudo Central", -27.303, -49.787],
+    ["Agronômica", -27.267, -49.708],
+    ["José Boiteux", -26.718, -49.628],
+    ["Witmarsum", -26.926, -49.801],
+    ["Barra do Trombudo - Clemente Demarch", -27.215, -49.643],
+    ["Rio do Sul Centro - Oscar Barcelos", -27.214, -49.644],
+    ["Rio do Sul XV - XV Novembro", -27.213, -49.645],
+    ["Agrolândia 1 - Pioneiros", -27.408, -49.823],
+    ["Agrolândia 2 - Nereu Ramos", -27.407, -49.822],
+    ["Indaial", -26.897, -49.231],
+    ["Rio do Oeste", -27.190, -49.798],
+    ["Laurentino", -27.216, -49.735],
+    ["Atalanta", -27.423, -49.784],
+    ["Benedito Novo", -26.783, -49.359],
+    ["Ituporanga", -27.415, -49.600],
+    ["Rio dos Cedros", -26.739, -49.268],
+    ["Taió", -27.116, -49.993],
+    ["Doutor Pedrinho", -26.718, -49.483],
   ];
 
-  // Criar marcadores
   farmacias.forEach(f => {
     const marker = new google.maps.Marker({
-      position: { lat: f.lat, lng: f.lng },
-      map: map,
-      title: f.nome,
-      icon: logoPin,
+      position: { lat: f[1], lng: f[2] },
+      map,
+      title: f[0],
+      icon: icone
     });
 
     const info = new google.maps.InfoWindow({
-      content: `<strong>Farmácia Mariano</strong><br>${f.nome}`,
+      content: `<strong>Farmácia Mariano</strong><br>${f[0]}`
     });
 
     marker.addListener("click", () => info.open(map, marker));
