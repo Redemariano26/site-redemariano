@@ -108,13 +108,39 @@ function initMap() {
     center: centro,
   });
 
-  new google.maps.Marker({
-    position: centro,
-    map: map,
-    title: "Farmácia Mariano",
+  // Ícone personalizado (logo)
+  const logoPin = {
+    url: "/assets/img/pino-mariano.png",
+    scaledSize: new google.maps.Size(50, 50),
+  };
+
+  // LISTA DE FARMÁCIAS
+  const farmacias = [
+    { nome: "Blumenau Centro", lat: -26.9194, lng: -49.0661 },
+    { nome: "Indaial", lat: -26.8996, lng: -49.2317 },
+    { nome: "Timbó", lat: -26.8247, lng: -49.2695 },
+    { nome: "Pomerode", lat: -26.7406, lng: -49.1767 },
+    { nome: "Gaspar", lat: -26.9319, lng: -48.9587 },
+  ];
+
+  // Criar marcadores
+  farmacias.forEach(f => {
+    const marker = new google.maps.Marker({
+      position: { lat: f.lat, lng: f.lng },
+      map: map,
+      title: f.nome,
+      icon: logoPin,
+    });
+
+    const info = new google.maps.InfoWindow({
+      content: `<strong>Farmácia Mariano</strong><br>${f.nome}`,
+    });
+
+    marker.addListener("click", () => info.open(map, marker));
   });
 }
 </script>
+
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDycCT4UaY2zqZDe4iz_ECktvU9fgBfNQ&callback=initMap">
