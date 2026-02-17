@@ -9,7 +9,6 @@
 
 <!-- FAVICON -->
 <link rel="icon" href="/assets/img/favicon.png">
-<link rel="apple-touch-icon" href="/assets/img/favicon.png">
 
 <style>
 body{
@@ -53,30 +52,58 @@ color:#fff;
 }
 .texto-destaque{color:#FFCC00;}
 
-/* SEÇÃO PADRÃO */
+/* SEÇÕES */
 .section{
 background:#fff;
 padding:60px 20px;
 text-align:center;
 }
 
-/* REVISTA */
+/* REVISTA PREMIUM */
 .revista{
 max-width:900px;
 margin:40px auto;
+display:grid;
+gap:25px;
 }
 
 .revista img{
 width:100%;
-display:block;
-margin-bottom:20px;
-border-radius:12px;
+border-radius:14px;
 box-shadow:0 15px 35px rgba(0,0,0,.15);
 transition:.25s;
+cursor:pointer;
 }
 
+/* efeito premium hover */
 .revista img:hover{
 transform:scale(1.02);
+}
+
+/* MODAL ZOOM */
+.modal-img{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.modal-img img{
+max-width:95%;
+max-height:95%;
+border-radius:12px;
+}
+
+.fechar{
+position:absolute;
+top:20px;
+right:30px;
+font-size:32px;
+color:#fff;
+cursor:pointer;
 }
 
 /* MAPA */
@@ -122,9 +149,8 @@ font-size:20px;
 
 .section{padding:35px 15px;}
 
-.revista img{
-border-radius:10px;
-margin-bottom:15px;
+.revista{
+gap:15px;
 }
 
 .mapa-full{height:60vh;}
@@ -156,7 +182,7 @@ margin-bottom:15px;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- ENCARTE EM IMAGENS -->
+<!-- ENCARTE -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
@@ -172,6 +198,12 @@ A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </div>
 </section>
 
+<!-- ZOOM MODAL -->
+<div class="modal-img" id="zoom">
+<span class="fechar" onclick="fecharZoom()">✕</span>
+<img id="imgZoom">
+</div>
+
 <!-- MAPA -->
 <section class="section">
 <h2>Encontre uma Farmácia Mariano</h2>
@@ -184,6 +216,20 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 <footer>
 © 2026 Rede Mariano - Todos os direitos reservados
 </footer>
+
+<script>
+// zoom premium
+document.querySelectorAll(".revista img").forEach(img=>{
+img.onclick=()=>{
+document.getElementById("zoom").style.display="flex";
+document.getElementById("imgZoom").src=img.src;
+}
+});
+
+function fecharZoom(){
+document.getElementById("zoom").style.display="none";
+}
+</script>
 
 </body>
 </html>
