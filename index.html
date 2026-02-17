@@ -50,63 +50,70 @@ color:#fff;
 }
 .texto-destaque{color:#FFCC00;}
 
-/* SEÇÕES */
 .section{
 background:#fff;
 padding:60px 20px;
 text-align:center;
 }
 
-/* LIVRO ABERTO */
-.livro-container{
+/* REVISTA REAL */
+.revista-real{
 position:relative;
-max-width:1100px;
+width:900px;
+max-width:100%;
+height:600px;
 margin:40px auto;
+perspective:2000px;
+}
+
+.pagina{
+position:absolute;
+width:50%;
+height:100%;
+top:0;
+left:50%;
+transform-origin:left;
+transition:transform .8s cubic-bezier(.4,.2,.2,1);
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+background:#fff;
 overflow:hidden;
 }
 
-.livro{
-display:flex;
-transition:transform .5s ease;
+.pagina img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.livro img{
-width:50%;
-flex-shrink:0;
-box-shadow:0 20px 50px rgba(0,0,0,.2);
+/* lado esquerdo */
+.pagina.esquerda{
+left:0;
+transform-origin:right;
 }
 
-/* SOMBRA CENTRAL */
-.livro::before{
-content:"";
-position:absolute;
-left:50%;
-top:0;
-bottom:0;
-width:4px;
-background:linear-gradient(to right,rgba(0,0,0,.25),transparent);
+/* página virada */
+.pagina.virada{
+transform:rotateY(-180deg);
 }
 
 /* BOTÕES */
-.btn-livro{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
+.controles{
+text-align:center;
+margin-top:20px;
+}
+
+.controles button{
 background:#C4232A;
 color:#fff;
 border:none;
-font-size:28px;
-width:50px;
-height:50px;
-border-radius:50%;
+padding:10px 18px;
+margin:0 8px;
+border-radius:8px;
 cursor:pointer;
-z-index:2;
+font-weight:600;
 }
 
-.left{left:-20px;}
-.right{right:-20px;}
-
-.btn-livro:hover{background:#a91c22;}
+.controles button:hover{background:#a91c22;}
 
 /* MAPA */
 .mapa-full{
@@ -116,7 +123,6 @@ border:none;
 display:block;
 }
 
-/* FOOTER */
 footer{
 background:#111827;
 color:#fff;
@@ -144,10 +150,13 @@ padding:25px 10px;
 font-size:20px;
 }
 
-.section{padding:35px 15px;}
+.revista-real{height:420px;}
 
-.livro img{width:100%;}
-.livro::before{display:none;}
+.pagina{
+width:100%;
+left:0;
+transform-origin:center;
+}
 
 .mapa-full{height:60vh;}
 }
@@ -178,27 +187,24 @@ font-size:20px;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- LIVRO -->
+<!-- REVISTA REAL -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
-<div class="livro-container">
+<div class="revista-real" id="revista">
+  <div class="pagina"><img src="/assets/img/encarte_page-0001.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0002.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0003.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0004.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0005.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0006.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0007.jpg"></div>
+  <div class="pagina"><img src="/assets/img/encarte_page-0008.jpg"></div>
+</div>
 
-  <button class="btn-livro left" onclick="anterior()">‹</button>
-
-  <div class="livro" id="livro">
-    <img src="/assets/img/encarte_page-0001.jpg">
-    <img src="/assets/img/encarte_page-0002.jpg">
-    <img src="/assets/img/encarte_page-0003.jpg">
-    <img src="/assets/img/encarte_page-0004.jpg">
-    <img src="/assets/img/encarte_page-0005.jpg">
-    <img src="/assets/img/encarte_page-0006.jpg">
-    <img src="/assets/img/encarte_page-0007.jpg">
-    <img src="/assets/img/encarte_page-0008.jpg">
-  </div>
-
-  <button class="btn-livro right" onclick="proximo()">›</button>
-
+<div class="controles">
+  <button onclick="voltarPagina()">‹ Anterior</button>
+  <button onclick="avancarPagina()">Próxima ›</button>
 </div>
 </section>
 
@@ -216,27 +222,41 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
-let pagina = 0;
-const livro = document.getElementById("livro");
-const total = livro.children.length;
+let paginaAtual = 0;
+const paginas = document.querySelectorAll(".pagina");
 
-function atualizar(){
-  const largura = window.innerWidth <= 768 ? 100 : 50;
-  livro.style.transform = `translateX(-${pagina * largura}%)`;
+/* alternar esquerda/direita */
+paginas.forEach((p,i)=>{
+  if(i % 2 === 0) p.classList.add("esquerda");
+});
+
+function avancarPagina(){
+  if(paginaAtual < paginas.length){
+    paginas[paginaAtual].classList.add("virada");
+    paginaAtual++;
+  }
 }
 
-function proximo(){
-  const limite = window.innerWidth <= 768 ? total - 1 : total - 2;
-  pagina = Math.min(pagina + 1, limite);
-  atualizar();
+function voltarPagina(){
+  if(paginaAtual > 0){
+    paginaAtual--;
+    paginas[paginaAtual].classList.remove("virada");
+  }
 }
 
-function anterior(){
-  pagina = Math.max(pagina - 1, 0);
-  atualizar();
-}
+/* SWIPE MOBILE */
+let startX = 0;
+const revista = document.getElementById("revista");
 
-window.addEventListener("resize", atualizar);
+revista.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+
+revista.addEventListener("touchend", e=>{
+  const diff = startX - e.changedTouches[0].clientX;
+  if(diff > 50) avancarPagina();
+  if(diff < -50) voltarPagina();
+});
 </script>
 
 </body>
