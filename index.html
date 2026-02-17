@@ -14,7 +14,6 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:#f4f6fb;
 color:#222;
-overflow-x:hidden;
 }
 
 /* HEADER */
@@ -28,14 +27,7 @@ box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
 
 .logo-area img{height:110px;}
-
-nav a{
-margin-left:25px;
-text-decoration:none;
-color:#333;
-font-weight:600;
-}
-
+nav a{margin-left:25px;text-decoration:none;color:#333;font-weight:600;}
 .banner img{width:100%;display:block;}
 
 .faixa-marca{
@@ -54,76 +46,49 @@ padding:60px 20px;
 text-align:center;
 }
 
-/* ================= REVISTA REAL ================= */
+/* ===== REVISTA ABERTA REAL ===== */
 
-.revista-real{
-position:relative;
-width:950px;
-max-width:95%;
-height:620px;
+.revista{
+max-width:1100px;
 margin:40px auto;
-perspective:2500px;
+background:#eee;
+padding:25px;
+border-radius:14px;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+position:relative;
 }
 
-/* SOMBRA CENTRAL */
-.revista-real::before{
+.spread{
+display:none;
+justify-content:center;
+gap:10px;
+}
+
+.spread.ativo{
+display:flex;
+}
+
+.spread img{
+width:50%;
+border-radius:8px;
+box-shadow:0 15px 30px rgba(0,0,0,.2);
+}
+
+/* capa */
+.spread img:only-child{
+width:60%;
+}
+
+/* dobra central */
+.revista::before{
 content:"";
 position:absolute;
+left:50%;
 top:0;
 bottom:0;
-left:50%;
-width:14px;
+width:6px;
 transform:translateX(-50%);
 background:linear-gradient(to right,rgba(0,0,0,.25),transparent);
-z-index:5;
-}
-
-/* PÁGINAS */
-.pagina{
-position:absolute;
-width:50%;
-height:100%;
-top:0;
-background:#fff;
-overflow:hidden;
-backface-visibility:hidden;
-transform-style:preserve-3d;
-transition:transform .9s cubic-bezier(.25,.8,.25,1);
-box-shadow:0 25px 60px rgba(0,0,0,.25);
-}
-
-/* direita */
-.pagina.direita{
-right:0;
-transform-origin:left;
-}
-
-/* esquerda */
-.pagina.esquerda{
-left:0;
-transform-origin:right;
-}
-
-/* imagem */
-.pagina img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-/* virada */
-.pagina.virada{
-transform:rotateY(-180deg) skewY(-2deg);
-filter:drop-shadow(-15px 15px 25px rgba(0,0,0,.3));
-}
-
-/* textura papel */
-.pagina::after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(to right,rgba(0,0,0,.08),transparent 30%);
-pointer-events:none;
 }
 
 /* BOTÕES */
@@ -143,13 +108,10 @@ cursor:pointer;
 font-weight:600;
 }
 
-.controles button:hover{background:#a91c22;}
-
 .mapa-full{
 width:100%;
 height:720px;
 border:none;
-display:block;
 }
 
 footer{
@@ -162,33 +124,20 @@ font-size:14px;
 
 /* MOBILE */
 @media(max-width:768px){
-header{flex-direction:column;gap:10px;padding:12px;}
-.logo-area img{height:65px;}
 
-nav{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:8px;
-}
-nav a{font-size:14px;margin:0;}
+header{flex-direction:column;padding:12px}
+.logo-area img{height:65px}
 
-.faixa-marca{
-padding:25px 10px;
-font-size:20px;
+.spread{
+flex-direction:column;
+align-items:center;
 }
 
-.revista-real{height:420px;}
-
-.pagina{
+.spread img{
 width:100%;
-left:0!important;
-right:auto!important;
-transform-origin:center;
 }
 
-.revista-real::before{display:none;}
-
+.revista::before{display:none;}
 .mapa-full{height:60vh;}
 }
 </style>
@@ -218,24 +167,45 @@ transform-origin:center;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- REVISTA -->
+<!-- REVISTA NOVA -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
-<div class="revista-real" id="revista">
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0001.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0002.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0003.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0004.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0005.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0006.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0007.jpg"></div>
-  <div class="pagina direita"><img src="/assets/img/encarte_page-0008.jpg"></div>
+<div class="revista" id="revista">
+
+  <!-- CAPA -->
+  <div class="spread ativo">
+    <img src="/assets/img/encarte_page-0001.jpg">
+  </div>
+
+  <!-- 2 + 3 -->
+  <div class="spread">
+    <img src="/assets/img/encarte_page-0002.jpg">
+    <img src="/assets/img/encarte_page-0003.jpg">
+  </div>
+
+  <!-- 4 + 5 -->
+  <div class="spread">
+    <img src="/assets/img/encarte_page-0004.jpg">
+    <img src="/assets/img/encarte_page-0005.jpg">
+  </div>
+
+  <!-- 6 + 7 -->
+  <div class="spread">
+    <img src="/assets/img/encarte_page-0006.jpg">
+    <img src="/assets/img/encarte_page-0007.jpg">
+  </div>
+
+  <!-- CONTRACAPA -->
+  <div class="spread">
+    <img src="/assets/img/encarte_page-0008.jpg">
+  </div>
+
 </div>
 
 <div class="controles">
-<button onclick="voltarPagina()">‹ Anterior</button>
-<button onclick="avancarPagina()">Próxima ›</button>
+<button onclick="voltar()">‹ Anterior</button>
+<button onclick="proximo()">Próxima ›</button>
 </div>
 </section>
 
@@ -248,46 +218,33 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </iframe>
 
 <footer>
-© 2026 Rede Mariano - Todos os direitos reservados
+© 2026 Rede Mariano
 </footer>
 
 <script>
-const paginas = document.querySelectorAll(".pagina");
+const spreads = document.querySelectorAll(".spread");
 let atual = 0;
 
-/* CORRIGE ORDEM DE EMPILHAMENTO */
-function organizarPilha(){
-  paginas.forEach((p,i)=>{
-    p.style.zIndex = paginas.length - i;
-  });
-}
-organizarPilha();
-
-/* VIRAR PRA FRENTE */
-function avancarPagina(){
-  if(atual >= paginas.length) return;
-
-  const pagina = paginas[atual];
-  pagina.classList.add("virada");
-
-  // joga página virada pro fundo
-  pagina.style.zIndex = atual;
-
-  atual++;
+function atualizar(){
+  spreads.forEach(s=>s.classList.remove("ativo"));
+  spreads[atual].classList.add("ativo");
 }
 
-/* VOLTAR */
-function voltarPagina(){
-  if(atual <= 0) return;
-
-  atual--;
-  const pagina = paginas[atual];
-
-  pagina.classList.remove("virada");
-  pagina.style.zIndex = paginas.length - atual;
+function proximo(){
+  if(atual < spreads.length - 1){
+    atual++;
+    atualizar();
+  }
 }
 
-/* SWIPE MOBILE REAL */
+function voltar(){
+  if(atual > 0){
+    atual--;
+    atualizar();
+  }
+}
+
+/* SWIPE MOBILE */
 let startX = 0;
 const revista = document.getElementById("revista");
 
@@ -298,8 +255,8 @@ revista.addEventListener("touchstart", e=>{
 revista.addEventListener("touchend", e=>{
   const diff = startX - e.changedTouches[0].clientX;
 
-  if(diff > 60) avancarPagina();
-  if(diff < -60) voltarPagina();
+  if(diff > 60) proximo();
+  if(diff < -60) voltar();
 });
 </script>
 
