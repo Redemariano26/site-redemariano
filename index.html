@@ -91,49 +91,40 @@
 <!-- SOBRE -->
 <section class="section">
   <h2>Sobre a empresa</h2>
-  <p>A Rede Mariano a farmácia mais queridinha do povo.</p>
+  <p>Farmacia Mariano a farmácia mais queridinha do povo.</p>
+</section>
+<!-- MAPA GOOGLE -->
+<section class="section">
+  <h2>Encontre uma Farmácia Mariano</h2>
+
+  <div id="mapa" style="width:100%; height:500px;"></div>
 </section>
 
-<footer>
-  © 2026 Rede Mariano - Todos os direitos reservados
-</footer>
-
-<!-- GOOGLE MAPS API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDycCT4UaY2zqZDe4iz_ECktvU9fgBfNQ=iniciarMapa" async defer></script>
-
 <script>
-function iniciarMapa() {
+function initMap() {
+  const centro = { lat: -26.9194, lng: -49.0661 }; // Blumenau
 
-  var centro = { lat: -26.9, lng: -49.1 };
-
-  var mapa = new google.maps.Map(document.getElementById("mapa"), {
+  const map = new google.maps.Map(document.getElementById("mapa"), {
     zoom: 8,
     center: centro,
   });
 
-  // SUA LOGO COMO PINO
-  var icone = {
-    url: "/assets/img/logo-topo2.jpeg",
-    scaledSize: new google.maps.Size(50, 50)
-  };
-
-  // LISTA DE FARMÁCIAS
-  var lojas = [
-    { nome: "Mariano Indaial", lat: -26.897, lng: -49.235 },
-    { nome: "Mariano Timbó", lat: -26.823, lng: -49.271 },
-    { nome: "Mariano Pomerode", lat: -26.739, lng: -49.178 }
-  ];
-
-  lojas.forEach(loja => {
-    new google.maps.Marker({
-      position: { lat: loja.lat, lng: loja.lng },
-      map: mapa,
-      title: loja.nome,
-      icon: icone
-    });
+  new google.maps.Marker({
+    position: centro,
+    map: map,
+    title: "Farmácia Mariano",
   });
 }
 </script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDycCT4UaY2zqZDe4iz_ECktvU9fgBfNQ=initMap">
+</script>
+
+
+<footer>
+  © 2026 Rede Mariano - Todos os direitos reservados
+</footer>
 
 </body>
 </html>
