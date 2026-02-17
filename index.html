@@ -36,10 +36,8 @@ color:#333;
 font-weight:600;
 }
 
-/* BANNER */
 .banner img{width:100%;display:block;}
 
-/* FAIXA */
 .faixa-marca{
 background:#C4232A;
 padding:70px 20px;
@@ -56,44 +54,76 @@ padding:60px 20px;
 text-align:center;
 }
 
-/* REVISTA REAL */
+/* ================= REVISTA REAL ================= */
+
 .revista-real{
 position:relative;
-width:900px;
-max-width:100%;
-height:600px;
+width:950px;
+max-width:95%;
+height:620px;
 margin:40px auto;
-perspective:2000px;
+perspective:2500px;
 }
 
+/* SOMBRA CENTRAL */
+.revista-real::before{
+content:"";
+position:absolute;
+top:0;
+bottom:0;
+left:50%;
+width:14px;
+transform:translateX(-50%);
+background:linear-gradient(to right,rgba(0,0,0,.25),transparent);
+z-index:5;
+}
+
+/* PÁGINAS */
 .pagina{
 position:absolute;
 width:50%;
 height:100%;
 top:0;
-left:50%;
-transform-origin:left;
-transition:transform .8s cubic-bezier(.4,.2,.2,1);
-box-shadow:0 20px 50px rgba(0,0,0,.25);
 background:#fff;
 overflow:hidden;
+backface-visibility:hidden;
+transform-style:preserve-3d;
+transition:transform .9s cubic-bezier(.25,.8,.25,1);
+box-shadow:0 25px 60px rgba(0,0,0,.25);
 }
 
+/* direita */
+.pagina.direita{
+right:0;
+transform-origin:left;
+}
+
+/* esquerda */
+.pagina.esquerda{
+left:0;
+transform-origin:right;
+}
+
+/* imagem */
 .pagina img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
 
-/* lado esquerdo */
-.pagina.esquerda{
-left:0;
-transform-origin:right;
+/* virada */
+.pagina.virada{
+transform:rotateY(-180deg) skewY(-2deg);
+filter:drop-shadow(-15px 15px 25px rgba(0,0,0,.3));
 }
 
-/* página virada */
-.pagina.virada{
-transform:rotateY(-180deg);
+/* textura papel */
+.pagina::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(to right,rgba(0,0,0,.08),transparent 30%);
+pointer-events:none;
 }
 
 /* BOTÕES */
@@ -106,16 +136,15 @@ margin-top:20px;
 background:#C4232A;
 color:#fff;
 border:none;
-padding:10px 18px;
+padding:12px 22px;
 margin:0 8px;
-border-radius:8px;
+border-radius:10px;
 cursor:pointer;
 font-weight:600;
 }
 
 .controles button:hover{background:#a91c22;}
 
-/* MAPA */
 .mapa-full{
 width:100%;
 height:720px;
@@ -133,7 +162,6 @@ font-size:14px;
 
 /* MOBILE */
 @media(max-width:768px){
-
 header{flex-direction:column;gap:10px;padding:12px;}
 .logo-area img{height:65px;}
 
@@ -154,9 +182,12 @@ font-size:20px;
 
 .pagina{
 width:100%;
-left:0;
+left:0!important;
+right:auto!important;
 transform-origin:center;
 }
+
+.revista-real::before{display:none;}
 
 .mapa-full{height:60vh;}
 }
@@ -187,28 +218,27 @@ transform-origin:center;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- REVISTA REAL -->
+<!-- REVISTA -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
 <div class="revista-real" id="revista">
-  <div class="pagina"><img src="/assets/img/encarte_page-0001.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0002.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0003.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0004.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0005.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0006.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0007.jpg"></div>
-  <div class="pagina"><img src="/assets/img/encarte_page-0008.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0001.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0002.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0003.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0004.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0005.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0006.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0007.jpg"></div>
+  <div class="pagina direita"><img src="/assets/img/encarte_page-0008.jpg"></div>
 </div>
 
 <div class="controles">
-  <button onclick="voltarPagina()">‹ Anterior</button>
-  <button onclick="avancarPagina()">Próxima ›</button>
+<button onclick="voltarPagina()">‹ Anterior</button>
+<button onclick="avancarPagina()">Próxima ›</button>
 </div>
 </section>
 
-<!-- MAPA -->
 <section class="section">
 <h2>Encontre uma Farmácia Mariano</h2>
 </section>
@@ -224,11 +254,6 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 <script>
 let paginaAtual = 0;
 const paginas = document.querySelectorAll(".pagina");
-
-/* alternar esquerda/direita */
-paginas.forEach((p,i)=>{
-  if(i % 2 === 0) p.classList.add("esquerda");
-});
 
 function avancarPagina(){
   if(paginaAtual < paginas.length){
