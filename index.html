@@ -52,17 +52,16 @@
     }
 
     #mapa {
-      height: 500px;
+      height: 520px;
       width: 100%;
       margin-top: 30px;
-      border-radius: 12px;
+      border-radius: 14px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo-area">
     <img src="/assets/img/logo-topo2.jpeg" alt="Rede Mariano">
@@ -77,18 +76,15 @@
   </nav>
 </header>
 
-<!-- BANNER -->
 <section class="banner">
-  <img src="/assets/img/banner2.png" alt="Banner Rede Mariano">
+  <img src="/assets/img/banner2.png" alt="Rede Mariano">
 </section>
 
-<!-- MAPA -->
 <section class="section">
   <h2>Encontre uma Farmácia Mariano</h2>
   <div id="mapa"></div>
 </section>
 
-<!-- SOBRE -->
 <section class="section">
   <h2>Sobre a empresa</h2>
   <p>Farmácia Mariano — A farmácia mais queridinha do povo.</p>
@@ -100,7 +96,7 @@
 
 <script>
 function initMap() {
-  const centro = { lat: -27.1, lng: -49.6 };
+  const centro = { lat: -27.05, lng: -49.55 };
 
   const map = new google.maps.Map(document.getElementById("mapa"), {
     zoom: 9,
@@ -109,39 +105,39 @@ function initMap() {
 
   const icone = {
     url: "/assets/img/PIN.png",
-    scaledSize: new google.maps.Size(50, 60),
+    scaledSize: new google.maps.Size(42, 42),
   };
 
   const farmacias = [
-    ["Apiúna 1 - Centro (363)", -27.037, -49.387],
-    ["Apiúna 2 - Centro (nº2)", -27.0375, -49.386],
-    ["Dona Emma", -26.978, -49.726],
-    ["Rodeio 1 - Centro 1", -26.922, -49.364],
-    ["Sindicato - Centro 2", -26.921, -49.362],
-    ["Lontras 1 - Willy Schroeder", -27.168, -49.542],
-    ["Lontras 2 - Oswaldo Schroeder", -27.170, -49.540],
-    ["Ascurra 1 - Dom Bosco", -26.957, -49.378],
-    ["Ascurra 2 - Brasília", -26.955, -49.376],
-    ["Timbó 1 - Blumenau", -26.823, -49.269],
-    ["Timbó 2 - Sete Setembro", -26.824, -49.268],
-    ["Trombudo Central", -27.303, -49.787],
-    ["Agronômica", -27.267, -49.708],
-    ["José Boiteux", -26.718, -49.628],
-    ["Witmarsum", -26.926, -49.801],
-    ["Barra do Trombudo - Clemente Demarch", -27.215, -49.643],
-    ["Rio do Sul Centro - Oscar Barcelos", -27.214, -49.644],
-    ["Rio do Sul XV - XV Novembro", -27.213, -49.645],
-    ["Agrolândia 1 - Pioneiros", -27.408, -49.823],
-    ["Agrolândia 2 - Nereu Ramos", -27.407, -49.822],
-    ["Indaial", -26.897, -49.231],
-    ["Rio do Oeste", -27.190, -49.798],
-    ["Laurentino", -27.216, -49.735],
-    ["Atalanta", -27.423, -49.784],
-    ["Benedito Novo", -26.783, -49.359],
-    ["Ituporanga", -27.415, -49.600],
-    ["Rio dos Cedros", -26.739, -49.268],
-    ["Taió", -27.116, -49.993],
-    ["Doutor Pedrinho", -26.718, -49.483],
+    ["Apiúna Centro", -27.0373, -49.3883],
+    ["Apiúna Filial", -27.0370, -49.3870],
+    ["Dona Emma", -27.0524, -49.7092],
+    ["Rodeio Centro", -26.9222, -49.3697],
+    ["Rodeio Filial", -26.9240, -49.3685],
+    ["Lontras Centro", -27.1685, -49.5423],
+    ["Lontras Filial", -27.1672, -49.5408],
+    ["Ascurra Centro", -26.9550, -49.3735],
+    ["Ascurra Filial", -26.9568, -49.3752],
+    ["Timbó Centro", -26.8236, -49.2715],
+    ["Timbó Filial", -26.8251, -49.2690],
+    ["Trombudo Central", -27.3003, -49.7852],
+    ["Agronômica", -27.2666, -49.7097],
+    ["José Boiteux", -26.9548, -49.6280],
+    ["Witmarsum", -26.9286, -49.7948],
+    ["Rio do Sul Centro", -27.2156, -49.6430],
+    ["Rio do Sul Barragem", -27.2230, -49.6620],
+    ["Rio do Sul XV", -27.2168, -49.6405],
+    ["Agrolândia Centro", -27.4074, -49.8228],
+    ["Agrolândia Filial", -27.4060, -49.8205],
+    ["Indaial", -26.8976, -49.2311],
+    ["Rio do Oeste", -27.1920, -49.7984],
+    ["Laurentino", -27.2174, -49.7330],
+    ["Atalanta", -27.4213, -49.7789],
+    ["Benedito Novo", -26.7815, -49.3595],
+    ["Ituporanga", -27.4140, -49.6025],
+    ["Rio dos Cedros", -26.7392, -49.2738],
+    ["Taió", -27.1210, -49.9945],
+    ["Doutor Pedrinho", -26.7142, -49.4793]
   ];
 
   farmacias.forEach(f => {
@@ -160,7 +156,6 @@ function initMap() {
   });
 }
 </script>
-
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDycCT4UaY2zqZDe4iz_ECktvU9fgBfNQ&callback=initMap">
