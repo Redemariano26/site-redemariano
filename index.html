@@ -7,7 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- FAVICON -->
 <link rel="icon" href="/assets/img/favicon.png">
 
 <style>
@@ -59,51 +58,47 @@ padding:60px 20px;
 text-align:center;
 }
 
-/* REVISTA PREMIUM */
-.revista{
+/* REVISTA SLIDER */
+.revista-slider{
+position:relative;
 max-width:900px;
 margin:40px auto;
-display:grid;
-gap:25px;
+overflow:hidden;
+border-radius:16px;
+box-shadow:0 20px 50px rgba(0,0,0,.15);
+background:#000;
 }
 
-.revista img{
+.slides{
+display:flex;
+transition:transform .5s ease;
+}
+
+.slides img{
 width:100%;
-border-radius:14px;
-box-shadow:0 15px 35px rgba(0,0,0,.15);
-transition:.25s;
-cursor:pointer;
+flex-shrink:0;
 }
 
-/* efeito premium hover */
-.revista img:hover{
-transform:scale(1.02);
-}
-
-/* MODAL ZOOM */
-.modal-img{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.9);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999;
-}
-
-.modal-img img{
-max-width:95%;
-max-height:95%;
-border-radius:12px;
-}
-
-.fechar{
+/* SETAS */
+.nav{
 position:absolute;
-top:20px;
-right:30px;
-font-size:32px;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.6);
 color:#fff;
+border:none;
+font-size:28px;
+width:45px;
+height:45px;
+border-radius:50%;
 cursor:pointer;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.nav:hover{
+background:#C4232A;
 }
 
 /* MAPA */
@@ -126,12 +121,7 @@ font-size:14px;
 /* MOBILE */
 @media(max-width:768px){
 
-header{
-flex-direction:column;
-gap:10px;
-padding:12px;
-}
-
+header{flex-direction:column;gap:10px;padding:12px;}
 .logo-area img{height:65px;}
 
 nav{
@@ -148,10 +138,6 @@ font-size:20px;
 }
 
 .section{padding:35px 15px;}
-
-.revista{
-gap:15px;
-}
 
 .mapa-full{height:60vh;}
 }
@@ -182,27 +168,26 @@ gap:15px;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- ENCARTE -->
+<!-- REVISTA AUTO -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
-<div class="revista">
-<img src="/assets/img/encarte_page-0001.jpg">
-<img src="/assets/img/encarte_page-0002.jpg">
-<img src="/assets/img/encarte_page-0003.jpg">
-<img src="/assets/img/encarte_page-0004.jpg">
-<img src="/assets/img/encarte_page-0005.jpg">
-<img src="/assets/img/encarte_page-0006.jpg">
-<img src="/assets/img/encarte_page-0007.jpg">
-<img src="/assets/img/encarte_page-0008.jpg">
+<div class="revista-slider">
+  <div class="slides" id="slides">
+    <img src="/assets/img/encarte_page-0001.jpg">
+    <img src="/assets/img/encarte_page-0002.jpg">
+    <img src="/assets/img/encarte_page-0003.jpg">
+    <img src="/assets/img/encarte_page-0004.jpg">
+    <img src="/assets/img/encarte_page-0005.jpg">
+    <img src="/assets/img/encarte_page-0006.jpg">
+    <img src="/assets/img/encarte_page-0007.jpg">
+    <img src="/assets/img/encarte_page-0008.jpg">
+  </div>
+
+  <button class="nav prev" onclick="voltar()">‹</button>
+  <button class="nav next" onclick="avancar()">›</button>
 </div>
 </section>
-
-<!-- ZOOM MODAL -->
-<div class="modal-img" id="zoom">
-<span class="fechar" onclick="fecharZoom()">✕</span>
-<img id="imgZoom">
-</div>
 
 <!-- MAPA -->
 <section class="section">
@@ -218,17 +203,26 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
-// zoom premium
-document.querySelectorAll(".revista img").forEach(img=>{
-img.onclick=()=>{
-document.getElementById("zoom").style.display="flex";
-document.getElementById("imgZoom").src=img.src;
-}
-});
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
 
-function fecharZoom(){
-document.getElementById("zoom").style.display="none";
+function mostrarSlide(){
+slides.style.transform = `translateX(-${index * 100}%)`;
 }
+
+function avancar(){
+index = (index + 1) % total;
+mostrarSlide();
+}
+
+function voltar(){
+index = (index - 1 + total) % total;
+mostrarSlide();
+}
+
+/* AUTO VIRAR */
+setInterval(avancar, 4000);
 </script>
 
 </body>
