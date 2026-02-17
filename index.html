@@ -252,24 +252,42 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
-let paginaAtual = 0;
 const paginas = document.querySelectorAll(".pagina");
+let atual = 0;
 
+/* CORRIGE ORDEM DE EMPILHAMENTO */
+function organizarPilha(){
+  paginas.forEach((p,i)=>{
+    p.style.zIndex = paginas.length - i;
+  });
+}
+organizarPilha();
+
+/* VIRAR PRA FRENTE */
 function avancarPagina(){
-  if(paginaAtual < paginas.length){
-    paginas[paginaAtual].classList.add("virada");
-    paginaAtual++;
-  }
+  if(atual >= paginas.length) return;
+
+  const pagina = paginas[atual];
+  pagina.classList.add("virada");
+
+  // joga página virada pro fundo
+  pagina.style.zIndex = atual;
+
+  atual++;
 }
 
+/* VOLTAR */
 function voltarPagina(){
-  if(paginaAtual > 0){
-    paginaAtual--;
-    paginas[paginaAtual].classList.remove("virada");
-  }
+  if(atual <= 0) return;
+
+  atual--;
+  const pagina = paginas[atual];
+
+  pagina.classList.remove("virada");
+  pagina.style.zIndex = paginas.length - atual;
 }
 
-/* SWIPE MOBILE */
+/* SWIPE MOBILE REAL */
 let startX = 0;
 const revista = document.getElementById("revista");
 
@@ -279,8 +297,9 @@ revista.addEventListener("touchstart", e=>{
 
 revista.addEventListener("touchend", e=>{
   const diff = startX - e.changedTouches[0].clientX;
-  if(diff > 50) avancarPagina();
-  if(diff < -50) voltarPagina();
+
+  if(diff > 60) avancarPagina();
+  if(diff < -60) voltarPagina();
 });
 </script>
 
