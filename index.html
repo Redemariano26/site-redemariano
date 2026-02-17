@@ -49,37 +49,24 @@ color:#fff;
 }
 .texto-destaque{color:#FFCC00;}
 
-/* SEÇÕES */
+/* ENCARTE */
 .section{
 background:#fff;
 padding:60px 20px;
 text-align:center;
 }
 
-.section p{
-max-width:700px;
+.flip-wrapper{
+max-width:1400px; /* aumentei */
 margin:auto;
-line-height:1.6;
 }
 
-/* SERVIÇOS GRID */
-.servicos{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-max-width:900px;
-margin:30px auto 0;
-font-weight:600;
-}
-
-/* ENCARTE */
-.flip-wrapper{max-width:1200px;margin:auto;}
 .flipbook{
 width:100%;
-height:80vh;
-border-radius:16px;
+height:90vh; /* MAIOR NO DESKTOP */
+border-radius:18px;
 overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
+box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
 
 .btn-full{
@@ -87,8 +74,8 @@ margin-top:20px;
 background:#C4232A;
 color:#fff;
 border:none;
-padding:12px 22px;
-border-radius:8px;
+padding:14px 26px;
+border-radius:10px;
 font-weight:700;
 cursor:pointer;
 }
@@ -97,7 +84,7 @@ cursor:pointer;
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.85);
+background:rgba(0,0,0,.9);
 display:none;
 z-index:9999;
 }
@@ -106,7 +93,7 @@ z-index:9999;
 position:absolute;
 top:15px;
 right:20px;
-font-size:28px;
+font-size:30px;
 color:#fff;
 cursor:pointer;
 }
@@ -114,21 +101,9 @@ cursor:pointer;
 /* MAPA */
 .mapa-full{
 width:100%;
-height:720px;
+height:750px;
 border:none;
 display:block;
-}
-
-/* BOTÃO WHATS */
-.btn-whats{
-display:inline-block;
-background:#25D366;
-color:#fff;
-padding:14px 28px;
-border-radius:8px;
-text-decoration:none;
-font-weight:700;
-margin-top:15px;
 }
 
 /* FOOTER */
@@ -164,11 +139,16 @@ padding:25px 10px;
 font-size:20px;
 }
 
-.section{padding:35px 15px;}
+/* ENCARTE MOBILE PERFEITO */
+.flipbook{
+height:60vh; /* equilibrado */
+border-radius:12px;
+}
 
-.flipbook{height:55vh;}
-
-.mapa-full{height:60vh;}
+/* MAPA */
+.mapa-full{
+height:60vh;
+}
 
 h2{font-size:22px;}
 }
@@ -183,10 +163,10 @@ h2{font-size:22px;}
 </div>
 
 <nav>
-<a href="#">Início</a>
-<a href="#sobre">Sobre</a>
-<a href="#servicos">Serviços</a>
-<a href="#contato">Contato</a>
+<a href="index.html">Início</a>
+<a href="sobre.html">Sobre</a>
+<a href="servicos.html">Serviços</a>
+<a href="contato.html">Contato</a>
 <a href="login.html">Área do colaborador</a>
 </nav>
 </header>
@@ -197,34 +177,6 @@ h2{font-size:22px;}
 
 <section class="faixa-marca">
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
-</section>
-
-<!-- SOBRE -->
-<section class="section" id="sobre">
-<h2>Sobre a Rede Mariano</h2>
-<p>
-A Rede Mariano é uma das redes de farmácias que mais cresce no Alto Vale do Itajaí.
-Com mais de 30 filiais, levamos saúde, confiança e preços acessíveis
-para milhares de famílias todos os dias.
-</p>
-<p>
-Nosso compromisso é oferecer atendimento humanizado,
-variedade de produtos e ofertas semanais que cabem no bolso.
-</p>
-</section>
-
-<!-- SERVIÇOS -->
-<section class="section" id="servicos">
-<h2>Nossos Serviços</h2>
-
-<div class="servicos">
-<div>💉 Aplicação de injetáveis</div>
-<div>🩺 Aferição de pressão</div>
-<div>🩸 Teste de glicose</div>
-<div>🚚 Entrega rápida</div>
-<div>💳 Convênios e descontos</div>
-<div>👩‍⚕️ Atendimento farmacêutico</div>
-</div>
 </section>
 
 <!-- ENCARTE -->
@@ -255,20 +207,6 @@ Abrir em tela cheia
 <iframe class="mapa-full"
 src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </iframe>
-
-<!-- CONTATO -->
-<section class="section" id="contato">
-<h2>Fale Conosco</h2>
-
-<p><strong>📱 WhatsApp:</strong> (47) 99999-9999</p>
-<p><strong>📷 Instagram:</strong> @redemariano</p>
-<p><strong>📧 Email:</strong> contato@redemariano.com.br</p>
-<p><strong>🕐 Atendimento:</strong> Seg a Sáb das 7h às 20:30h</p>
-
-<a href="https://wa.me/5547999999999" class="btn-whats">
-Falar no WhatsApp
-</a>
-</section>
 
 <footer>
 © 2026 Rede Mariano - Todos os direitos reservados
