@@ -94,61 +94,17 @@
   © 2026 Rede Mariano - Todos os direitos reservados
 </footer>
 
-<script>
-function initMap() {
-  const centro = { lat: -27.05, lng: -49.55 };
+<section class="section">
+  <h2>Encontre uma Farmácia Mariano</h2>
 
-  const map = new google.maps.Map(document.getElementById("mapa"), {
-    zoom: 9,
-    center: centro,
-  });
+  <iframe 
+    src="https://www.google.com/maps/d/u/0/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0&ehbc=2E312F"
+    width="100%"
+    height="520"
+    style="border:0; border-radius:14px; margin-top:20px;">
+  </iframe>
 
-  const icone = {
-    url: "/assets/img/PIN.png",
-    scaledSize: new google.maps.Size(42, 42),
-  };
-
-  const farmacias = [
-    ["Unidade 1", -26.9863, -49.72485],
-    ["Unidade 2", -26.92658, -49.80222],
-    ["Unidade 3", -26.9627, -49.62498],
-    ["Unidade 4", -27.26751, -49.71434],
-    ["Unidade 5", -27.25181, -49.69102],
-    ["Unidade 6", -27.2159, -49.64192],
-    ["Unidade 7", -27.0326, -49.38589],
-    ["Unidade 8", -26.95563, -49.3778],
-    ["Unidade 9", -27.41084, -49.82958],
-    ["Unidade 10", -27.41238, -49.83501],
-    ["Unidade 11", -26.71424, -49.48636],
-    ["Unidade 12", -26.87987, -49.2425],
-    ["Unidade 13", -26.82907, -49.27482],
-    ["Unidade 14", -26.74062, -49.2747],
-    ["Unidade 15", -26.82474, -49.27561],
-    ["Unidade 16", -26.78076, -49.36562],
-    ["Unidade 17", -27.41901, -49.59915],
-    ["Unidade 18", -27.11624, -49.99553],
-    ["Unidade 19", -26.95395, -49.38067],
-    ["Unidade 20", -27.22517, -49.64615],
-    ["Unidade 21", -27.16771, -49.54231],
-    ["Unidade 22", -27.17149, -49.54188],
-  ];
-
-  farmacias.forEach(f => {
-    const marker = new google.maps.Marker({
-      position: { lat: f[1], lng: f[2] },
-      map,
-      title: f[0],
-      icon: icone
-    });
-
-    const info = new google.maps.InfoWindow({
-      content: `<strong>Farmácia Mariano</strong><br>${f[0]}`
-    });
-
-    marker.addListener("click", () => info.open(map, marker));
-  });
-}
-</script>
+</section>
 
 
 <script async defer
