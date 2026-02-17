@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <link rel="icon" href="/assets/img/favicon.png">
 
 <style>
@@ -58,48 +57,56 @@ padding:60px 20px;
 text-align:center;
 }
 
-/* REVISTA SLIDER */
-.revista-slider{
+/* LIVRO ABERTO */
+.livro-container{
 position:relative;
-max-width:900px;
+max-width:1100px;
 margin:40px auto;
 overflow:hidden;
-border-radius:16px;
-box-shadow:0 20px 50px rgba(0,0,0,.15);
-background:#000;
 }
 
-.slides{
+.livro{
 display:flex;
 transition:transform .5s ease;
 }
 
-.slides img{
-width:100%;
+.livro img{
+width:50%;
 flex-shrink:0;
+box-shadow:0 20px 50px rgba(0,0,0,.2);
 }
 
-/* SETAS */
-.nav{
+/* SOMBRA CENTRAL */
+.livro::before{
+content:"";
+position:absolute;
+left:50%;
+top:0;
+bottom:0;
+width:4px;
+background:linear-gradient(to right,rgba(0,0,0,.25),transparent);
+}
+
+/* BOTÕES */
+.btn-livro{
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-background:rgba(0,0,0,.6);
+background:#C4232A;
 color:#fff;
 border:none;
 font-size:28px;
-width:45px;
-height:45px;
+width:50px;
+height:50px;
 border-radius:50%;
 cursor:pointer;
+z-index:2;
 }
 
-.prev{left:10px;}
-.next{right:10px;}
+.left{left:-20px;}
+.right{right:-20px;}
 
-.nav:hover{
-background:#C4232A;
-}
+.btn-livro:hover{background:#a91c22;}
 
 /* MAPA */
 .mapa-full{
@@ -139,6 +146,9 @@ font-size:20px;
 
 .section{padding:35px 15px;}
 
+.livro img{width:100%;}
+.livro::before{display:none;}
+
 .mapa-full{height:60vh;}
 }
 </style>
@@ -168,12 +178,15 @@ font-size:20px;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- REVISTA AUTO -->
+<!-- LIVRO -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
-<div class="revista-slider">
-  <div class="slides" id="slides">
+<div class="livro-container">
+
+  <button class="btn-livro left" onclick="anterior()">‹</button>
+
+  <div class="livro" id="livro">
     <img src="/assets/img/encarte_page-0001.jpg">
     <img src="/assets/img/encarte_page-0002.jpg">
     <img src="/assets/img/encarte_page-0003.jpg">
@@ -184,8 +197,8 @@ A farmácia <span class="texto-destaque">+ queridinha</span> do povo
     <img src="/assets/img/encarte_page-0008.jpg">
   </div>
 
-  <button class="nav prev" onclick="voltar()">‹</button>
-  <button class="nav next" onclick="avancar()">›</button>
+  <button class="btn-livro right" onclick="proximo()">›</button>
+
 </div>
 </section>
 
@@ -203,26 +216,27 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
-let index = 0;
-const slides = document.getElementById("slides");
-const total = slides.children.length;
+let pagina = 0;
+const livro = document.getElementById("livro");
+const total = livro.children.length;
 
-function mostrarSlide(){
-slides.style.transform = `translateX(-${index * 100}%)`;
+function atualizar(){
+  const largura = window.innerWidth <= 768 ? 100 : 50;
+  livro.style.transform = `translateX(-${pagina * largura}%)`;
 }
 
-function avancar(){
-index = (index + 1) % total;
-mostrarSlide();
+function proximo(){
+  const limite = window.innerWidth <= 768 ? total - 1 : total - 2;
+  pagina = Math.min(pagina + 1, limite);
+  atualizar();
 }
 
-function voltar(){
-index = (index - 1 + total) % total;
-mostrarSlide();
+function anterior(){
+  pagina = Math.max(pagina - 1, 0);
+  atualizar();
 }
 
-/* AUTO VIRAR */
-setInterval(avancar, 4000);
+window.addEventListener("resize", atualizar);
 </script>
 
 </body>
