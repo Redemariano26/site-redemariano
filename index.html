@@ -402,6 +402,43 @@ margin:auto;
   width:100%;
   display:block;
 }
+.menu-topo{
+  position:absolute;
+  top:20px;
+  left:20px;           /* 👈 força lado esquerdo */
+  right:auto;
+  display:flex;
+  gap:14px;
+  z-index:10;
+}
+.menu-topo a{
+  text-decoration:none;
+  font-weight:700;
+  color:#FFD400;              /* texto amarelo */
+  background:#C4232A;         /* vermelho */
+  padding:10px 18px;
+  border-radius:12px;
+  border:2px solid #fff;      /* 👈 contorno branco */
+  transition:all .25s ease;
+}
+.menu-topo a:hover{
+  border-color:#FFD400;       /* 👈 vira amarelo */
+  color:#FFD400;
+  background:#C4232A;
+  transform:translateY(-2px);
+}
+.menu-topo a:hover{
+  border-color:#FFD400;
+  box-shadow:0 0 12px rgba(255,212,0,.5);
+}
+@media(max-width:768px){
+  .menu-topo{
+    left:10px;
+    right:10px;
+    flex-wrap:wrap;
+  }
+}
+
 
 
 
