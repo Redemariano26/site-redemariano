@@ -46,82 +46,84 @@ padding:90px 20px;
 text-align:center;
 }
 
-/* ===== REVISTA REAL ===== */
-
-.revista{
-max-width:1000px;
-margin:0 auto 80px;
+/* SLIDER */
+.revista-slider{
 position:relative;
-perspective:2000px;
-}
-
-/* LIVRO */
-.livro{
-position:relative;
-height:600px;
-}
-
-/* PÁGINAS */
-.livro img{
-position:absolute;
-width:50%;
-height:100%;
-object-fit:cover;
-top:0;
-right:0;
-transform-origin:left;
-transition:transform .8s cubic-bezier(.25,.8,.25,1);
+max-width:850px;
+margin:40px auto;
+overflow:hidden;
+border-radius:14px;
 box-shadow:0 25px 60px rgba(0,0,0,.25);
-border-radius:6px;
+background:#000;
 }
 
-/* páginas esquerdas */
-.livro img.esq{
-left:0;
-right:auto;
-transform-origin:right;
+.slides{
+display:flex;
+transition:transform .4s ease;
 }
 
-/* virada */
-.livro img.virada{
-transform:rotateY(-180deg);
+.slides img{
+width:100%;
+flex-shrink:0;
+display:block;
+cursor:zoom-in;
 }
 
-/* sombra central dinâmica */
-.livro::before{
-content:"";
-position:absolute;
-left:50%;
-top:0;
-bottom:0;
-width:12px;
-transform:translateX(-50%);
-background:linear-gradient(to right,rgba(0,0,0,.25),transparent);
-pointer-events:none;
-}
-
-/* BOTÕES LATERAIS */
-.btn-lado{
+/* SETAS */
+.nav{
 position:absolute;
 top:50%;
 transform:translateY(-50%);
 background:#C4232A;
 color:#fff;
 border:none;
-width:52px;
-height:52px;
+width:48px;
+height:48px;
 border-radius:50%;
-font-size:24px;
+font-size:22px;
 cursor:pointer;
 z-index:10;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
-.btn-prev{ left:-30px; }
-.btn-next{ right:-30px; }
+.prev{left:-20px;}
+.next{right:-20px;}
 
-.btn-lado:hover{
+.nav:hover{
 transform:translateY(-50%) scale(1.1);
+}
+
+/* ZOOM MODAL */
+.zoom-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.92);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.zoom-modal img{
+max-width:95%;
+max-height:95%;
+border-radius:12px;
+box-shadow:0 30px 80px rgba(0,0,0,.5);
+animation:zoomIn .25s ease;
+}
+
+.zoom-close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:32px;
+color:#fff;
+cursor:pointer;
+}
+
+@keyframes zoomIn{
+from{transform:scale(.85);opacity:0}
+to{transform:scale(1);opacity:1}
 }
 
 /* MAPA */
@@ -146,21 +148,7 @@ font-size:14px;
 header{flex-direction:column;padding:12px}
 .logo-area img{height:65px}
 
-.livro{
-height:420px;
-}
-
-.livro img{
-width:100%;
-left:0 !important;
-right:auto !important;
-transform-origin:center;
-}
-
-.livro::before{display:none;}
-
-.btn-lado{display:none;}
-
+.nav{display:none;}
 .mapa-full{height:60vh;}
 }
 </style>
@@ -190,24 +178,23 @@ transform-origin:center;
 A farmácia <span class="texto-destaque">+ queridinha</span> do povo
 </section>
 
-<!-- REVISTA -->
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
 
-<div class="revista" id="revista">
+<div class="revista-slider">
 
-<button class="btn-lado btn-prev" onclick="voltar()">‹</button>
-<button class="btn-lado btn-next" onclick="proximo()">›</button>
+<button class="nav prev" onclick="voltar()">‹</button>
+<button class="nav next" onclick="proximo()">›</button>
 
-<div class="livro" id="livro">
-<img src="/assets/img/encarte_page-0001.jpg">
-<img src="/assets/img/encarte_page-0002.jpg">
-<img src="/assets/img/encarte_page-0003.jpg">
-<img src="/assets/img/encarte_page-0004.jpg">
-<img src="/assets/img/encarte_page-0005.jpg">
-<img src="/assets/img/encarte_page-0006.jpg">
-<img src="/assets/img/encarte_page-0007.jpg">
-<img src="/assets/img/encarte_page-0008.jpg">
+<div class="slides" id="slides">
+  <img src="/assets/img/encarte_page-0001.jpg">
+  <img src="/assets/img/encarte_page-0002.jpg">
+  <img src="/assets/img/encarte_page-0003.jpg">
+  <img src="/assets/img/encarte_page-0004.jpg">
+  <img src="/assets/img/encarte_page-0005.jpg">
+  <img src="/assets/img/encarte_page-0006.jpg">
+  <img src="/assets/img/encarte_page-0007.jpg">
+  <img src="/assets/img/encarte_page-0008.jpg">
 </div>
 
 </div>
@@ -224,63 +211,66 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 <footer>
 © 2026 Rede Mariano
 </footer>
+
+<!-- ZOOM -->
+<div class="zoom-modal" id="zoomModal">
+<span class="zoom-close" onclick="fecharZoom()">✕</span>
+<img id="zoomImg">
+</div>
+
 <script>
-const paginas = document.querySelectorAll("#livro img");
-let atual = 0;
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
 
-/* organiza pilha inicial */
-paginas.forEach((p, i) => {
-  p.style.zIndex = paginas.length - i;
-  if(i % 2 === 1) p.classList.add("esq");
-});
+function atualizar(){
+slides.style.transform = `translateX(-${index * 100}%)`;
+}
 
-/* AVANÇAR */
 function proximo(){
-  if(atual >= paginas.length) return;
-
-  const pagina = paginas[atual];
-
-  // vira
-  pagina.classList.add("virada");
-
-  // manda pro fundo depois da animação
-  setTimeout(() => {
-    pagina.style.zIndex = atual;
-  }, 400);
-
-  atual++;
+if(index < total - 1){
+index++;
+atualizar();
+}
 }
 
-/* VOLTAR */
 function voltar(){
-  if(atual <= 0) return;
-
-  atual--;
-
-  const pagina = paginas[atual];
-
-  // traz de volta pro topo
-  pagina.style.zIndex = paginas.length - atual;
-
-  pagina.classList.remove("virada");
+if(index > 0){
+index--;
+atualizar();
+}
 }
 
-/* SWIPE MOBILE REAL */
+/* SWIPE */
 let startX = 0;
-const revista = document.getElementById("revista");
-
-revista.addEventListener("touchstart", e=>{
-  startX = e.touches[0].clientX;
+slides.addEventListener("touchstart", e=>{
+startX = e.touches[0].clientX;
 });
 
-revista.addEventListener("touchend", e=>{
-  const diff = startX - e.changedTouches[0].clientX;
+slides.addEventListener("touchend", e=>{
+const diff = startX - e.changedTouches[0].clientX;
+if(diff > 50) proximo();
+if(diff < -50) voltar();
+});
 
-  if(diff > 60) proximo();
-  if(diff < -60) voltar();
+/* ZOOM CLICK */
+document.querySelectorAll(".slides img").forEach(img=>{
+img.addEventListener("click", ()=>{
+document.getElementById("zoomModal").style.display = "flex";
+document.getElementById("zoomImg").src = img.src;
+});
+});
+
+function fecharZoom(){
+document.getElementById("zoomModal").style.display = "none";
+}
+
+document.getElementById("zoomModal").addEventListener("click", e=>{
+if(e.target.id === "zoomModal"){
+fecharZoom();
+}
 });
 </script>
-
 
 </body>
 </html>
