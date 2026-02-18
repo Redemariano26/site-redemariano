@@ -300,18 +300,22 @@ margin:auto;
   overflow:hidden;
   position:relative;
 }
-
 .encarte-banner-full img{
   width:100%;
   height:auto;
-  max-height:220px; /* deixa mais fino */
-  object-fit:cover;
   display:block;
-  border-radius:12px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
 
+  /* NÃO CORTA MAIS */
+  object-fit:contain;
+
+  /* sombra premium */
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
+
+  animation:floatEnc 6s ease-in-out infinite;
+}
   /* efeito flutuante */
   animation:floatEnc 6s ease-in-out infinite;
+  
 }
 
 /* ANIMAÇÃO FLUTUANTE SUAVE */
@@ -319,20 +323,16 @@ margin:auto;
   0%,100%{ transform:translateY(0); }
   50%{ transform:translateY(-8px); }
 }
-/* MOBILE */
 @media(max-width:768px){
 
   .encarte-banner-full img{
-    max-height:140px;
-    border-radius:0; /* estilo moderno mobile */
+    max-height:none; /* remove corte no celular */
+    border-radius:0;
     animation:floatEncMobile 6s ease-in-out infinite;
   }
 
-  @keyframes floatEncMobile{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-4px); }
-  }
 }
+
 .encarte-banner-full::after{
   content:"";
   position:absolute;
