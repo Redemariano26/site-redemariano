@@ -9,6 +9,15 @@
 <link rel="icon" href="/assets/img/favicon.png">
 
 <style>
+  body{
+  margin:0;
+}
+
+section{
+  position:relative;
+  z-index:1;
+}
+
 body{
 margin:0;
 font-family:'Montserrat',sans-serif;
@@ -18,12 +27,15 @@ color:#222;
 
 /* HEADER */
 header{
-background:#fff;
-padding:15px 40px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-box-shadow:0 2px 10px rgba(0,0,0,.05);
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:flex-end;
+  padding:25px 50px;
+  z-index:5; /* MAIOR QUE O BANNER */
+  background:transparent;
 }
 
 
@@ -44,7 +56,6 @@ color:#fff;
 .texto-destaque{color:#FFCC00;}
 
 .section{
-background:#fff;
 padding:90px 20px;
 text-align:center;
 }
@@ -120,7 +131,6 @@ nav a{
 }
 
 nav a:hover{
-  background:#fff;
   color:#C4232A;
 }
 
@@ -383,6 +393,15 @@ margin:auto;
   display:block;
   margin-top:0;
 }
+.banner{
+  position:relative;
+  z-index:1;
+}
+
+.banner img{
+  width:100%;
+  display:block;
+}
 
 
 
@@ -394,6 +413,7 @@ margin:auto;
 <body>
 
 <header>
+  
   
 
 <nav>
