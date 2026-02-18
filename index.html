@@ -273,6 +273,37 @@ margin:auto;
 .img-card{
   margin:30px 0;
 }
+/* CENTRO VERTICAL */
+.card-centro{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+
+/* TEXTO SUPERIOR */
+.texto-topo{
+  width:260px;
+  max-width:90%;
+}
+
+/* TEXTO INFERIOR */
+.texto-base{
+  width:280px;
+  max-width:90%;
+  margin-top:10px;
+}
+
+/* RESPONSIVO */
+@media(max-width:900px){
+
+.texto-topo,
+.texto-base{
+  width:70%;
+}
+
+}
+
 
 }
 
@@ -316,30 +347,40 @@ margin:auto;
 </div>
 <section class="sec-mariano-card">
 
-  <h2 class="titulo-card">
-    Mariano Card
-  </h2>
+  <h2 class="titulo-card">Mariano Card</h2>
 
   <div class="card-layout">
 
     <!-- ESQUERDA -->
     <div class="lado esquerdo">
-      <img src="/assets/img/card-texto1.png">
-      <img src="/assets/img/card-texto2.png">
-      <img src="/assets/img/card-texto3.png">
+      <img src="/assets/img/texto-card2.png">
+      <img src="/assets/img/texto-card3.png">
     </div>
 
-    <!-- CARTÃO CENTRO -->
+    <!-- CENTRO COM TOPO + CARTÃO + BASE -->
     <div class="card-centro">
+
+      <!-- TEXTO SUPERIOR -->
+      <img src="/assets/img/texto-card1.png" class="texto-topo">
+
+      <!-- CARTÃO -->
       <img src="/assets/img/mariano-card.png" class="img-card">
+
+      <!-- TEXTO INFERIOR -->
+      <img src="/assets/img/texto-card6.png" class="texto-base">
+
     </div>
 
     <!-- DIREITA -->
     <div class="lado direito">
-      <img src="/assets/img/card-texto4.png">
-      <img src="/assets/img/card-texto5.png">
-      <img src="/assets/img/card-texto6.png">
+      <img src="/assets/img/texto-card4.png">
+      <img src="/assets/img/texto-card5.png">
     </div>
+
+  </div>
+
+</section>
+
 
   </div>
 
