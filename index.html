@@ -207,6 +207,75 @@ height:auto;
 display:block;
 margin:auto;
 }
+/* SEÇÃO MARIANO CARD */
+.sec-mariano-card{
+  background:#fff;
+  padding:80px 20px;
+  text-align:center;
+}
+
+.titulo-card{
+  font-size:clamp(28px,4vw,48px);
+  font-weight:800;
+  margin-bottom:50px;
+}
+
+/* GRID PRINCIPAL */
+.card-layout{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:30px;
+}
+
+/* COLUNAS TEXTO */
+.lado{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.lado img{
+  width:100%;
+  max-width:320px;
+}
+
+/* CARTÃO */
+.card-centro{
+  display:flex;
+  justify-content:center;
+}
+
+.img-card{
+  width:420px;
+  max-width:90%;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.25));
+  transition:.3s;
+}
+
+.img-card:hover{
+  transform:scale(1.05);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+.card-layout{
+  grid-template-columns:1fr;
+}
+
+.lado{
+  align-items:center;
+}
+
+.img-card{
+  margin:30px 0;
+}
+
+}
+
 
 </style>
 </head>
@@ -245,9 +314,36 @@ margin:auto;
 <div class="faixa-cashback">
   <img src="/assets/img/cashback.png" alt="Cashback Mariano">
 </div>
+<section class="sec-mariano-card">
 
+  <h2 class="titulo-card">
+    Mariano Card
+  </h2>
 
+  <div class="card-layout">
 
+    <!-- ESQUERDA -->
+    <div class="lado esquerdo">
+      <img src="/assets/img/card-texto1.png">
+      <img src="/assets/img/card-texto2.png">
+      <img src="/assets/img/card-texto3.png">
+    </div>
+
+    <!-- CARTÃO CENTRO -->
+    <div class="card-centro">
+      <img src="/assets/img/mariano-card.png" class="img-card">
+    </div>
+
+    <!-- DIREITA -->
+    <div class="lado direito">
+      <img src="/assets/img/card-texto4.png">
+      <img src="/assets/img/card-texto5.png">
+      <img src="/assets/img/card-texto6.png">
+    </div>
+
+  </div>
+
+</section>
 
 <section class="section">
 <h2>Encarte Rede Mariano</h2>
