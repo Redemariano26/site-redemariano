@@ -207,106 +207,62 @@ height:auto;
 display:block;
 margin:auto;
 }
-/* SEÇÃO MARIANO CARD */
 .sec-mariano-card{
   background:#fff;
   padding:80px 20px;
-  text-align:center;
+}
+
+/* LIMITA A LARGURA */
+.card-container{
+  max-width:1100px; /* controla tamanho total */
+  margin:0 auto;
 }
 
 .titulo-card{
-  font-size:Montserrat(28px,4vw,48px);
-  font-weight:800;
-  margin-bottom:50px;
+  text-align:center;
+  font-size:28px;
+  margin-bottom:40px;
 }
 
-/* GRID PRINCIPAL */
 .card-layout{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
+  display:flex;
+  justify-content:center;
   align-items:center;
-  gap:30px;
+  gap:50px;
+  flex-wrap:wrap;
 }
 
-/* COLUNAS TEXTO */
+/* LADOS */
 .lado{
   display:flex;
   flex-direction:column;
   gap:25px;
+  max-width:240px;
 }
 
 .lado img{
   width:100%;
-  max-width:320px;
 }
 
-/* CARTÃO */
-.card-centro{
-  display:flex;
-  justify-content:center;
-}
-
-.img-card{
-  width:420px;
-  max-width:90%;
-  filter:drop-shadow(0 30px 60px rgba(0,0,0,.25));
-  transition:.3s;
-}
-
-.img-card:hover{
-  transform:scale(1.05);
-}
-
-/* MOBILE */
-@media(max-width:900px){
-
-.card-layout{
-  grid-template-columns:1fr;
-}
-
-.lado{
-  align-items:center;
-}
-
-.img-card{
-  margin:30px 0;
-}
-/* CENTRO VERTICAL */
+/* CENTRO */
 .card-centro{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:20px;
+  gap:18px;
 }
 
-/* TEXTO SUPERIOR */
+.img-card{
+  width:220px; /* tamanho normal do cartão */
+}
+
 .texto-topo{
-  width:260px;
-  max-width:90%;
+  width:200px;
 }
 
-/* TEXTO INFERIOR */
 .texto-base{
-  width:280px;
-  max-width:90%;
-  margin-top:10px;
+  width:220px;
 }
-
-/* RESPONSIVO */
-@media(max-width:900px){
-
-.texto-topo,
-.texto-base{
-  width:70%;
-}
-
-}
-
-
-}
-
 
 </style>
 </head>
