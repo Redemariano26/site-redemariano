@@ -292,6 +292,61 @@ margin:auto;
   background:#a61c22;
   transform:translateY(-2px);
 }
+/* BANNER FULL WIDTH ENCARTE */
+.encarte-banner-full{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  margin-bottom:25px;
+  overflow:hidden;
+  position:relative;
+}
+
+.encarte-banner-full img{
+  width:100%;
+  height:auto;
+  max-height:220px; /* deixa mais fino */
+  object-fit:cover;
+  display:block;
+  border-radius:12px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+  /* efeito flutuante */
+  animation:floatEnc 6s ease-in-out infinite;
+}
+
+/* ANIMAÇÃO FLUTUANTE SUAVE */
+@keyframes floatEnc{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+/* MOBILE */
+@media(max-width:768px){
+
+  .encarte-banner-full img{
+    max-height:140px;
+    border-radius:0; /* estilo moderno mobile */
+    animation:floatEncMobile 6s ease-in-out infinite;
+  }
+
+  @keyframes floatEncMobile{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-4px); }
+  }
+}
+.encarte-banner-full::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.6),
+    transparent 20%,
+    transparent 80%,
+    rgba(255,255,255,.6)
+  );
+  pointer-events:none;
+}
+
+
 
 
 </style>
@@ -378,7 +433,7 @@ margin:auto;
 
 </section>
 
-<div class="titulo-encarte-img">
+<div class="encarte-banner-full">
   <img src="/assets/img/banner-encarte.png" alt="Ofertas de Verão">
 </div>
 
