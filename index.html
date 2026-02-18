@@ -25,14 +25,14 @@ align-items:center;
 justify-content:space-between;
 box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
-/* ESTILO BASE */
+/* LINKS DO MENU */
 nav a{
   margin-left:18px;
   text-decoration:none;
   font-weight:700;
 
-  background:#C4232A; /* vermelho Mariano */
-  color:#FFCC00; /* amarelo marca */
+  background:#C4232A;
+  color:#FFCC00 !important; /* força amarelo */
   border:2px solid #C4232A;
 
   padding:8px 14px;
@@ -41,22 +41,19 @@ nav a{
   display:inline-block;
 }
 
-/* HOVER = INVERTE */
+/* HOVER (branco com vermelho) */
 nav a:hover{
   background:#fff;
-  color:#C4232A;
+  color:#C4232A !important;
   border-color:#C4232A;
-  transform:translateY(-2px);
-  box-shadow:0 6px 14px rgba(196,35,42,.25);
 }
 
-/* LINK ATIVO (clicado/página atual) */
+/* LINK ATIVO */
 nav a.ativo{
   background:#C4232A;
-  color:#FFCC00;
-  border-color:#C4232A;
-  box-shadow:0 6px 14px rgba(196,35,42,.35);
+  color:#FFCC00 !important;
 }
+
 
 
 
