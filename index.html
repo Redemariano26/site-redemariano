@@ -32,7 +32,6 @@ header{
   left:0;
   width:100%;
   display:flex;
-  justify-content:flex-end;
   padding:25px 50px;
   z-index:5; /* MAIOR QUE O BANNER */
   background:transparent;
@@ -402,41 +401,34 @@ margin:auto;
   width:100%;
   display:block;
 }
-/* ===== MENU SOBRE O BANNER ===== */
+/* ===== MENU CENTRAL NO TOPO ===== */
 .menu-topo{
   position:absolute;
-  top:20px;
-  left:30px; /* força lado esquerdo */
+  top:25px;
+  left:50%;
+  transform:translateX(-50%);
   display:flex;
-  gap:14px;
-  z-index:20;
+  gap:18px;
+  z-index:30;
 }
 
-/* BOTÕES */
+/* LINKS */
 .menu-topo a{
   text-decoration:none;
   font-weight:700;
-  color:#C4232A; /* texto vermelho */
-  background:#fff; /* fundo branco */
+  color:#fff; /* texto branco */
   padding:10px 18px;
   border-radius:12px;
-  border:2px solid #fff;
+  background:rgba(255,255,255,0.08); /* leve vidro */
+  backdrop-filter:blur(6px);
   transition:all .25s ease;
 }
 
-/* HOVER AMARELO */
+/* HOVER */
 .menu-topo a:hover{
-  background:#FFD400;
-  color:#C4232A;
-  border-color:#FFD400;
-  transform:translateY(-2px);
+  color:#FFD400; /* amarelo */
+  background:rgba(255,255,255,0.18);
 }
-.menu-topo a{
-  background:#fff !important;
-  color:#C4232A !important;
-}
-
-
 
 
 
