@@ -444,6 +444,87 @@ margin:auto;
   color:#FFD400 !important;   /* amarelo */
   opacity:1 !important;
 }
+/* HEADER */
+.topo{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+}
+
+/* MENU DESKTOP */
+.menu-desktop{
+  display: flex;
+  gap: 20px;
+}
+
+.menu-desktop a{
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.menu-desktop a:hover{
+  color: #FFD400;
+}
+
+/* BOTÃO HAMBURGUER */
+.menu-toggle{
+  display: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* MENU LATERAL */
+.menu-lateral{
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 75%;
+  height: 100vh;
+  background: #C51C23;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: .3s ease;
+  z-index: 9999;
+}
+
+.menu-lateral a{
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.menu-lateral a:hover{
+  color: #FFD400;
+}
+
+/* BOTÃO FECHAR */
+.fechar{
+  font-size: 26px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* 📱 MOBILE */
+@media(max-width:768px){
+  .menu-desktop{
+    display: none;
+  }
+
+  .menu-toggle{
+    display: block;
+  }
+}
+
 </style>
 </head>
 
@@ -451,15 +532,35 @@ margin:auto;
 
 <header>
 
-<nav> <nav class="menu-topo">
-<a href="index.html">Início</a>
-<a href="sobre.html">Sobre</a>
-<a href="servicos.html">Serviços</a>
-<a href="contato.html">Contato</a>
-<a href="login.html">Área do colaborador</a>
-</nav>
+<nav>
+<header class="topo">
+  <div class="logo">Rede Mariano</div>
 
+  <!-- BOTÃO HAMBURGUER -->
+  <div class="menu-toggle" onclick="abrirMenu()">
+    ☰
+  </div>
+
+  <!-- MENU DESKTOP -->
+  <nav class="menu-desktop">
+    <a href="#">Início</a>
+    <a href="#">Sobre</a>
+    <a href="#">Serviços</a>
+    <a href="#">Contato</a>
+    <a href="#">Área do colaborador</a>
+  </nav>
 </header>
+
+<!-- MENU LATERAL MOBILE -->
+<div class="menu-lateral" id="menuMobile">
+  <span class="fechar" onclick="fecharMenu()">✕</span>
+  <a href="#">Início</a>
+  <a href="#">Sobre</a>
+  <a href="#">Serviços</a>
+  <a href="#">Contato</a>
+  <a href="#">Área do colaborador</a>
+</div>
+
 
 <section class="banner">
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
@@ -628,6 +729,16 @@ links.forEach(link=>{
     link.classList.add("ativo");
   }
 });
+<script>
+function abrirMenu(){
+  document.getElementById("menuMobile").style.left = "0";
+}
+
+function fecharMenu(){
+  document.getElementById("menuMobile").style.left = "-100%";
+}
+</script>
+
 </script>
 
 </script>
