@@ -96,6 +96,25 @@
     width:260px;
   }
 }
+.banner-interno {
+  width: 100%;
+  height: 107px;
+  overflow: hidden;
+  background: #c40000;
+}
+
+.banner-interno img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 768px) {
+  .banner-interno {
+    height: 70px;
+  }
+}
+
 
   </style>
 </head>
@@ -103,15 +122,17 @@
 <body>
 
 <header>
-  <img src="/assets/img/logo-topo2.jpeg" height="80">
   <nav>
     <a href="index.html">Início</a>
     <a href="sobre.html">Sobre</a>
     <a href="servicos.html">Serviços</a>
-    <a href="ofertas.html">Ofertas</a>
     <a href="contato.html">Contato</a>
   </nav>
 </header>
+<section class="banner-interno">
+  <img src="assets/banner-topo.png" alt="Farmácia Mariano">
+</section>
+
 
 <div class="conteudo">
   <h1>Sobre a Rede Mariano</h1>
