@@ -478,6 +478,56 @@ margin:auto;
     margin-top:80px;
   }
 }
+/* BOTÃO HAMBURGUER */
+.menu-toggle{
+  display:none;
+  background:none;
+  border:none;
+  font-size:26px;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:768px){
+
+  header{
+    justify-content:space-between;
+    padding:15px 20px;
+  }
+
+  /* Mostrar botão */
+  .menu-toggle{
+    display:block;
+  }
+
+  /* MENU LATERAL */
+  nav{
+    position:fixed;
+    top:0;
+    left:-260px; /* escondido */
+    width:260px;
+    height:100vh;
+    background:#C4232A;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:80px 25px;
+    gap:20px;
+    transition:.3s;
+    z-index:2000;
+  }
+
+  nav a{
+    font-size:18px;
+    color:#fff;
+  }
+
+  /* quando abrir */
+  nav.ativo{
+    left:0;
+  }
+}
+
 
 </style>
 </head>
@@ -485,17 +535,16 @@ margin:auto;
 <body>
 
 <header>
+  <button class="menu-toggle">☰</button>
 
-<nav>
-<nav class="menu-topo">
-<a href="index.html">Início</a>
-<a href="sobre.html">Sobre</a>
-<a href="servicos.html">Serviços</a>
-<a href="contato.html">Contato</a>
-<a href="login.html">Área do colaborador</a>
-</nav>
-
+  <nav id="menu">
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="contato.html">Contato</a>
+  </nav>
 </header>
+
 
 <section class="banner">
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
@@ -664,9 +713,13 @@ links.forEach(link=>{
     link.classList.add("ativo");
   }
 });
-</script>
+<script>
+const toggle = document.querySelector('.menu-toggle');
+const menu = document.getElementById('menu');
 
-</script>
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('ativo');
+</script
 
-</body>
+</body
 </html>
