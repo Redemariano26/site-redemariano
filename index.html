@@ -364,8 +364,6 @@ margin:auto;
     animation:floatEncMobile 6s ease-in-out infinite;
   }
 
-}
-
 .encarte-banner-full::after{
   content:"";
   position:absolute;
@@ -444,6 +442,43 @@ margin:auto;
   color:#FFD400 !important;   /* amarelo */
   opacity:1 !important;
 }
+/* ===== MENU MOBILE PROFISSIONAL ===== */
+@media (max-width: 768px){
+
+  .topo-vermelho{
+    height:60px; /* menor */
+  }
+
+  header{
+    padding:10px 15px;
+    justify-content:center;
+  }
+
+  nav{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+  }
+
+  nav a{
+    font-size:13px;
+    font-weight:600;
+    color:#fff;
+    padding:0; /* remove cápsula gigante */
+    background:none; /* remove bolha */
+  }
+}
+.conteudo{
+  margin-top:100px;
+}
+
+@media (max-width:768px){
+  .conteudo{
+    margin-top:80px;
+  }
+}
+
 </style>
 </head>
 
