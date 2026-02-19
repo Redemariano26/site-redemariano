@@ -392,58 +392,39 @@ margin:auto;
   width:100%;
   display:block;
 }
-/* ===== MENU CENTRAL NO TOPO ===== */
-.menu-topo{
-  position:absolute;
-  top:25px;
-  left:50%;
-  transform:translateX(-50%);
+/* HEADER CENTRALIZADO */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:25px 40px;
   display:flex;
-  gap:18px;
-  z-index:30;
+  justify-content:center; /* centraliza */
+  z-index:1000;
 }
 
-/* LINKS */
-.menu-topo a{
+/* MENU */
+nav{
+  display:flex;
+  gap:40px;
+  align-items:center;
+}
+
+/* LINKS LIMPOS */
+nav a{
   text-decoration:none;
-  font-weight:700;
-  color:#fff; /* texto branco */
-  padding:10px 18px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.08); /* leve vidro */
-  backdrop-filter:blur(6px);
-  transition:all .25s ease;
-}
-
-.menu-topo a{
-  color:#fff !important;        /* branco normal */
-  text-decoration:none;
-  font-weight:700;
-  transition:color .25s ease;
-}
-
-.menu-topo a:hover{
-  color:#FFD400 !important;     /* amarelo no hover */
-}
-.menu-topo a{
-  background:none !important;
-  border:none !important;
-  box-shadow:none !important;
-}
-/* RESET FORÇADO DO MENU */
-.menu-topo a{
-  color:#ffffff !important;   /* branco fixo */
-  opacity:1 !important;
-  text-decoration:none !important;
-  background:none !important;
-  border:none !important;
+  color:#fff; /* branco */
+  font-weight:600;
+  font-size:16px;
+  transition:.3s;
 }
 
 /* HOVER AMARELO */
-.menu-topo a:hover{
-  color:#FFD400 !important;   /* amarelo */
-  opacity:1 !important;
+nav a:hover{
+  color:#FFD400;
 }
+
 </style>
 </head>
 
@@ -451,8 +432,8 @@ margin:auto;
 
 <header>
 
-<nav>
-     <nav class="menu-topo"></nav>
+<nav class="menu-topo"></nav>
+
 <a href="index.html">Início</a>
 <a href="sobre.html">Sobre</a>
 <a href="servicos.html">Serviços</a>
