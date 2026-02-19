@@ -363,9 +363,6 @@ margin:auto;
     border-radius:0;
     animation:floatEncMobile 6s ease-in-out infinite;
   }
-
-}
-
 .encarte-banner-full::after{
   content:"";
   position:absolute;
@@ -403,86 +400,40 @@ header{
   justify-content:center; /* centraliza */
   z-index:1000;
 }
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:25px 40px;
+  display:flex;
+  justify-content:center;
+  z-index:1000;
+}
 
 /* MENU */
-nav{
-  display:flex;
-  gap:40px;
-  align-items:center;
-}
-
-/* LINKS LIMPOS */
-nav a{
-  text-decoration:none;
-  color:#fff; /* branco */
-  font-weight:600;
-  font-size:16px;
-  transition:.3s;
-}
-
-/* HOVER AMARELO */
-nav a:hover{
-  color:#FFD400;
-}
-/* RESET DO LINK */
-nav a{
-  color:#fff !important; /* branco */
-  text-decoration:none !important; /* tira sublinhado */
-  font-weight:600;
-  font-size:16px;
-  transition:.3s;
-}
-
-/* HOVER AMARELO */
-nav a:hover{
-  color:#FFD400 !important;
-}
-nav{
-  display:flex;
-  gap:40px;
-  justify-content:center;
-}
-/* ===== RESET TOTAL DO MENU ===== */
-header nav a,
-header nav a:visited,
-header nav a:active{
-  color:#fff !important; /* branco */
-  text-decoration:none !important; /* remove linha */
-  font-weight:600;
-  font-size:16px;
-  font-family:Montserrat, Arial, sans-serif;
-  transition:.3s;
-}
-
-/* HOVER AMARELO */
-header nav a:hover{
-  color:#FFD400 !important;
-  text-decoration:none !important;
-}
-a{
-  text-decoration:none !important;
-}
-/* ===== MENU CENTRAL LIMPO ===== */
 header nav{
   display:flex;
+  gap:40px;
   justify-content:center;
-  gap:35px; /* 👈 separa os itens */
 }
 
-/* LINKS DO MENU */
+/* LINKS */
 header nav a{
-  color:#fff !important; /* branco */
-  text-decoration:none !important;
+  color:#fff;
+  text-decoration:none;
   font-weight:600;
   font-size:16px;
   font-family:Montserrat, Arial, sans-serif;
   transition:.3s;
 }
 
-/* HOVER AMARELO */
+/* HOVER */
 header nav a:hover{
-  color:#FFD400 !important;
+  color:#FFD400;
 }
+
 
 
 
@@ -493,14 +444,13 @@ header nav a:hover{
 <body>
 
 <header>
-<nav class="menu-topo"></nav>
-<a href="index.html">Início</a>
-<a href="sobre.html">Sobre</a>
-<a href="servicos.html">Serviços</a>
-<a href="contato.html">Contato</a>
-<a href="login.html">Área do colaborador</a>
-</nav>
-
+  <nav class="menu-topo">
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="contato.html">Contato</a>
+    <a href="login.html">Área do colaborador</a>
+  </nav>
 </header>
 
 <section class="banner">
