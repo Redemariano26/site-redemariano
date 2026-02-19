@@ -402,42 +402,40 @@ margin:auto;
   width:100%;
   display:block;
 }
+/* ===== MENU SOBRE O BANNER ===== */
 .menu-topo{
   position:absolute;
   top:20px;
-  left:20px;           /* 👈 força lado esquerdo */
-  right:auto;
+  left:30px; /* força lado esquerdo */
   display:flex;
   gap:14px;
-  z-index:10;
+  z-index:20;
 }
+
+/* BOTÕES */
 .menu-topo a{
   text-decoration:none;
   font-weight:700;
-  color:#FFD400;              /* texto amarelo */
-  background:#C4232A;         /* vermelho */
+  color:#C4232A; /* texto vermelho */
+  background:#fff; /* fundo branco */
   padding:10px 18px;
   border-radius:12px;
-  border:2px solid #fff;      /* 👈 contorno branco */
+  border:2px solid #fff;
   transition:all .25s ease;
 }
+
+/* HOVER AMARELO */
 .menu-topo a:hover{
-  border-color:#FFD400;       /* 👈 vira amarelo */
-  color:#FFD400;
-  background:#C4232A;
+  background:#FFD400;
+  color:#C4232A;
+  border-color:#FFD400;
   transform:translateY(-2px);
 }
-.menu-topo a:hover{
-  border-color:#FFD400;
-  box-shadow:0 0 12px rgba(255,212,0,.5);
+.menu-topo a{
+  background:#fff !important;
+  color:#C4232A !important;
 }
-@media(max-width:768px){
-  .menu-topo{
-    left:10px;
-    right:10px;
-    flex-wrap:wrap;
-  }
-}
+
 
 
 
