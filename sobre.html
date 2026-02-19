@@ -1,43 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Sobre - Rede Mariano</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Sobre - Rede Mariano</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin:0;
-      font-family:Montserrat, Arial;
-      background:#f4f6fb;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-    header {
-      background:#fff;
-      padding:15px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      box-shadow:0 2px 10px rgba(0,0,0,.05);
-    }
+<style>
+body{
+  margin:0;
+  font-family:Montserrat,Arial;
+  background:#f4f6fb;
+}
 
-    nav a {
-      margin-left:20px;
-      text-decoration:none;
-      color:#333;
-      font-weight:600;
-    }
+/* 🔴 FAIXA VERMELHA TOPO */
+.topo-vermelho{
+  background:#C4232A;
+  height:70px;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+}
 
-    .conteudo {
-      max-width:900px;
-      margin:80px auto;
-      text-align:center;
-      background:#fff;
-      padding:40px;
-      border-radius:12px;
-    }
-    /* CEO INSTITUCIONAL */
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:20px 40px;
+  display:flex;
+  justify-content:center;
+  z-index:1000;
+}
+
+/* MENU */
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#fff; /* branco */
+  font-weight:700;
+  font-size:15px;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#FFD400; /* amarelo */
+}
+
+/* CONTEUDO */
+.conteudo{
+  margin-top:120px;
+}
+
+/* CEO */
 .ceo-section{
   padding:80px 20px;
   background:#fff;
@@ -51,14 +74,12 @@
   gap:60px;
 }
 
-/* FOTO */
 .ceo-foto img{
   width:360px;
   border-radius:16px;
   box-shadow:0 25px 60px rgba(0,0,0,.15);
 }
 
-/* TEXTO */
 .ceo-texto h2{
   font-size:36px;
   margin:0;
@@ -96,78 +117,53 @@
     width:260px;
   }
 }
-.banner-interno {
-  width: 100%;
-  height: 107px;
-  overflow: hidden;
-  background: #c40000;
-}
-
-.banner-interno img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-@media (max-width: 768px) {
-  .banner-interno {
-    height: 70px;
-  }
-}
-
-
-  </style>
+</style>
 </head>
 
 <body>
 
-<header>
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="servicos.html">Serviços</a>
-    <a href="contato.html">Contato</a>
-  </nav>
-</header>
-<section class="banner-interno">
-  <img src="assets/banner-topo.png" alt="Farmácia Mariano">
-</section>
+<!-- FAIXA -->
+<div class="topo-vermelho"></div>
 
+<header>
+<nav>
+  <a href="index.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="servicos.html">Serviços</a>
+  <a href="contato.html">Contato</a>
+</nav>
+</header>
 
 <div class="conteudo">
-  <h1>Sobre a Rede Mariano</h1>
-  <section class="ceo-section">
 
-  <div class="ceo-container">
+<section class="ceo-section">
+<div class="ceo-container">
 
-    <div class="ceo-foto">
-      <img src="/assets/img/joarez-mariano.jpeg" alt="Joarez Mariano">
-    </div>
-
-    <div class="ceo-texto">
-      <h2>Joarez Mariano</h2>
-      <h4>CEO da Rede Mariano</h4>
-
-      <p>
-        Fundador da Rede Mariano, Joarez Mariano construiu uma trajetória sólida
-        baseada em trabalho, visão e compromisso com a saúde das pessoas.
-      </p>
-
-      <p>
-        Desde 1994, lidera a expansão da rede com foco em atendimento humanizado,
-        preços acessíveis e inovação no varejo farmacêutico, tornando a Mariano
-        uma das redes mais queridas de Santa Catarina.
-      </p>
-
-      <p class="assinatura">— Joarez Mariano</p>
-    </div>
-
-  </div>
-
-</section>
-
-  </p>
+<div class="ceo-foto">
+  <img src="/assets/img/joarez-mariano.jpeg" alt="Joarez Mariano">
 </div>
 
+<div class="ceo-texto">
+  <h2>Joarez Mariano</h2>
+  <h4>CEO da Rede Mariano</h4>
+
+  <p>
+    Fundador da Rede Mariano, Joarez Mariano construiu uma trajetória sólida
+    baseada em trabalho, visão e compromisso com a saúde das pessoas.
+  </p>
+
+  <p>
+    Desde 1994, lidera a expansão da rede com foco em atendimento humanizado,
+    preços acessíveis e inovação no varejo farmacêutico, tornando a Mariano
+    uma das redes mais queridas de Santa Catarina.
+  </p>
+
+  <p class="assinatura">— Joarez Mariano</p>
+</div>
+
+</div>
+</section>
+
+</div>
 </body>
 </html>
