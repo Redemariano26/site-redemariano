@@ -131,21 +131,65 @@ footer{
   text-align:center;
   padding:20px;
 }
+/* FAIXA VERMELHA */
+.topo-vermelho{
+  background:#C4232A;
+  height:70px;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:999;
+}
+
+/* HEADER CENTRALIZADO */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:20px 40px;
+  display:flex;
+  justify-content:center; /* 👈 centraliza */
+  z-index:1000;
+}
+
+/* MENU */
+nav{
+  display:flex;
+  gap:30px;
+}
+
+/* LINKS BRANCOS */
+nav a{
+  text-decoration:none;
+  color:#fff; /* 👈 branco */
+  font-weight:700;
+  font-size:15px;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#FFD400;
+}
+.conteudo{
+  margin-top:120px;
+}
+
 </style>
 </head>
 
 <body>
-
-<div class="faixa-topo"></div>
+<div class="topo-vermelho"></div>
 
 <header>
   <nav>
     <a href="index.html">Início</a>
-    <a href="servicos.html">Serviços</a>
     <a href="sobre.html">Sobre</a>
-   
+    <a href="servicos.html">Serviços</a>
   </nav>
 </header>
+
 
 <section class="hero">
   <h1>Fale com a Rede Mariano</h1>
