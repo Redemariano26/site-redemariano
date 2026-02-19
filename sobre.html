@@ -37,6 +37,66 @@
       padding:40px;
       border-radius:12px;
     }
+    /* CEO INSTITUCIONAL */
+.ceo-section{
+  padding:80px 20px;
+  background:#fff;
+}
+
+.ceo-container{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  gap:60px;
+}
+
+/* FOTO */
+.ceo-foto img{
+  width:360px;
+  border-radius:16px;
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+}
+
+/* TEXTO */
+.ceo-texto h2{
+  font-size:36px;
+  margin:0;
+  color:#C4232A;
+}
+
+.ceo-texto h4{
+  margin:8px 0 20px;
+  font-weight:600;
+  color:#777;
+}
+
+.ceo-texto p{
+  font-size:17px;
+  line-height:1.6;
+  margin-bottom:15px;
+  color:#444;
+}
+
+.assinatura{
+  font-style:italic;
+  margin-top:25px;
+  color:#C4232A;
+  font-weight:600;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .ceo-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .ceo-foto img{
+    width:260px;
+  }
+}
+
   </style>
 </head>
 
@@ -55,9 +115,36 @@
 
 <div class="conteudo">
   <h1>Sobre a Rede Mariano</h1>
-  <p>
-    A Rede Mariano é uma das redes que mais cresce no Alto Vale do Itajaí,
-    com mais de 30 filiais levando saúde e economia todos os dias.
+  <section class="ceo-section">
+
+  <div class="ceo-container">
+
+    <div class="ceo-foto">
+      <img src="/assets/img/joarez-mariano.jpeg" alt="Joarez Mariano">
+    </div>
+
+    <div class="ceo-texto">
+      <h2>Joarez Mariano</h2>
+      <h4>CEO da Rede Mariano</h4>
+
+      <p>
+        Fundador da Rede Mariano, Joarez Mariano construiu uma trajetória sólida
+        baseada em trabalho, visão e compromisso com a saúde das pessoas.
+      </p>
+
+      <p>
+        Desde 1994, lidera a expansão da rede com foco em atendimento humanizado,
+        preços acessíveis e inovação no varejo farmacêutico, tornando a Mariano
+        uma das redes mais queridas de Santa Catarina.
+      </p>
+
+      <p class="assinatura">— Joarez Mariano</p>
+    </div>
+
+  </div>
+
+</section>
+
   </p>
 </div>
 
