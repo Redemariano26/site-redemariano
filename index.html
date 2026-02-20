@@ -776,7 +776,7 @@ function toggleSidebar() {
   document.getElementById("mobileSidebar").classList.toggle("active");
   document.getElementById("mobileOverlay").classList.toggle("active");
 }
-</script>
+<script>
 document.addEventListener("DOMContentLoaded", function(){
 
 let index = 0;
@@ -841,6 +841,9 @@ links.forEach(link=>{
   if(link.getAttribute("href") === atual){
     link.classList.add("ativo");
   }
+});
 
+});
+</script>
 </body>
 </html>
