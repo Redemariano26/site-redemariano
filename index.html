@@ -445,6 +445,42 @@ header{
   z-index: 999; /* MUITO IMPORTANTE */
   cursor: pointer;
 }
+.revista-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+
+/* Botões */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 10px 14px;
+  cursor: pointer;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
 
 </style>
 </head>
@@ -627,7 +663,26 @@ links.forEach(link=>{
   if(link.getAttribute("href") === atual){
     link.classList.add("ativo");
   }
-});
+});<script>
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+function atualizarSlide() {
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function proximo() {
+  index = (index + 1) % total;
+  atualizarSlide();
+}
+
+function voltar() {
+  index = (index - 1 + total) % total;
+  atualizarSlide();
+}
+</script>
+
 </script>
 
 </script>
