@@ -481,7 +481,35 @@ header{
 
 .prev { left: 10px; }
 .next { right: 10px; }
+/* HEADER PADRÃO */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #C92026;
+  z-index: 999;
+  transition: 0.3s;
+}
 
+/* MOBILE */
+@media (max-width: 768px) {
+  header {
+    height: 55px;
+  }
+
+  nav {
+    height: 55px;
+  }
+
+  nav a {
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  body {
+    padding-top: 55px;
+  }
+}
 </style>
 </head>
 
