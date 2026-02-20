@@ -510,6 +510,33 @@ header {
     padding-top: 55px;
   }
 }
+/* HEADER FIXO SUAVE */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #C92026;
+  z-index: 999;
+  transition: transform 0.35s ease;
+}
+
+/* ESCONDIDO */
+.header-hide {
+  transform: translateY(-100%);
+}
+
+/* ESPAÇO DO SITE */
+body {
+  padding-top: 70px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+}
 </style>
 </head>
 
@@ -690,9 +717,31 @@ links.forEach(link=>{
   if(link.getAttribute("href") === atual){
     link.classList.add("ativo");
   }
-});
+<script>
+let lastScroll = 0;
+const header = document.querySelector("header");
 
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll <= 0) {
+    header.classList.remove("header-hide");
+    return;
+  }
+
+  if (currentScroll > lastScroll && currentScroll > 80) {
+    // descendo
+    header.classList.add("header-hide");
+  } else {
+    // subindo
+    header.classList.remove("header-hide");
+  }
+
+  lastScroll = currentScroll;
 });
+</script>
+
+
 </script>
 </body>
 </html>
