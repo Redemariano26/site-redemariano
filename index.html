@@ -481,26 +481,100 @@ header{
 
 .prev { left: 10px; }
 .next { right: 10px; }
-/* ============================
-   AJUSTE SOMENTE PARA CELULAR
-============================ */
-@media (max-width: 768px) {
-
-  header {
-    height: 60px;
-  }
-
-  /* Empurra o conteúdo pra baixo */
-  body {
-    padding-top: 60px;
-  }
-
+/* =========================
+   MOBILE SIDEBAR ONLY
+========================= */
+.mobile-menu-btn,
+.mobile-sidebar,
+.mobile-overlay {
+  display: none;
 }
 
+/* MOBILE */
+@media (max-width: 768px) {
+
+  /* ESCONDE MENU ORIGINAL */
+  header nav {
+    display: none;
+  }
+
+  /* BOTÃO ☰ */
+  .mobile-menu-btn {
+    display: block;
+    position: fixed;
+    top: 18px;
+    left: 15px;
+    font-size: 26px;
+    color: white;
+    z-index: 2000;
+    cursor: pointer;
+  }
+
+  /* SIDEBAR */
+  .mobile-sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #C92026;
+    padding-top: 80px;
+    transition: 0.3s;
+    z-index: 2100;
+  }
+
+  .mobile-sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  /* OVERLAY */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 2050;
+  }
+
+  /* ABERTO */
+  .mobile-sidebar.active {
+    left: 0;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ESPAÇO DO HEADER */
+  body {
+    padding-top: 70px;
+  }
+}
 </style>
 </head>
 
 <body>
+  <!-- BOTÃO MOBILE -->
+<div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+
+<!-- SIDEBAR -->
+<div class="mobile-sidebar" id="mobileSidebar">
+  <a href="index.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="servicos.html">Serviços</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
 
 <header>
   <nav class="menu-topo">
@@ -676,9 +750,14 @@ links.forEach(link=>{
   if(link.getAttribute("href") === atual){
     link.classList.add("ativo");
   }
+  <script>
+function toggleSidebar() {
+  document.getElementById("mobileSidebar").classList.toggle("active");
+  document.getElementById("mobileOverlay").classList.toggle("active");
+}
 });
 
-});
+
 </script>
 </body>
 </html>
