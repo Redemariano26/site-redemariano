@@ -184,33 +184,32 @@ body.contato::before {
   inset: 0;
 
   background: url('/assets/img/favicon.png') center no-repeat;
-  background-size: 400px;
+  background-size: 350px;
 
-  opacity: 0.08; /* controla transparência */
+  opacity: 0.07;
   pointer-events: none;
-  z-index: 0;
-}@media (max-width:768px){
-  body.contato::before{
-    background-size: 250px;
-    opacity: 0.06;
-  }
+  z-index: -1; /* importante */
 }body.contato::before {
   content: "";
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-
-  width: 220px;
-  height: 220px;
-
-  background: url('/assets/img/favicon.png') no-repeat center/contain;
+  inset: 0;
+  background: url('/assets/img/favicon.png') center no-repeat;
+  background-size: 350px;
   opacity: 0.07;
   pointer-events: none;
+  z-index: -1;
+}
+
+@media (max-width:768px){
+  body.contato::before{
+    background-size: 220px;
+    opacity: 0.05;
+  }
 }
 </style>
 </head>
 
-<body>
+<body class="contato"></body>
 <div class="topo-vermelho"></div>
 
 <header>
