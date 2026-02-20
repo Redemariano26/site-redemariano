@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Rede Mariano</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/img/favicon.png">
+
+<style>
+  body{
+  margin:0;
+}
+
+section{
+  position:relative;
+  z-index:1;
+}
+
+body{
+margin:0;
+font-family:'Montserrat',sans-serif;
+background:#f4f6fb;
+color:#222;
+}
+
+/* HEADER */
+header{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  padding:25px 50px;
+  z-index:5; /* MAIOR QUE O BANNER */
+  background:transparent;
+}
+
+
+
+
+.logo-area img{height:110px;}
+nav a{margin-left:25px;text-decoration:none;color:#333;font-weight:600;}
+.banner img{width:100%;display:block;}
+
+.faixa-marca{
+background:#C4232A;
+padding:70px 20px;
+text-align:center;
+font-weight:800;
+font-size:clamp(28px,5vw,60px);
+color:#fff;
+}
+.texto-destaque{color:#FFCC00;}
+
+.section{
+padding:90px 20px;
+text-align:center;
+}
+
+/* SLIDER */
+.revista-slider{
+position:relative;
+max-width:850px;
+margin:40px auto;
+overflow:hidden;
+border-radius:14px;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+background:#000;
+}
+
+.slides{
+display:flex;
+transition:transform .4s ease;
+}
+
+.slides img{
+width:100%;
+flex-shrink:0;
+display:block;
+cursor:zoom-in;
+}
+
+/* SETAS */
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:#C4232A;
+color:#fff;
+border:none;
+width:48px;
+height:48px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
+z-index:10;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.prev{left:-20px;}
+.next{right:-20px;}
+
+.nav:hover{
+transform:translateY(-50%) scale(1.1);
+}
+@media(max-width:768px){
+  nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+  }
+
+  nav a{
+    margin:4px;
+    font-size:14px;
+  }
+}
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  font-weight:700;
+  background:#C4232A;
+  color:#FFD400;
+  padding:10px 16px;
+  border-radius:8px;
+  transition:.25s;
+}
+
+nav a:hover{
+  color:#C4232A;
+}
+
+
+
+/* ZOOM MODAL */
+.zoom-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.92);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.zoom-modal img{
+max-width:95%;
+max-height:95%;
+border-radius:12px;
+box-shadow:0 30px 80px rgba(0,0,0,.5);
+animation:zoomIn .25s ease;
+}
+
+.zoom-close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:32px;
+color:#fff;
+cursor:pointer;
+}
+
+@keyframes zoomIn{
+from{transform:scale(.85);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+/* MAPA */
+.mapa-full{
+width:100%;
+height:720px;
+border:none;
+margin-top:60px;
+}
+
+footer{
+background:#111827;
+color:#fff;
+text-align:center;
+padding:25px;
+font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+header{flex-direction:column;padding:12px}
+.logo-area img{height:65px}
+
+.nav{display:none;}
+.mapa-full{height:60vh;}
+}
+/* ================= FAIXA SLOGAN ================= */
+.faixa-slogan{
+background:#C4232A;
+padding:18px 10px;
+text-align:center;
+color:#fff;
+}
+
+.faixa-slogan p{
+margin:0;
+font-size:clamp(24px,3.5vw,42px);
+font-weight:500;
+color:#fff;
+}
+
+.faixa-slogan .destaque{
+font-weight:800;
+color:#fff;
+}
+
+.faixa-slogan .resto{
+font-weight:400;
+opacity:.95;
+}
+
+/* ================= TERÇA DO BEBÊ ================= */
+.faixa-bebe{
+width:100%;
+background:#fff;
+text-align:center;
+padding:15px 0;
+}
+
+.faixa-bebe img{
+width:100%;
+max-width:950px;
+height:auto;
+display:block;
+margin:auto;
+}
+
+/* ================= CASHBACK ================= */
+.faixa-cashback{
+width:100%;
+background:#fff;
+text-align:center;
+padding:10px 0 30px;
+}
+
+.faixa-cashback img{
+width:100%;
+max-width:950px;
+height:auto;
+display:block;
+margin:auto;
+}
+.sec-mariano-card{
+  background:#fff;
+  padding:80px 20px;
+}
+
+/* LIMITA A LARGURA */
+.card-container{
+  max-width:1100px; /* controla tamanho total */
+  margin:0 auto;
+}
+
+.titulo-card{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:40px;
+}
+
+.card-layout{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:50px;
+  flex-wrap:wrap;
+}
+
+/* LADOS */
+.lado{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  max-width:240px;
+}
+
+.lado img{
+  width:100%;
+}
+
+/* CENTRO */
+.card-centro{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+
+.img-card{
+  width:220px; /* tamanho normal do cartão */
+}
+
+.texto-topo{
+  width:200px;
+}
+
+.texto-base{
+  width:220px;
+}
+.cashback-cta{
+  background:#fff;
+  text-align:center;
+  padding:25px 20px 40px;
+}
+
+.logo-cashback{
+  max-width:220px;
+  margin-bottom:18px;
+}
+
+/* BOTÃO */
+.btn-cashback{
+  display:inline-block;
+  background:#C4232A;
+  color:#fff;
+  padding:14px 28px;
+  font-weight:700;
+  text-decoration:none;
+  border-radius:50px;
+  font-size:16px;
+  transition:.25s ease;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.btn-cashback:hover{
+  background:#a61c22;
+  transform:translateY(-2px);
+}
+/* BANNER FULL WIDTH ENCARTE */
+.encarte-banner-full{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  margin-bottom:25px;
+  overflow:hidden;
+  position:relative;
+}
+.encarte-banner-full img{
+  width:100%;
+  height:auto;
+  display:block;
+
+  /* NÃO CORTA MAIS */
+  object-fit:contain;
+
+  /* sombra premium */
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
+
+  animation:floatEnc 6s ease-in-out infinite;
+}
+  /* efeito flutuante */
+  animation:floatEnc 6s ease-in-out infinite;
+
+  .encarte-banner-full img{
+    max-height:none; /* remove corte no celular */
+    border-radius:0;
+    animation:floatEncMobile 6s ease-in-out infinite;
+  }
+.encarte-banner-full::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.6),
+    transparent 20%,
+    transparent 80%,
+    rgba(255,255,255,.6)
+  );
+  pointer-events:none;
+}
+.banner img{
+  width:100%;
+  display:block;
+  margin-top:0;
+}
+.banner{
+  position:relative;
+  z-index:1;
+}
+
+.banner img{
+  width:100%;
+  display:block;
+}
+/* HEADER CENTRALIZADO */
+header{
+  position:relative;
+  top:0;
+  left:0;
+  width:100%;
+  padding:25px 40px;
+  display:flex;
+  justify-content:center; /* centraliza */
+  z-index:1000;
+}
+/* HEADER */
+header{
+  width:100%;
+  padding:25px 40px;
+  display:flex;
+  justify-content:center;
+}
+
+/* MENU */
+header nav{
+  display:flex;
+  gap:40px;
+}
+
+/* LINKS LIMPOS */
+header nav a{
+  color:#fff; /* branco */
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  font-family:Montserrat, Arial, sans-serif;
+  transition:.3s;
+  background:none; /* remove vermelho */
+  padding:0; /* remove botão */
+  border-radius:0;
+}
+
+/* HOVER AMARELO */
+header nav a:hover{
+  color:#FFD400;
+}
+header{
+  background:transparent;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999; /* MUITO IMPORTANTE */
+  cursor: pointer;
+}
+.revista-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+
+/* Botões */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 10px 14px;
+  cursor: pointer;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+/* =========================
+   MOBILE SIDEBAR ONLY
+========================= */
+.mobile-menu-btn,
+.mobile-sidebar,
+.mobile-overlay {
+  display: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  /* ESCONDE MENU ORIGINAL */
+  header nav {
+    display: none;
+  }
+
+  /* BOTÃO ☰ */
+  .mobile-menu-btn {
+    display: block;
+    position: fixed;
+    top: 18px;
+    left: 15px;
+    font-size: 26px;
+    color: white;
+    z-index: 2000;
+    cursor: pointer;
+  }
+
+  /* SIDEBAR */
+  .mobile-sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #C92026;
+    padding-top: 80px;
+    transition: 0.3s;
+    z-index: 2100;
+  }
+
+  .mobile-sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  /* OVERLAY */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 2050;
+  }
+
+  /* ABERTO */
+  .mobile-sidebar.active {
+    left: 0;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ESPAÇO DO HEADER */
+  body {
+    padding-top: 70px;
+  }
+}
+/* ================= MOBILE SIDEBAR ================= */
+.mobile-topbar,
+.mobile-sidebar,
+.mobile-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* ESCONDE MENU NORMAL */
+  header nav {
+    display: none;
+  }
+
+  /* FAIXA VERMELHA */
+  .mobile-topbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #C92026;
+    align-items: center;
+    padding: 0 15px;
+    z-index: 3000;
+  }
+
+  .mobile-menu-btn {
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* SIDEBAR */
+  .mobile-sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #C92026;
+    padding-top: 70px;
+    transition: 0.3s;
+    z-index: 3100;
+  }
+
+  .mobile-sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  /* OVERLAY */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 3050;
+  }
+
+  /* ABERTO */
+  .mobile-sidebar.active {
+    left: 0;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* espaço do topo */
+  body {
+    padding-top: 60px;
+  }
+}
+/* =========================
+   FAIXA SLOGAN MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  .faixa-slogan {
+    padding: 16px 10px; /* diminui altura */
+  }
+
+  .faixa-slogan p {
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .faixa-slogan .destaque {
+    font-size: 18px; /* +30 menor */
+  }
+
+  .faixa-slogan .resto {
+    font-size: 12px;
+  }
+
+}
+/* =========================
+   SETAS ENCARTE MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  .revista-slider {
+    position: relative;
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav.prev {
+    left: 8px;
+  }
+
+  .nav.next {
+    right: 8px;
+  }
+
+}
+* {
+  box-sizing: border-box;
+}
+/* =========================
+   PERSONAGENS PROMO
+========================= */
+.banner-personagens {
+  display: flex;
+  flex-direction: column; /* 🔥 força empilhar */
+  align-items: center;
+  gap: 25px;
+  padding: 30px 15px;
+  background: #f7f7f7;
+}
+
+.banner-personagens img {
+  width: 100%;
+  max-width: 700px; /* maior no PC */
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+}
+</style>
+</head>
+
+<body>
+<!-- TOPO VERMELHO MOBILE -->
+<div class="mobile-topbar">
+  <div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="mobile-sidebar" id="mobileSidebar">
+  <a href="index.html">Início</a>
+  <a href="sobre.html">Sobre</a>
+  <a href="servicos.html">Serviços</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<!-- FUNDO ESCURO -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
+<header>
+  <nav class="menu-topo">
+    <a href="sobre.html">Sobre</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="contato.html">Contato</a>
+    <a href="login.html">Área do colaborador</a>
+  </nav>
+</header>
+
+<section class="banner">
+<img src="/assets/img/banner-novo.png" alt="Rede Mariano">
+</section>
+
+<section class="faixa-slogan">
+  <p>
+    <span class="destaque">+30 filiais</span>
+    <span class="resto"> no estado de Santa Catarina</span>
+  </p>
+</section>
+
+<div class="faixa-bebe">
+  <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
+</div>
+
+<div class="faixa-cashback">
+  <img src="/assets/img/cashback.png" alt="Cashback Mariano">
+</div>
+<div class="cashback-cta">
+
+  <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
+   Cadastre-se já
+  </a>
+
+</div>
+<section class="banner-personagens">
+  <img src="/assets/img/Valentina.png"alt="Valentina herói">
+  <img src="/assets/img/Eloah.png"alt="Eloah Baby">
+</section>
+
+<section class="sec-mariano-card">
+
+  <div class="card-layout">
+
+    <!-- ESQUERDA -->
+    <div class="lado esquerdo">
+      <img src="/assets/img/card-texto2.png">
+      <img src="/assets/img/card-texto3.png">
+    </div>
+
+    <!-- CENTRO COM TOPO + CARTÃO + BASE -->
+    <div class="card-centro">
+
+      <!-- TEXTO SUPERIOR -->
+      <img src="/assets/img/card-texto1.png" class="texto-topo">
+
+      <!-- CARTÃO -->
+      <img src="/assets/img/mariano-card.png" class="img-card">
+
+      <!-- TEXTO INFERIOR -->
+      <img src="/assets/img/card-texto6.png" class="texto-base">
+
+    </div>
+
+    <!-- DIREITA -->
+    <div class="lado direito">
+      <img src="/assets/img/card-texto4.png">
+      <img src="/assets/img/card-texto5.png">
+    </div>
+
+  </div>
+
+</section>
+
+
+  </div>
+
+</section>
+
+<div class="encarte-banner-full">
+  <img src="/assets/img/banner-encarte.png" alt="Ofertas de Verão">
+</div>
+
+<div class="revista-slider">
+
+<button class="nav prev" onclick="voltar()">‹</button>
+<button class="nav next" onclick="proximo()">›</button>
+
+<div class="slides" id="slides">
+  <img src="/assets/img/encarte_page-0001.jpg">
+  <img src="/assets/img/encarte_page-0002.jpg">
+  <img src="/assets/img/encarte_page-0003.jpg">
+  <img src="/assets/img/encarte_page-0004.jpg">
+  <img src="/assets/img/encarte_page-0005.jpg">
+  <img src="/assets/img/encarte_page-0006.jpg">
+  <img src="/assets/img/encarte_page-0007.jpg">
+  <img src="/assets/img/encarte_page-0008.jpg">
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>Encontre uma Farmácia Mariano</h2>
+</section>
+
+<iframe class="mapa-full"
+src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
+</iframe>
+
+<footer>
+© 2026 Rede Mariano
+</footer>
+
+<script>
+function toggleSidebar() {
+  document.getElementById("mobileSidebar").classList.toggle("active");
+  document.getElementById("mobileOverlay").classList.toggle("active");
+}
+document.addEventListener("DOMContentLoaded", function(){
+
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+/* SLIDER */
+function atualizar(){
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+window.proximo = function(){
+  if(index < total - 1){
+    index++;
+    atualizar();
+  }
+}
+
+window.voltar = function(){
+  if(index > 0){
+    index--;
+    atualizar();
+  }
+}
+
+/* SWIPE MOBILE */
+let startX = 0;
+
+slides.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+
+slides.addEventListener("touchend", e=>{
+  const diff = startX - e.changedTouches[0].clientX;
+  if(diff > 50) proximo();
+  if(diff < -50) voltar();
+});
+
+/* ZOOM */
+document.querySelectorAll(".slides img").forEach(img=>{
+  img.addEventListener("click", ()=>{
+    document.getElementById("zoomModal").style.display = "flex";
+    document.getElementById("zoomImg").src = img.src;
+  });
+});
+
+window.fecharZoom = function(){
+  document.getElementById("zoomModal").style.display = "none";
+}
+
+document.getElementById("zoomModal").addEventListener("click", e=>{
+  if(e.target.id === "zoomModal"){
+    fecharZoom();
+  }
+});
+
+/* LINK ATIVO MENU */
+const links = document.querySelectorAll("nav a");
+const atual = window.location.pathname.split("/").pop();
+
+links.forEach(link=>{
+  if(link.getAttribute("href") === atual){
+    link.classList.add("ativo");
+  }
+});
+
+});
+</script>
+</body>
+</html>
