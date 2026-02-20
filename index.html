@@ -712,20 +712,20 @@ header{
   gap: 20px;
   padding: 30px 15px;
   background: #f7f7f7;
-  flex-wrap: wrap; /* 🔥 ESSENCIAL */
+  flex-wrap: wrap;
 }
 
 .banner-personagens img {
   width: 100%;
-  max-width: 480px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: 0.3s;
+  max-width: 520px;
+  height: auto;
+  display: block;
 }
 
 .banner-personagens img:hover {
   transform: translateY(-5px);
 }
+
 @media (max-width: 768px) {
   .banner-personagens {
     flex-direction: column;
