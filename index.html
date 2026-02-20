@@ -708,34 +708,21 @@ header{
 ========================= */
 .banner-personagens {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column; /* 🔥 força empilhar */
+  align-items: center;
+  gap: 25px;
   padding: 30px 15px;
   background: #f7f7f7;
-  flex-wrap: wrap;
 }
 
 .banner-personagens img {
   width: 100%;
-  max-width: 520px;
+  max-width: 700px; /* maior no PC */
   height: auto;
   display: block;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
-
-.banner-personagens img:hover {
-  transform: translateY(-5px);
-}
-
-@media (max-width: 768px) {
-  .banner-personagens {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-  }
-
-  .banner-personagens img {
-    max-width: 100%;
-  }
 }
 </style>
 </head>
