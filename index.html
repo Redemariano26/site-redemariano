@@ -703,6 +703,39 @@ header{
 * {
   box-sizing: border-box;
 }
+/* =========================
+   PERSONAGENS PROMO
+========================= */
+.banner-personagens {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px 15px;
+  background: #f7f7f7;
+}
+
+.banner-personagens img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.banner-personagens img:hover {
+  transform: translateY(-5px);
+}
+@media (max-width: 768px) {
+  .banner-personagens {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+
+  .banner-personagens img {
+    max-width: 100%;
+  }
+}
 </style>
 </head>
 
@@ -756,6 +789,10 @@ header{
   </a>
 
 </div>
+<section class="banner-personagens">
+  <img src="/assets/img/valentina.png" alt="Valentina herói">
+  <img src="/assets/img/eloah.png" alt="Eloah Baby">
+</section>
 
 <section class="sec-mariano-card">
 
