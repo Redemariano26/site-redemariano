@@ -559,44 +559,98 @@ header{
     padding-top: 70px;
   }
 }
-/* =========================
-   TOPO MOBILE ESTILIZADO
-========================= */
+/* ================= MOBILE SIDEBAR ================= */
+.mobile-topbar,
+.mobile-sidebar,
+.mobile-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
+
+  /* ESCONDE MENU NORMAL */
+  header nav {
+    display: none;
+  }
 
   /* FAIXA VERMELHA */
   .mobile-topbar {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 60px;
     background: #C92026;
-    z-index: 2200;
-    display: flex;
     align-items: center;
     padding: 0 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 3000;
   }
 
-  /* BOTÃO ☰ */
   .mobile-menu-btn {
-    position: static;
     font-size: 26px;
     color: white;
+    cursor: pointer;
   }
 
-  /* ESPAÇO DO SITE */
+  /* SIDEBAR */
+  .mobile-sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #C92026;
+    padding-top: 70px;
+    transition: 0.3s;
+    z-index: 3100;
+  }
+
+  .mobile-sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  /* OVERLAY */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 3050;
+  }
+
+  /* ABERTO */
+  .mobile-sidebar.active {
+    left: 0;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* espaço do topo */
   body {
     padding-top: 60px;
   }
+}
 }
 </style>
 </head>
 
 <body>
-  <!-- BOTÃO MOBILE -->
-<div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+<!-- TOPO VERMELHO MOBILE -->
+<div class="mobile-topbar">
+  <div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+</div>
 
 <!-- SIDEBAR -->
 <div class="mobile-sidebar" id="mobileSidebar">
@@ -606,8 +660,8 @@ header{
   <a href="contato.html">Contato</a>
 </div>
 
+<!-- FUNDO ESCURO -->
 <div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
-
 <header>
   <nav class="menu-topo">
     <a href="sobre.html">Sobre</a>
@@ -718,6 +772,11 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
+function toggleSidebar() {
+  document.getElementById("mobileSidebar").classList.toggle("active");
+  document.getElementById("mobileOverlay").classList.toggle("active");
+}
+</script>
 document.addEventListener("DOMContentLoaded", function(){
 
 let index = 0;
@@ -782,11 +841,6 @@ links.forEach(link=>{
   if(link.getAttribute("href") === atual){
     link.classList.add("ativo");
   }
-<script>
-function toggleSidebar() {
-  document.getElementById("mobileSidebar").classList.toggle("active");
-  document.getElementById("mobileOverlay").classList.toggle("active");
-}
-</script>
+
 </body>
 </html>
