@@ -13,12 +13,19 @@
     }
 
     header {
-      background: #c62828; /* vermelho */
+      background: #c62828;
       color: white;
-      padding: 20px;
+      padding: 18px;
       text-align: center;
       font-size: 20px;
       font-weight: bold;
+    }
+
+    .user-bar{
+      text-align:center;
+      background:#ffe5e5;
+      padding:8px;
+      font-size:14px;
     }
 
     .container {
@@ -42,7 +49,6 @@
       color: #222;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
       transition: 0.2s;
-      cursor: pointer;
     }
 
     .card:hover {
@@ -74,6 +80,7 @@
 <body>
 
 <header>Painel Interno - Rede Mariano</header>
+<div class="user-bar" id="userBar"></div>
 
 <div class="container">
   <div class="grid" id="cards"></div>
@@ -90,10 +97,14 @@
 const user = JSON.parse(localStorage.getItem("usuarioLogado"));
 
 if (!user) {
-  window.location.href = "index.html"; // volta pro login
+  window.location.href = "login.html"; // corrigido
 }
 
-// ================= MÓDULOS DISPONÍVEIS =================
+// ================= MOSTRAR USUÁRIO =================
+document.getElementById("userBar").innerText =
+  "Logado como: " + user.email + (user.tipo === "admin" ? " 👑 Admin" : "");
+
+// ================= MÓDULOS =================
 const modulos = {
   financeiro: {
     nome: "📊 Financeiro",
@@ -116,13 +127,18 @@ const modulos = {
 // ================= RENDERIZAR CARDS =================
 const container = document.getElementById("cards");
 
-// se for admin mostra tudo
-const acessos = user.tipo === "admin"
-  ? Object.keys(modulos)
-  : user.acessos;
+// protege caso usuário não tenha acessos definidos
+let acessos = [];
+
+if (user.tipo === "admin") {
+  acessos = Object.keys(modulos);
+} else {
+  acessos = user.acessos || [];
+}
 
 acessos.forEach(mod => {
   const data = modulos[mod];
+  if (!data) return; // evita erro
 
   const a = document.createElement("a");
   a.className = "card";
@@ -139,19 +155,26 @@ if (user.tipo === "admin") {
   adminDiv.innerHTML = `
     <div class="admin-box">
       <h3>🔐 Painel Admin</h3>
-      <button onclick="verDados()">Ver dados de login</button>
+      <button onclick="verDados()">Ver dados do usuário</button>
+      <br><br>
+      <button onclick="limparSessao()">Limpar sessão (debug)</button>
     </div>
   `;
 }
 
 function verDados() {
-  alert("Usuário logado:\n\n" + JSON.stringify(user, null, 2));
+  alert(JSON.stringify(user, null, 2));
+}
+
+function limparSessao(){
+  localStorage.clear();
+  location.reload();
 }
 
 // ================= LOGOUT =================
 function logout() {
   localStorage.removeItem("usuarioLogado");
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 }
 </script>
 

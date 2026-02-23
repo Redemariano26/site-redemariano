@@ -1,84 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Área do Colaborador - Rede Mariano</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Login - Rede Mariano</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f7fb, #e9efff);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+}
 
-    .box {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      width: 320px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
+.login-box{
+  background:#fff;
+  padding:40px;
+  border-radius:14px;
+  max-width:400px;
+  margin:120px auto;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
 
-    h2 {
-      margin-bottom: 20px;
-    }
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
 
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #c62828;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .erro {
-      color: red;
-      margin-top: 10px;
-      display: none;
-    }
-  </style>
+button{
+  width:100%;
+  padding:14px;
+  background:#c62828;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="login-box">
   <h2>Área do Colaborador</h2>
 
-  <input type="password" id="senha" placeholder="Digite a senha">
-  <button onclick="login()">Entrar</button>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="senha" placeholder="Senha">
 
-  <div class="erro" id="erro">Senha incorreta</div>
+  <button onclick="login()">Entrar</button>
 </div>
 
 <script>
-  function login() {
-    const senha = document.getElementById("senha").value;
-
-    // ALTERE A SENHA AQUI
-    if (senha === "rede123") {
-      window.location.href = "painel.html";
-    } else {
-      document.getElementById("erro").style.display = "block";
-    }
+// 👇 USUÁRIOS CADASTRADOS
+const usuarios = [
+  {
+    email: "admin@rede.com",
+    senha: "123",
+    tipo: "admin",
+    acessos: ["financeiro", "agenda", "info", "bot"]
+  },
+  {
+    email: "joao@rede.com",
+    senha: "123",
+    tipo: "user",
+    acessos: ["agenda"]
   }
-</script>
+];
 
+// LOGIN
+function login(){
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  const user = usuarios.find(u => u.email === email && u.senha === senha);
+
+  if(!user){
+    alert("Email ou senha inválidos");
+    return;
+  }
+
+  localStorage.setItem("usuarioLogado", JSON.stringify(user));
+  window.location.href = "painel.html";
+}
+const user = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+if(!user){
+  window.location.href = "login.html";
+}
+</script>
 </body>
 </html>
