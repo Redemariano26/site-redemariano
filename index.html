@@ -743,34 +743,6 @@ nav a{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.login-box{
-  background:#fff;
-  padding:40px;
-  border-radius:16px;
-  max-width:400px;
-  margin:100px auto;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-.login-box input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
-.login-box button{
-  width:100%;
-  padding:14px;
-  background:#d60000;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  font-weight:600;
-  cursor:pointer;
-}
 </style>
 </head>
 
@@ -799,14 +771,6 @@ nav a{
     <a href="login.html">Área do colaborador</a>
     <a href="https://instagram.com/rede.mariano" target="_blank" class="menu-instagram">
   Instagram
-<div class="login-box">
-  <h2>Área do Colaborador</h2>
-
-  <input type="email" id="email" placeholder="Digite seu email">
-  <input type="password" id="senha" placeholder="Digite a senha">
-
-  <button onclick="login()">Entrar</button>
-</div>
   </nav>
 </header>
 
@@ -984,45 +948,8 @@ links.forEach(link=>{
     link.classList.add("ativo");
   }
 });
-// ================= USUÁRIOS =================
-const usuarios = [
-  {
-    email: "hangel@grupomariano.com.br",
-    senha: "100624",
-    tipo: "admin",
-    acessos: ["financeiro", "agenda", "info", "bot"]
-  },
-  {
-    email: "abner@grupomariano.com.br",
-    senha: "1234",
-    tipo: "admin",
-    acessos: ["financeiro", "agenda", "info", "bot"]
-  },
-  {
-    email: "funcionario@rede.com",
-    senha: "123",
-    tipo: "user",
-    acessos: ["agenda"] // só agenda
-  }
-];
 
-// ================= LOGIN =================
-function login(){
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-
-  const user = usuarios.find(u => u.email === email && u.senha === senha);
-
-  if(!user){
-    alert("Login inválido");
-    return;
-  }
-
-  localStorage.setItem("usuarioLogado", JSON.stringify(user));
-
-  // redireciona
-  window.location.href = "painel.html";
-}
+});
 </script>
 </body>
 </html>
