@@ -13,7 +13,7 @@
     }
 
     header {
-      background: #111827;
+      background: #c62828; /* vermelho */
       color: white;
       padding: 20px;
       text-align: center;
@@ -42,6 +42,7 @@
       color: #222;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
       transition: 0.2s;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -57,6 +58,15 @@
       color: #c62828;
       text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .admin-box {
+      margin-top: 30px;
+      background: #fff3cd;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
     }
   </style>
 </head>
@@ -66,30 +76,84 @@
 <header>Painel Interno - Rede Mariano</header>
 
 <div class="container">
-  <div class="grid">
+  <div class="grid" id="cards"></div>
 
-    <a class="card" href="https://google.com" target="_blank">
-      📊 Financeiro
-    </a>
-
-    <a class="card" href="https://info.redemariano.com.br/" target="_blank">
-      🤖 Informações 
-    </a>
-
-    <a class="card" href="https://agenda.redemariano.com.br/" target="_blank">
-      📈 Agenda
-    </a>
-
-    <a class="card" href="https://google.com" target="_blank">
-      💬 WhatsApp Bot
-    </a>
-
-  </div>
+  <div id="adminArea"></div>
 
   <div class="logout">
-    <a href="index.html">← Voltar ao site</a>
+    <a onclick="logout()">🚪 Sair</a>
   </div>
 </div>
+
+<script>
+// ================= CHECAR LOGIN =================
+const user = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+if (!user) {
+  window.location.href = "index.html"; // volta pro login
+}
+
+// ================= MÓDULOS DISPONÍVEIS =================
+const modulos = {
+  financeiro: {
+    nome: "📊 Financeiro",
+    link: "https://google.com"
+  },
+  info: {
+    nome: "🤖 Informações",
+    link: "https://info.redemariano.com.br/"
+  },
+  agenda: {
+    nome: "📈 Agenda",
+    link: "https://agenda.redemariano.com.br/"
+  },
+  bot: {
+    nome: "💬 WhatsApp Bot",
+    link: "https://google.com"
+  }
+};
+
+// ================= RENDERIZAR CARDS =================
+const container = document.getElementById("cards");
+
+// se for admin mostra tudo
+const acessos = user.tipo === "admin"
+  ? Object.keys(modulos)
+  : user.acessos;
+
+acessos.forEach(mod => {
+  const data = modulos[mod];
+
+  const a = document.createElement("a");
+  a.className = "card";
+  a.href = data.link;
+  a.target = "_blank";
+  a.innerText = data.nome;
+
+  container.appendChild(a);
+});
+
+// ================= ÁREA ADMIN =================
+if (user.tipo === "admin") {
+  const adminDiv = document.getElementById("adminArea");
+  adminDiv.innerHTML = `
+    <div class="admin-box">
+      <h3>🔐 Painel Admin</h3>
+      <button onclick="verDados()">Ver dados de login</button>
+    </div>
+  `;
+}
+
+function verDados() {
+  alert("Usuário logado:\n\n" + JSON.stringify(user, null, 2));
+}
+
+// ================= LOGOUT =================
+function logout() {
+  localStorage.removeItem("usuarioLogado");
+  window.location.href = "index.html";
+}
+</script>
 
 </body>
 </html>
