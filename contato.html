@@ -219,6 +219,7 @@ body.contato::before {
 .btn-farmacia{
   display:flex;
   align-items:center;
+  justify-content:flex-start; /* 👈 força esquerda */
   gap:12px;
   padding:18px 20px;
   border:2px solid #d60000;
@@ -229,20 +230,17 @@ body.contato::before {
   background:#fff;
   margin-bottom:12px;
   transition:0.2s;
+  text-align:left; /* 👈 garante alinhamento */
 }
-
+.btn-farmacia span{
+  flex:1;
+  text-align:left;
+}
 .btn-farmacia img{
   width:26px;
   height:26px;
-}
-
-.btn-farmacia span{
-  text-align:left;
-}
-
-.btn-farmacia:hover{
-  background:#d60000;
-  color:#fff;
+  object-fit:contain;
+  flex-shrink:0; /* 👈 impede empurrar texto */
 }
 </style>
 </head>
@@ -269,7 +267,7 @@ body.contato::before {
 <a href="https://wa.me/554731800317" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png">Farmácia José Boiteux</span></a>
 <a href="https://wa.me/554797359656" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png">Farmácia Agrolândia</span></a>
 <a href="https://wa.me/554733000377" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Rio do Sul</span></a>
-<a href="https://wa.me/554796135170" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><<span>Farmácia Mariano Barra do Trombudo</span></a>
+<a href="https://wa.me/554796135170" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Barra do Trombudo</span></a>
 <a href="https://wa.me/554733003293" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Lontras 2</span></a>
 <a href="https://wa.me/554733000836" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Ituporanga</span></a>
 <a href="https://wa.me/554733003461" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Agronômica</span></a>
