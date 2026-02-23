@@ -85,11 +85,6 @@ function login(){
   localStorage.setItem("usuarioLogado", JSON.stringify(user));
   window.location.href = "painel.html";
 }
-const user = JSON.parse(localStorage.getItem("usuarioLogado"));
-
-if(!user){
-  window.location.href = "login.html";
-}
 </script>
 </body>
 </html>
