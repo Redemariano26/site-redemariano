@@ -266,6 +266,29 @@ body.contato::before {
     border-radius:12px;
   }
 }
+/* FAIXA WHATSAPP FULL WIDTH */
+.faixa-whatsapp-full{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  background:#fff;
+}
+
+.faixa-whatsapp-full img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+@media (max-width:768px){
+  .faixa-whatsapp-full{
+    width:100%;
+    margin-left:0;
+  }
+
+  .faixa-whatsapp-full img{
+    width:100%;
+    height:auto;
+  }
+}
 
 </style>
 </head>
@@ -283,12 +306,10 @@ body.contato::before {
 
 <div class="container">
 
-  <div class="card banner-whats-card">
+<section class="lista-whats">
+<div class="card banner-whats-card">
   <img src="assets/img/banner-whats.png" alt="Fale com uma de nossas filiais">
 </div>
-
-<section class="lista-whats">
-<h2>WhatsApp das Farmácias</h2>
 <a href="https://wa.me/554733003461" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Agronômica</span></a>
 <a href="https://wa.me/554797359656" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Agrolândia 1</span></a>
 <a href="https://wa.me/554788373473" target="_blank" class="btn-farmacia"><img src="assets/img/favicon.png"><span>Farmácia Mariano Agrolândia 2</span></a>
