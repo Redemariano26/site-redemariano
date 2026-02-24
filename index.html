@@ -359,10 +359,17 @@ margin:auto;
   animation:floatEnc 6s ease-in-out infinite;
 
   .encarte-banner-full img{
-    max-height:none; /* remove corte no celular */
-    border-radius:0;
-    animation:floatEncMobile 6s ease-in-out infinite;
-  }
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+
+  /* REMOVE SOMBRA QUE CAUSA FAIXA PRETA */
+  filter:none !important;
+  box-shadow:none !important;
+
+  animation:floatEnc 6s ease-in-out infinite;
+}
 .encarte-banner-full::after{
   content:"";
   position:absolute;
@@ -377,6 +384,10 @@ margin:auto;
 }
 .encarte-banner-full{
   background: #fff;
+}
+.encarte-banner-full,
+.encarte-banner-full *{
+  filter:none !important;
 }
 .banner img{
   width:100%;
