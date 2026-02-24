@@ -335,33 +335,45 @@ margin:auto;
   transform:translateY(-2px);
 }
 /* BANNER FULL WIDTH ENCARTE */
-/* ENCARTE FULL WIDTH LIMPO */
 .encarte-banner-full{
   width:100vw;
   margin-left:calc(-50vw + 50%);
-  margin-bottom:0; /* colado na faixa */
+  margin-bottom:25px;
   overflow:hidden;
   position:relative;
-  background:#fff; /* evita qualquer fundo escuro */
 }
-
-/* IMAGEM DO ENCARTE */
 .encarte-banner-full img{
   width:100%;
   height:auto;
   display:block;
+
+  /* NÃO CORTA MAIS */
   object-fit:contain;
 
-  /* REMOVE QUALQUER SOMBRA */
-  filter:none !important;
-  box-shadow:none !important;
+  /* sombra premium */
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
 
   animation:floatEnc 6s ease-in-out infinite;
 }
+  /* efeito flutuante */
+  animation:floatEnc 6s ease-in-out infinite;
 
-/* REMOVE GRADIENTE LATERAL QUE CRIAVA ARTEFATOS */
+  .encarte-banner-full img{
+    max-height:none; /* remove corte no celular */
+    border-radius:0;
+    animation:floatEncMobile 6s ease-in-out infinite;
+  }
 .encarte-banner-full::after{
-  display:none;
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.6),
+    transparent 20%,
+    transparent 80%,
+    rgba(255,255,255,.6)
+  );
+  pointer-events:none;
 }
 .banner img{
   width:100%;
@@ -757,21 +769,17 @@ nav a{
   box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 .banner-mapa{
-  padding: 5px 0;   /* diminui altura da faixa */
-  margin-bottom: 0;
+  width:100%;
+  background:#fff;
+  text-align:center;
+  padding:12px 0;
 }
 
 .banner-mapa img{
+  max-width:100%;
+  height:auto;
   display:block;
-}
-
-.mapa-container,
-#map,
-iframe{
-  margin-top: 0 !important;
-}
-img[src*="encarte"]{
-  margin-bottom: 40px;
+  margin:0 auto;
 }
 </style>
 </head>
