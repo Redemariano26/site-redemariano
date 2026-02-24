@@ -335,59 +335,33 @@ margin:auto;
   transform:translateY(-2px);
 }
 /* BANNER FULL WIDTH ENCARTE */
+/* ENCARTE FULL WIDTH LIMPO */
 .encarte-banner-full{
   width:100vw;
   margin-left:calc(-50vw + 50%);
-  margin-bottom:0; /* volta a encostar */
+  margin-bottom:0; /* colado na faixa */
   overflow:hidden;
   position:relative;
+  background:#fff; /* evita qualquer fundo escuro */
 }
+
+/* IMAGEM DO ENCARTE */
 .encarte-banner-full img{
   width:100%;
   height:auto;
   display:block;
-
-  /* NÃO CORTA MAIS */
   object-fit:contain;
 
-  /* sombra premium */
-  filter:drop-shadow(0 10px 15px rgba(0,0,0,.08));
-
-  animation:floatEnc 6s ease-in-out infinite;
-}
-  /* efeito flutuante */
-  animation:floatEnc 6s ease-in-out infinite;
-
-  .encarte-banner-full img{
-  width:100%;
-  height:auto;
-  display:block;
-  object-fit:contain;
-
-  /* REMOVE SOMBRA QUE CAUSA FAIXA PRETA */
+  /* REMOVE QUALQUER SOMBRA */
   filter:none !important;
   box-shadow:none !important;
 
   animation:floatEnc 6s ease-in-out infinite;
 }
+
+/* REMOVE GRADIENTE LATERAL QUE CRIAVA ARTEFATOS */
 .encarte-banner-full::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to right,
-    rgba(255,255,255,.6),
-    transparent 20%,
-    transparent 80%,
-    rgba(255,255,255,.6)
-  );
-  pointer-events:none;
-}
-.encarte-banner-full{
-  background: #fff;
-}
-.encarte-banner-full,
-.encarte-banner-full *{
-  filter:none !important;
+  display:none;
 }
 .banner img{
   width:100%;
