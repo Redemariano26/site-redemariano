@@ -795,6 +795,27 @@ nav a{
 iframe{
   margin-top: 0 !important;
 }
+.faixa-localizacao{
+  width:100%;
+  background:#fff;
+  text-align:center;
+}
+
+.faixa-localizacao img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+@media (max-width:768px){
+  .faixa-localizacao{
+    padding:0 10px; /* respiro lateral */
+  }
+
+  .faixa-localizacao img{
+    width:100%;
+    height:auto;
+  }
+}
 </style>
 </head>
 
@@ -919,7 +940,7 @@ iframe{
 </div>
 </section>
 
-<div class="banner-mapa">
+<div class="faixa-localizacao">
   <img src="assets/img/banner-localizacao.png" alt="Encontre a Mariano mais perto de você">
 </div>
 
