@@ -38,7 +38,6 @@ header{
   margin-top:10px;
 }
 
-/* MENU */
 nav a{
   margin:0 15px;
   text-decoration:none;
@@ -47,29 +46,52 @@ nav a{
   transition:.3s;
 }
 
-/* HOVER AMARELO */
 nav a:hover{
   color:#FFD000;
 }
 
-/* HERO */
-.hero{
-  background:#C4232A;
-  color:#fff;
-  padding:120px 20px 60px;
-  text-align:center;
+/* FAIXA SERVIÇOS */
+.faixa-servicos{
+  width:100%;
+  background:#c91c23;
+  display:flex;
+  justify-content:center;
 }
 
-.hero h1{
-  margin:0;
-  font-size:40px;
+.faixa-servicos img{
+  width:100%;
+  max-width:1200px;
+  height:auto;
+  display:block;
+}
+
+/* 🔥 FUNDO COM LOGO */
+.servicos-bg{
+  position:relative;
+  padding:60px 20px;
+  overflow:hidden;
+}
+
+/* logo no fundo */
+.servicos-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('assets/img/logo-fundo.jpeg') center no-repeat;
+  background-size:700px;
+  opacity:0.08; /* transparência da logo */
+}
+
+/* conteúdo por cima */
+.servicos-bg .container{
+  position:relative;
+  z-index:1;
 }
 
 /* SERVIÇOS */
 .container{
   max-width:1100px;
   margin:auto;
-  padding:50px 20px;
 }
 
 .grid{
@@ -102,22 +124,16 @@ footer{
   padding:20px;
   font-size:14px;
 }
-.faixa-servicos{
-  width:100%;
-  background:#c91c23; /* cor da faixa */
-  display:flex;
-  justify-content:center;
-}
 
-.faixa-servicos img{
-  width:100%;
-  max-width:1200px; /* controla largura máxima */
-  height:auto;
-  display:block;
-}
+/* MOBILE */
 @media (max-width:768px){
   .faixa-servicos img{
     max-width:95%;
+  }
+
+  .servicos-bg::before{
+    background-size:350px; /* logo menor no celular */
+    opacity:0.06;
   }
 }
 </style>
@@ -134,51 +150,55 @@ footer{
     <a href="contato.html">Contato</a>
   </nav>
 </header>
+
 <section class="faixa-servicos">
   <img src="assets/img/filiais.png" alt="Serviços">
 </section>
 
-<div class="container">
-  <div class="grid">
+<!-- 🔥 SEÇÃO COM LOGO DE FUNDO -->
+<section class="servicos-bg">
+  <div class="container">
+    <div class="grid">
 
-    <div class="card">
-      <span>💉</span>
-      <h3>Aplicação de injetáveis</h3>
-      <p>Com profissionais capacitados.</p>
+      <div class="card">
+        <span>💉</span>
+        <h3>Aplicação de injetáveis</h3>
+        <p>Com profissionais capacitados.</p>
+      </div>
+
+      <div class="card">
+        <span>🩺</span>
+        <h3>Aferição de pressão</h3>
+        <p>Acompanhamento da sua saúde.</p>
+      </div>
+
+      <div class="card">
+        <span>🩸</span>
+        <h3>Teste de glicose</h3>
+        <p>Resultados rápidos e confiáveis.</p>
+      </div>
+
+      <div class="card">
+        <span>🚚</span>
+        <h3>Entrega rápida</h3>
+        <p>Receba seus medicamentos em casa.</p>
+      </div>
+
+      <div class="card">
+        <span>💊</span>
+        <h3>Atendimento farmacêutico</h3>
+        <p>Orientação profissional.</p>
+      </div>
+
+      <div class="card">
+        <span>🎁</span>
+        <h3>Convênios e descontos</h3>
+        <p>Parcerias com planos e empresas.</p>
+      </div>
+
     </div>
-
-    <div class="card">
-      <span>🩺</span>
-      <h3>Aferição de pressão</h3>
-      <p>Acompanhamento da sua saúde.</p>
-    </div>
-
-    <div class="card">
-      <span>🩸</span>
-      <h3>Teste de glicose</h3>
-      <p>Resultados rápidos e confiáveis.</p>
-    </div>
-
-    <div class="card">
-      <span>🚚</span>
-      <h3>Entrega rápida</h3>
-      <p>Receba seus medicamentos em casa.</p>
-    </div>
-
-    <div class="card">
-      <span>💊</span>
-      <h3>Atendimento farmacêutico</h3>
-      <p>Orientação profissional.</p>
-    </div>
-
-    <div class="card">
-      <span>🎁</span>
-      <h3>Convênios e descontos</h3>
-      <p>Parcerias com planos e empresas.</p>
-    </div>
-
   </div>
-</div>
+</section>
 
 <footer>
 © 2026 Rede Mariano
