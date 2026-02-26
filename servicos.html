@@ -104,17 +104,22 @@ footer{
 }
 .faixa-servicos{
   width:100%;
-  height:160px; /* ajuste aqui */
-  overflow:hidden;
+  background:#c91c23; /* cor da faixa */
+  display:flex;
+  justify-content:center;
 }
 
 .faixa-servicos img{
   width:100%;
-  height:100%;
-  object-fit:cover;
+  max-width:1200px; /* controla largura máxima */
+  height:auto;
   display:block;
 }
-height:90px;
+@media (max-width:768px){
+  .faixa-servicos img{
+    max-width:95%;
+  }
+}
 </style>
 </head>
 
