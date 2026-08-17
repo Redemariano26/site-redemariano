@@ -724,10 +724,255 @@ header{
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 }
+nav a{
+  margin-right:15px;
+}
+.menu-instagram{
+  position:relative;
+  transition:0.3s;
+}
+
+.menu-instagram:hover{
+  background: linear-gradient(
+    45deg,
+    #f58529,
+    #dd2a7b,
+    #8134af,
+    #515bd4
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.faixa-slogan,
+.faixa-slogan * {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.faixa-farmacia{
+  background:#C4232A;
+  padding:18px 12px; /* mais fina */
+  text-align:center;
+}
+
+.faixa-farmacia h2{
+  margin:0;
+  color:#fff;
+  font-family:'Montserrat', sans-serif;
+  font-weight:700;
+  font-size:clamp(18px, 2.5vw, 28px);
+}
+.faixa-farmacia{
+  background:linear-gradient(90deg,#C4232A,#a61c22);
+  padding:40px 15px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+.banner-mapa{
+  width:100%;
+  background:#fff;
+  text-align:center;
+  padding:12px 0;
+}
+
+.banner-mapa img{
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+}
+.banner-mapa{
+  padding: 5px 0;   /* diminui altura da faixa */
+  margin-bottom: 0;
+}
+
+.banner-mapa img{
+  display:block;
+}
+
+.mapa-container,
+#map,
+iframe{
+  margin-top: 0 !important;
+}
+.faixa-localizacao{
+  width:100%;
+  background:#fff;
+  text-align:center;
+}
+
+.faixa-localizacao img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+@media (max-width:768px){
+  .faixa-localizacao{
+    padding:0 10px; /* respiro lateral */
+  }
+
+  .faixa-localizacao img{
+    width:100%;
+    height:auto;
+  }
+}
+/* =========================
+   BOTÃO / CHAMADA DO ENCARTЕ
+========================= */
+
+.encarte-cta{
+  width:100%;
+  background:#fff;
+  padding:55px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.encarte-cta-conteudo{
+  width:100%;
+  max-width:1050px;
+  min-height:260px;
+  background:linear-gradient(135deg,#C4232A,#a61c22);
+  border-radius:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:45px 60px;
+  box-shadow:0 18px 45px rgba(0,0,0,.18);
+  overflow:hidden;
+  position:relative;
+}
+
+.encarte-cta-conteudo::after{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  right:-80px;
+  top:-100px;
+}
+
+.encarte-cta-texto{
+  position:relative;
+  z-index:2;
+  color:#fff;
+}
+
+.encarte-tag{
+  display:inline-block;
+  background:#FFD400;
+  color:#C4232A;
+  font-weight:800;
+  font-size:14px;
+  padding:8px 15px;
+  border-radius:30px;
+  margin-bottom:15px;
+}
+
+.encarte-cta-texto h2{
+  margin:0 0 10px;
+  font-size:clamp(28px,4vw,45px);
+  font-weight:800;
+}
+
+.encarte-cta-texto p{
+  margin:0 0 25px;
+  max-width:600px;
+  font-size:17px;
+  line-height:1.6;
+}
+
+.btn-encarte{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  background:#FFD400;
+  color:#C4232A;
+  text-decoration:none;
+  font-weight:800;
+  padding:15px 25px;
+  border-radius:50px;
+  transition:.25s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+}
+
+.btn-encarte span{
+  font-size:22px;
+  line-height:1;
+}
+
+.btn-encarte:hover{
+  transform:translateY(-3px);
+  background:#fff;
+  box-shadow:0 12px 25px rgba(0,0,0,.25);
+}
+
+.encarte-cta-icone{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:220px;
+}
+
+.encarte-cta-icone img{
+  width:180px;
+  max-width:100%;
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 10px 15px rgba(0,0,0,.18));
+  transition:.3s ease;
+}
+
+.encarte-cta-icone img:hover{
+  transform:scale(1.05);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .encarte-cta{
+    padding:30px 15px;
+  }
+
+  .encarte-cta-conteudo{
+    min-height:auto;
+    padding:35px 25px;
+    border-radius:20px;
+    text-align:center;
+    justify-content:center;
+  }
+
+  .encarte-cta-texto{
+    width:100%;
+  }
+
+  .encarte-cta-texto h2{
+    font-size:28px;
+  }
+
+  .encarte-cta-texto p{
+    font-size:14px;
+  }
+
+  .encarte-cta-icone{
+    display:none;
+  }
+
+  .btn-encarte{
+    padding:14px 22px;
+  }
+
+}
 </style>
 </head>
 
 <body>
+
 <!-- TOPO VERMELHO MOBILE -->
 <div class="mobile-topbar">
   <div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
@@ -739,6 +984,13 @@ header{
   <a href="sobre.html">Sobre</a>
   <a href="servicos.html">Serviços</a>
   <a href="contato.html">Contato</a>
+  <a href="encarte.html">📰 Encarte</a>
+
+   <a href="https://instagram.com/rede.mariano"
+     target="_blank"
+     rel="noopener noreferrer">
+    📸 Instagram
+  </a>
 </div>
 
 <!-- FUNDO ESCURO -->
@@ -749,6 +1001,10 @@ header{
     <a href="servicos.html">Serviços</a>
     <a href="contato.html">Contato</a>
     <a href="login.html">Área do colaborador</a>
+    <a href="encarte.html">Encarte</a>
+    <a href="https://instagram.com/rede.mariano" target="_blank" class="menu-instagram">
+  Instagram
+</a>
   </nav>
 </header>
 
@@ -777,7 +1033,7 @@ header{
   </a>
 
 </div>
-<section class="banner-personagens">
+/<section class="banner-personagens">
   <img src="/assets/img/Valentina.png"alt="Valentina herói">
   <img src="/assets/img/Eloah.png"alt="Eloah Baby">
 </section>
@@ -821,32 +1077,44 @@ header{
 
 </section>
 
-<div class="encarte-banner-full">
-  <img src="/assets/img/banner-encarte.png" alt="Ofertas de Verão">
-</div>
+<section class="encarte-cta">
 
-<div class="revista-slider">
+  <div class="encarte-cta-conteudo">
 
-<button class="nav prev" onclick="voltar()">‹</button>
-<button class="nav next" onclick="proximo()">›</button>
+    <div class="encarte-cta-texto">
+      <span class="encarte-tag">📰ENCARTЕ</span>
 
-<div class="slides" id="slides">
-  <img src="/assets/img/encarte_page-0001.jpg">
-  <img src="/assets/img/encarte_page-0002.jpg">
-  <img src="/assets/img/encarte_page-0003.jpg">
-  <img src="/assets/img/encarte_page-0004.jpg">
-  <img src="/assets/img/encarte_page-0005.jpg">
-  <img src="/assets/img/encarte_page-0006.jpg">
-  <img src="/assets/img/encarte_page-0007.jpg">
-  <img src="/assets/img/encarte_page-0008.jpg">
+      <h2>Confira nossas ofertas!</h2>
+
+      <p>
+        Veja o nosso encarte completo com todas as promoções
+        e ofertas da Rede Mariano.
+      </p>
+
+      <a href="encarte.html" class="btn-encarte">
+        ABRIR ENCARTЕ
+        <span>→</span>
+      </a>
+    </div>
+
+     <div class="encarte-cta-icone">
+  <img src="/assets/img/logo-mariano.png" alt="Mariano Rede de Farmácias">
+    </div>
+    
+    </div>
+
+  </div>
+
+</section>
+
 </div>
 
 </div>
 </section>
 
-<section class="section">
-<h2>Encontre uma Farmácia Mariano</h2>
-</section>
+<div class="faixa-localizacao">
+  <img src="assets/img/banner-localizacao.png" alt="Encontre a Mariano mais perto de você">
+</div>
 
 <iframe class="mapa-full"
 src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
@@ -867,55 +1135,6 @@ let index = 0;
 const slides = document.getElementById("slides");
 const total = slides.children.length;
 
-/* SLIDER */
-function atualizar(){
-  slides.style.transform = `translateX(-${index * 100}%)`;
-}
-
-window.proximo = function(){
-  if(index < total - 1){
-    index++;
-    atualizar();
-  }
-}
-
-window.voltar = function(){
-  if(index > 0){
-    index--;
-    atualizar();
-  }
-}
-
-/* SWIPE MOBILE */
-let startX = 0;
-
-slides.addEventListener("touchstart", e=>{
-  startX = e.touches[0].clientX;
-});
-
-slides.addEventListener("touchend", e=>{
-  const diff = startX - e.changedTouches[0].clientX;
-  if(diff > 50) proximo();
-  if(diff < -50) voltar();
-});
-
-/* ZOOM */
-document.querySelectorAll(".slides img").forEach(img=>{
-  img.addEventListener("click", ()=>{
-    document.getElementById("zoomModal").style.display = "flex";
-    document.getElementById("zoomImg").src = img.src;
-  });
-});
-
-window.fecharZoom = function(){
-  document.getElementById("zoomModal").style.display = "none";
-}
-
-document.getElementById("zoomModal").addEventListener("click", e=>{
-  if(e.target.id === "zoomModal"){
-    fecharZoom();
-  }
-});
 
 /* LINK ATIVO MENU */
 const links = document.querySelectorAll("nav a");
