@@ -912,9 +912,23 @@ iframe{
 .encarte-cta-icone{
   position:relative;
   z-index:2;
-  font-size:110px;
-  transform:rotate(-8deg);
-  filter:drop-shadow(0 10px 15px rgba(0,0,0,.2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:220px;
+}
+
+.encarte-cta-icone img{
+  width:180px;
+  max-width:100%;
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 10px 15px rgba(0,0,0,.18));
+  transition:.3s ease;
+}
+
+.encarte-cta-icone img:hover{
+  transform:scale(1.05);
 }
 
 /* MOBILE */
@@ -954,6 +968,169 @@ iframe{
   }
 
 }
+ /* ==========================================
+   FAIXA PUBLICITÁRIA ANIMADA
+========================================== */
+
+.faixa-publicitaria {
+  width: 100%;
+  height: 88px;
+  background: #C4232A;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* brilho passando pela faixa */
+
+.faixa-publicitaria::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.15),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: brilhoFaixa 6s infinite;
+  pointer-events: none;
+}
+
+.faixa-frases {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Cada frase ocupa exatamente o centro */
+
+.frase {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  color: #fff;
+
+  opacity: 0;
+  transform: translateY(25px) scale(.96);
+
+  pointer-events: none;
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+/* frase ativa */
+
+.frase.ativa {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* destaque principal */
+
+.frase strong {
+  font-size: clamp(25px, 3.5vw, 43px);
+  font-weight: 800;
+}
+
+/* texto secundário */
+
+.frase span {
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 400;
+}
+
+/* link do encarte */
+
+.frase a {
+  display: inline-flex;
+  align-items: center;
+
+  background: #FFD400;
+  color: #C4232A;
+
+  padding: 10px 20px;
+  border-radius: 30px;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  transition: .25s ease;
+}
+
+.frase a:hover {
+  background: #fff;
+  transform: translateX(5px);
+}
+
+
+/* ==========================================
+   BRILHO
+========================================== */
+
+@keyframes brilhoFaixa {
+
+  0% {
+    left: -30%;
+  }
+
+  45% {
+    left: 120%;
+  }
+
+  100% {
+    left: 120%;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .faixa-publicitaria {
+    height: 75px;
+  }
+
+  .frase {
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .frase strong {
+    font-size: 22px;
+  }
+
+  .frase span {
+    font-size: 15px;
+  }
+
+  .frase a {
+    font-size: 13px;
+    padding: 7px 15px;
+  }
+
+} 
 </style>
 </head>
 
@@ -998,11 +1175,32 @@ iframe{
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
 </section>
 
-<section class="faixa-slogan">
-  <p>
-    <span class="destaque">+30 filiais</span>
-    <span class="resto"> no estado de Santa Catarina</span>
-  </p>
+<section class="faixa-publicitaria">
+
+  <div class="faixa-frases">
+
+    <div class="frase ativa">
+      <strong>+30 filiais</strong>
+      <span>no estado de Santa Catarina</span>
+    </div>
+
+    <div class="frase">
+      <strong>A farmácia queridinha do povo</strong>
+      <span>❤️ Mariano Rede de Farmácias</span>
+    </div>
+
+    <div class="frase">
+      <strong>🔥 Ofertas toda semana</strong>
+      <span>Preços especiais para você</span>
+    </div>
+
+    <div class="frase">
+      <strong>📰 Confira nosso encarte</strong>
+      <a href="encarte.html">Ver ofertas →</a>
+    </div>
+
+  </div>
+
 </section>
 
 <div class="faixa-bebe">
@@ -1083,8 +1281,10 @@ iframe{
       </a>
     </div>
 
-    <div class="encarte-cta-icone">
-      📖
+     <div class="encarte-cta-icone">
+  <img src="/assets/img/logo-mariano.png" alt="Mariano Rede de Farmácias">
+    </div>
+    
     </div>
 
   </div>
@@ -1129,6 +1329,25 @@ links.forEach(link=>{
     link.classList.add("ativo");
   }
 });
+const frases = document.querySelectorAll('.faixa-publicitaria .frase');
+
+  let fraseAtual = 0;
+
+  function trocarFrase() {
+
+    frases[fraseAtual].classList.remove('ativa');
+
+    fraseAtual++;
+
+    if (fraseAtual >= frases.length) {
+      fraseAtual = 0;
+    }
+
+    frases[fraseAtual].classList.add('ativa');
+
+  }
+
+  setInterval(trocarFrase, 4000);
 
 });
 </script>
