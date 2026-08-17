@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Encarte | Mariano Rede de Farmácias</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .encarte-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .encarte {
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 40px);
+            min-height: 650px;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .encarte-container {
+                padding: 0;
+            }
+
+            .encarte {
+                height: 100vh;
+                min-height: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="encarte-container">
+
+        <iframe
+            class="encarte"
+            src="https://heyzine.com/flip-book/61c926c041.html"
+            allowfullscreen
+            allow="clipboard-write"
+            scrolling="no">
+        </iframe>
+
+    </div>
+
+</body>
+</html>
