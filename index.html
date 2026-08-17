@@ -1309,47 +1309,60 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
+
 function toggleSidebar() {
   document.getElementById("mobileSidebar").classList.toggle("active");
   document.getElementById("mobileOverlay").classList.toggle("active");
 }
+
 document.addEventListener("DOMContentLoaded", function(){
 
-let index = 0;
-const slides = document.getElementById("slides");
-const total = slides.children.length;
+  /* =========================
+     LINK ATIVO DO MENU
+  ========================= */
+
+  const links = document.querySelectorAll("nav a");
+  const atual = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+
+    if(link.getAttribute("href") === atual){
+      link.classList.add("ativo");
+    }
+
+  });
 
 
-/* LINK ATIVO MENU */
-const links = document.querySelectorAll("nav a");
-const atual = window.location.pathname.split("/").pop();
+  /* =========================
+     FAIXA PUBLICITÁRIA
+  ========================= */
 
-links.forEach(link=>{
-  if(link.getAttribute("href") === atual){
-    link.classList.add("ativo");
-  }
-});
-const frases = document.querySelectorAll('.faixa-publicitaria .frase');
+  const frases = document.querySelectorAll(
+    ".faixa-publicitaria .frase"
+  );
 
   let fraseAtual = 0;
 
-  function trocarFrase() {
+  if(frases.length > 1){
 
-    frases[fraseAtual].classList.remove('ativa');
+    setInterval(function(){
 
-    fraseAtual++;
+      frases[fraseAtual].classList.remove("ativa");
 
-    if (fraseAtual >= frases.length) {
-      fraseAtual = 0;
-    }
+      fraseAtual++;
 
-    frases[fraseAtual].classList.add('ativa');
+      if(fraseAtual >= frases.length){
+        fraseAtual = 0;
+      }
+
+      frases[fraseAtual].classList.add("ativa");
+
+    }, 4000);
 
   }
 
-  setInterval(trocarFrase, 4000);
-
 });
+
 </script>
 </body>
 </html>
