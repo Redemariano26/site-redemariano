@@ -1150,40 +1150,58 @@ iframe{
   transform: scale(1.04);
 }
 .area-banners {
-  max-width: 1250px;
-  margin: 20px auto;
+  width: 100%;
+  max-width: 1200px;
+  height: 740px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
+  background: #f4f6fb;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .banners {
-  width: 950px;
+  width: calc(100% - 240px);
+  height: 700px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 20px;
 }
 
-.banners img {
+.banner {
   width: 100%;
-  display: block;
+  flex: 1;
+  overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+  background: white;
 }
 
-.marianinho-lateral {
-  width: 250px;
+.banner img {
+  width: 100%;
   height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.marianinho {
+  width: 220px;
+  height: 700px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
 }
 
-.marianinho-lateral img {
-  width: 250px;
-  max-width: 100%;
+.marianinho img {
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  object-fit: contain;
   display: block;
 }
 @media (max-width: 768px) {
@@ -1262,25 +1280,23 @@ iframe{
   </div>
 
 </section>
-
 <div class="area-banners">
 
   <div class="banners">
-    <div class="faixa-bebe">
+    <div class="banner">
       <img src="assets/img/terca-do-bebe.png" alt="Terça do Bebê">
     </div>
 
-    <div class="faixa-cashback">
+    <div class="banner">
       <img src="assets/img/cashback.png" alt="Cashback Mariano">
     </div>
   </div>
 
-  <div class="marianinho-lateral">
+  <div class="marianinho">
     <img src="assets/img/marianinho.png" alt="Marianinho">
   </div>
 
 </div>
-
 
 <div class="cashback-cta">
 
