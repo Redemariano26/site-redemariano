@@ -1168,6 +1168,106 @@ iframe{
 .faixa-cashback:hover img {
   transform: scale(1.04);
 }
+/* ================= OFERTAS ================= */
+
+.sec-ofertas{
+  width:100%;
+  background:#C4232A;
+  padding:40px 20px 50px;
+  box-sizing:border-box;
+}
+
+.ofertas-container{
+  max-width:1100px;
+  margin:0 auto;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ofertas-slider{
+  width:100%;
+  max-width:950px;
+  position:relative;
+  overflow:hidden;
+}
+
+.oferta-img{
+  width:100%;
+  height:auto;
+  display:none;
+  object-fit:contain;
+}
+
+.oferta-img.ativa{
+  display:block;
+}
+
+/* SETAS */
+
+.oferta-seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#fff;
+  color:#C4232A;
+  font-size:25px;
+  font-weight:bold;
+  cursor:pointer;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s ease;
+}
+
+.oferta-seta:hover{
+  background:#FFD000;
+  color:#C4232A;
+  transform:translateY(-50%) scale(1.08);
+}
+
+.oferta-seta.esquerda{
+  left:-10px;
+}
+
+.oferta-seta.direita{
+  right:-10px;
+}
+
+
+/* CELULAR */
+
+@media(max-width:700px){
+
+  .sec-ofertas{
+    padding:25px 10px 35px;
+  }
+
+  .ofertas-slider{
+    max-width:100%;
+  }
+
+  .oferta-seta{
+    width:38px;
+    height:38px;
+    font-size:20px;
+  }
+
+  .oferta-seta.esquerda{
+    left:5px;
+  }
+
+  .oferta-seta.direita{
+    right:5px;
+  }
+
+}
   
 </style>
 </head>
@@ -1245,6 +1345,42 @@ iframe{
   </div>
 
 </section>
+<!-- ================= OFERTAS ================= -->
+<section class="sec-ofertas">
+
+  <div class="ofertas-container">
+
+    <button class="oferta-seta esquerda" onclick="mudarOferta(-1)">
+      &#10094;
+    </button>
+
+    <div class="ofertas-slider">
+
+      <img src="/assets/img/ofertas1.jpeg" class="oferta-img ativa">
+      <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
+      <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+
+    </div>
+
+    <button class="oferta-seta direita" onclick="mudarOferta(1)">
+      &#10095;
+    </button>
+
+  </div>
+
+</section>
+
 
 <div class="faixa-bebe banner-destaque">
   <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
@@ -1376,7 +1512,71 @@ document.addEventListener("DOMContentLoaded", function(){
 
   }
 
+
+  /* =========================
+     OFERTAS - SLIDER
+  ========================= */
+
+  const ofertas = document.querySelectorAll(".oferta-img");
+
+  let ofertaAtual = 0;
+
+  function mostrarOferta(numero){
+
+    if(ofertas.length === 0){
+      return;
+    }
+
+    ofertas.forEach(function(oferta){
+      oferta.classList.remove("ativa");
+    });
+
+    ofertas[numero].classList.add("ativa");
+
+  }
+
+
+  /* =========================
+     TROCAR OFERTA
+  ========================= */
+
+  window.mudarOferta = function(direcao){
+
+    if(ofertas.length === 0){
+      return;
+    }
+
+    ofertaAtual += direcao;
+
+    if(ofertaAtual >= ofertas.length){
+      ofertaAtual = 0;
+    }
+
+    if(ofertaAtual < 0){
+      ofertaAtual = ofertas.length - 1;
+    }
+
+    mostrarOferta(ofertaAtual);
+
+  };
+
+
+  /* =========================
+     PASSAGEM AUTOMÁTICA
+  ========================= */
+
+  if(ofertas.length > 1){
+
+    setInterval(function(){
+
+      mudarOferta(1);
+
+    }, 5000);
+
+  }
+
 });
+
 
 </script>
 </body>
