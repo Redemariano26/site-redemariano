@@ -1173,16 +1173,72 @@ iframe{
 .sec-ofertas{
   width:100%;
   background:#fff;
-  padding:35px 20px 45px;
-  box-sizing:border-box;
+  padding:35px 0 45px;
 }
 
 .ofertas-container{
-  max-width:1100px;
-  margin:0 auto;
-  position:relative;
-  padding:0 45px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:25px;
+  padding:0 25px;
   box-sizing:border-box;
+}
+
+
+/* =========================
+   OFERTA DO DIA
+========================= */
+
+.oferta-destaque{
+  position:relative;
+  flex-shrink:0;
+}
+
+.oferta-img-destaque{
+  width:215px;
+  height:287px;
+  object-fit:cover;
+  display:block;
+
+  border-radius:7px;
+
+  box-shadow:0 4px 15px rgba(0,0,0,.25);
+}
+
+
+/* FAIXA OFERTA DO DIA */
+
+.oferta-label{
+  position:absolute;
+  top:-13px;
+  left:50%;
+  transform:translateX(-50%);
+
+  background:#C9232A;
+  color:#fff;
+
+  padding:7px 18px;
+
+  border-radius:20px;
+
+  font-size:14px;
+  font-weight:bold;
+
+  white-space:nowrap;
+
+  z-index:5;
+}
+
+
+/* =========================
+   CARROSSEL
+========================= */
+
+.ofertas-carrossel{
+  position:relative;
+  flex:1;
+  min-width:0;
 }
 
 .ofertas-slider{
@@ -1192,76 +1248,93 @@ iframe{
 
 .ofertas-lista{
   display:flex;
-  gap:15px;
+  align-items:center;
+  gap:16px;
+
   transition:transform .5s ease;
 }
 
 .oferta-img{
-  width:180px;
-  height:240px;
-  min-width:180px;
+  width:200px;
+  min-width:200px;
+  height:267px;
+
   object-fit:cover;
-  flex-shrink:0;
+
+  border-radius:6px;
+
   display:block;
-  border-radius:5px;
 }
 
 
-/* SETAS */
+/* =========================
+   SETAS
+========================= */
 
 .oferta-seta{
   position:absolute;
+
   top:50%;
   transform:translateY(-50%);
 
-  width:40px;
-  height:40px;
+  width:42px;
+  height:42px;
 
-  border:none;
-  border-radius:5px;
+  border:0;
+  border-radius:6px;
 
   background:#c8cdd5;
   color:#fff;
 
-  font-size:24px;
+  font-size:26px;
+
   cursor:pointer;
+
+  z-index:10;
 
   display:flex;
   align-items:center;
   justify-content:center;
-
-  z-index:10;
 }
 
 .oferta-seta:hover{
-  background:#C4232A;
+  background:#C9232A;
 }
 
 .oferta-seta.esquerda{
-  left:0;
+  left:-18px;
 }
 
 .oferta-seta.direita{
-  right:0;
+  right:-18px;
 }
 
 
-/* CELULAR */
+/* =========================
+   CELULAR
+========================= */
 
 @media(max-width:700px){
 
-  .sec-ofertas{
-    padding:25px 10px 35px;
+  .ofertas-container{
+    padding:25px 15px;
+    gap:15px;
   }
 
-  .ofertas-container{
-    padding:0 35px;
+  .oferta-img-destaque{
+    width:150px;
+    height:200px;
   }
 
   .oferta-img{
-    width:145px;
-    height:190px;
-    min-width:145px;
+    width:150px;
+    min-width:150px;
+    height:200px;
+  }
+
+  .oferta-label{
+    font-size:11px;
+    padding:5px 10px;
   }
 
 }
@@ -1310,43 +1383,56 @@ iframe{
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
 </section>
 <!-- ================= OFERTAS ================= -->
-
 <section class="sec-ofertas">
 
   <div class="ofertas-container">
 
-    <button class="oferta-seta esquerda" onclick="mudarOferta(-1)">
-      &#10094;
-    </button>
+    <!-- OFERTA DO DIA FIXA -->
+    <div class="oferta-destaque">
+      <span class="oferta-label">OFERTA DO DIA</span>
 
-    <div class="ofertas-slider">
+      <img src="/assets/img/ofertas1.jpeg" class="oferta-img-destaque">
+    </div>
 
-      <div class="ofertas-lista">
 
-        <img src="/assets/img/ofertas1.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
-        <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+    <!-- CARROSSEL -->
+    <div class="ofertas-carrossel">
+
+      <button class="oferta-seta esquerda" onclick="mudarOferta(-1)">
+        &#10094;
+      </button>
+
+      <div class="ofertas-slider">
+
+        <div class="ofertas-lista">
+
+          <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+
+        </div>
 
       </div>
 
+      <button class="oferta-seta direita" onclick="mudarOferta(1)">
+        &#10095;
+      </button>
+
     </div>
 
-    <button class="oferta-seta direita" onclick="mudarOferta(1)">
-     &#10095;
-    </button>
-
   </div>
+
+</section>
 
 
 <section class="sec-mariano-card">
@@ -1516,38 +1602,32 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
  /* =========================
-   OFERTAS - CARROSSEL
+   CARROSSEL DE OFERTAS
 ========================= */
-
-const listaOfertas = document.querySelector(".ofertas-lista");
-const imagensOfertas = document.querySelectorAll(".oferta-img");
 
 let ofertaAtual = 0;
 
-window.mudarOferta = function(direcao){
+const listaOfertas = document.querySelector(".ofertas-lista");
+const imagensOfertas = document.querySelectorAll(".ofertas-lista .oferta-img");
+
+
+function mudarOferta(direcao){
 
   if(!listaOfertas || imagensOfertas.length === 0){
     return;
   }
 
-  const imagem = imagensOfertas[0];
-
-  const largura = imagem.offsetWidth;
-  const gap = 15;
-  const passo = largura + gap;
-
-  const janela = document.querySelector(".ofertas-slider");
+  ofertaAtual += direcao;
 
   const quantidadeVisivel =
-    Math.floor(janela.offsetWidth / passo);
-
-  const limite =
-    Math.max(
-      0,
-      imagensOfertas.length - quantidadeVisivel
+    Math.floor(
+      document.querySelector(".ofertas-slider").offsetWidth /
+      (imagensOfertas[0].offsetWidth + 16)
     );
 
-  ofertaAtual += direcao;
+  const limite =
+    Math.max(0, imagensOfertas.length - quantidadeVisivel);
+
 
   if(ofertaAtual > limite){
     ofertaAtual = 0;
@@ -1557,24 +1637,24 @@ window.mudarOferta = function(direcao){
     ofertaAtual = limite;
   }
 
+
+  const deslocamento =
+    ofertaAtual *
+    (imagensOfertas[0].offsetWidth + 16);
+
+
   listaOfertas.style.transform =
-    "translateX(-" + (ofertaAtual * passo) + "px)";
-};
-
-
-/* =========================
-   PASSAGEM AUTOMÁTICA
-========================= */
-
-if(imagensOfertas.length > 1){
-
-  setInterval(function(){
-
-    mudarOferta(1);
-
-  }, 5000);
-
+    "translateX(-" + deslocamento + "px)";
 }
+
+
+/* PASSAGEM AUTOMÁTICA */
+
+setInterval(function(){
+
+  mudarOferta(1);
+
+}, 4000);
 
 });
 
