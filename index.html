@@ -233,107 +233,56 @@ height:auto;
 display:block;
 margin:auto;
 }
-
 /* ================= CASHBACK ================= */
-.faixa-cashback{
-width:100%;
-background:#C4232A;
-text-align:center;
-padding:10px 0 30px;
+
+.faixa-cashback {
+  width: 100%;
+  background: #C4232A;
+  text-align: center;
+  padding: 10px 0 30px;
+  position: relative;
 }
 
-.faixa-cashback img{
-width:100%;
-max-width:950px;
-height:auto;
-display:block;
-margin:auto;
-}
-.sec-mariano-card{
-  background:#fff;
-  padding:80px 20px;
+.faixa-cashback img {
+  width: 100%;
+  max-width: 950px;
+  height: auto;
+  display: block;
+  margin: auto;
 }
 
-/* LIMITA A LARGURA */
-.card-container{
-  max-width:1100px; /* controla tamanho total */
-  margin:0 auto;
+
+/* BOTÃO SOBRE O BANNER */
+
+.cashback-cta {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 0;
+  background: transparent;
 }
 
-.titulo-card{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:40px;
+.btn-cashback {
+  display: inline-block;
+  background: #C4232A;
+  color: #FFD000;
+  padding: 14px 28px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 16px;
+  transition: .25s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  white-space: nowrap;
 }
 
-.card-layout{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:50px;
-  flex-wrap:wrap;
+.btn-cashback:hover {
+  background: #a61c22;
+  transform: translateY(-2px);
 }
 
-/* LADOS */
-.lado{
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-  max-width:240px;
-}
-
-.lado img{
-  width:100%;
-}
-
-/* CENTRO */
-.card-centro{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:18px;
-}
-
-.img-card{
-  width:220px; /* tamanho normal do cartão */
-}
-
-.texto-topo{
-  width:200px;
-}
-
-.texto-base{
-  width:220px;
-}
-.cashback-cta{
-  background:#fff;
-  text-align:center;
-  padding:25px 20px 40px;
-}
-
-.logo-cashback{
-  max-width:220px;
-  margin-bottom:18px;
-}
-
-/* BOTÃO */
-.btn-cashback{
-  display:inline-block;
-  background:#C4232A;
-  color:#FFD000;
-  padding:14px 28px;
-  font-weight:700;
-  text-decoration:none;
-  border-radius:50px;
-  font-size:16px;
-  transition:.25s ease;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
-
-.btn-cashback:hover{
-  background:#a61c22;
-  transform:translateY(-2px);
-}
 /* BANNER FULL WIDTH ENCARTE */
 .encarte-banner-full{
   width:100vw;
@@ -1234,14 +1183,14 @@ iframe{
 </div>
 
 <div class="faixa-cashback banner-destaque">
+
   <img src="/assets/img/cashback.png" alt="Cashback Mariano">
-</div>
 
-<div class="cashback-cta">
-
-  <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
-   Cadastre-se já
-  </a>
+  <div class="cashback-cta">
+    <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
+      Cadastre-se já
+    </a>
+  </div>
 
 </div>
 
