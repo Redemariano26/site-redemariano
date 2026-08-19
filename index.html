@@ -1196,7 +1196,7 @@ iframe{
 }
 
 .oferta-img-destaque{
-  width:215px;
+  width:240px;
   height:287px;
   object-fit:cover;
   display:block;
@@ -1255,7 +1255,7 @@ iframe{
 }
 
 .oferta-img{
-  width:200px;
+  width:220px;
   min-width:200px;
   height:267px;
 
@@ -1622,7 +1622,7 @@ function mudarOferta(direcao){
   const quantidadeVisivel =
     Math.floor(
       document.querySelector(".ofertas-slider").offsetWidth /
-      (imagensOfertas[0].offsetWidth + 16)
+      (imagensOfertas[0].offsetWidth + 20)
     );
 
   const limite =
@@ -1640,7 +1640,7 @@ function mudarOferta(direcao){
 
   const deslocamento =
     ofertaAtual *
-    (imagensOfertas[0].offsetWidth + 16);
+    (imagensOfertas[0].offsetWidth + 20);
 
 
   listaOfertas.style.transform =
