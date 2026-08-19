@@ -1666,106 +1666,166 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
 
- /* =========================
-   CARROSSEL DE OFERTAS
-========================= */
+  /* =========================
+     CARROSSEL DE OFERTAS
+  ========================= */
 
-let ofertaAtual = 0;
+  let ofertaAtual = 0;
 
-const listaOfertas =
-  document.querySelector(".ofertas-lista");
+  const listaOfertas =
+    document.querySelector(".ofertas-lista");
 
-const imagensOfertas =
-  document.querySelectorAll(
-    ".ofertas-lista .oferta-img"
-  );
-
-
-function mudarOferta(direcao){
-
-  if(!listaOfertas || imagensOfertas.length === 0){
-    return;
-  }
-
-  ofertaAtual += direcao;
-
-
-  /* largura real da imagem + espaço */
-
-  const largura =
-    imagensOfertas[0].offsetWidth;
-
-  const gap = 20;
-
-  const passo =
-    largura + gap;
-
-
-  /*
-     Quantas imagens cabem
-     na área disponível
-  */
-
-  const area =
-    document.querySelector(
-      ".ofertas-slider"
-    ).offsetWidth;
-
-  const visiveis =
-    Math.floor(area / passo);
-
-
-  /*
-     Limite para não deixar
-     espaço vazio no final
-  */
-
-  const limite =
-    Math.max(
-      0,
-      imagensOfertas.length - visiveis
+  const imagensOfertas =
+    document.querySelectorAll(
+      ".ofertas-lista .oferta-img"
     );
 
+  const sliderOfertas =
+    document.querySelector(".ofertas-slider");
 
-  /*
-     Ao chegar no final,
-     volta para a primeira
-  */
 
-  if(ofertaAtual > limite){
-    ofertaAtual = 0;
+  /* =========================
+     MOVER OFERTAS
+  ========================= */
+
+  function moverOfertas(){
+
+    if(!listaOfertas || imagensOfertas.length === 0){
+      return;
+    }
+
+
+    const larguraImagem =
+      imagensOfertas[0].offsetWidth;
+
+    const gap = 20;
+
+    const passo =
+      larguraImagem + gap;
+
+
+    const larguraTotal =
+      imagensOfertas.length * passo - gap;
+
+
+    const larguraVisivel =
+      sliderOfertas.offsetWidth;
+
+
+    /*
+       Limite máximo do deslocamento
+    */
+
+    const maxDeslocamento =
+      Math.max(
+        0,
+        larguraTotal - larguraVisivel
+      );
+
+
+    let deslocamento =
+      ofertaAtual * passo;
+
+
+    /*
+       Não deixa passar do final
+    */
+
+    if(deslocamento > maxDeslocamento){
+      deslocamento = maxDeslocamento;
+    }
+
+
+    /*
+       Não deixa passar do começo
+    */
+
+    if(deslocamento < 0){
+      deslocamento = 0;
+    }
+
+
+    /*
+       Move somente as ofertas.
+
+       A OFERTA DO DIA permanece fixa.
+    */
+
+    listaOfertas.style.transform =
+      "translateX(-" +
+      deslocamento +
+      "px)";
+
   }
 
 
-  if(ofertaAtual < 0){
-    ofertaAtual = limite;
-  }
+  /* =========================
+     SETAS
+  ========================= */
+
+  window.mudarOferta = function(direcao){
+
+    if(!listaOfertas || imagensOfertas.length === 0){
+      return;
+    }
 
 
-  /*
-     Move somente o carrossel.
-     A Oferta do Dia permanece fixa.
-  */
-
-  listaOfertas.style.transform =
-    "translateX(-" +
-    (ofertaAtual * passo) +
-    "px)";
-}
+    ofertaAtual += direcao;
 
 
-/* =========================
-   PASSAGEM AUTOMÁTICA
-========================= */
+    /*
+       Voltou antes da primeira
+    */
 
-setInterval(function(){
+    if(ofertaAtual < 0){
 
-  mudarOferta(1);
+      ofertaAtual =
+        imagensOfertas.length - 1;
 
-}, 4000);
+    }
+
+
+    /*
+       Passou da última
+    */
+
+    if(ofertaAtual >= imagensOfertas.length){
+
+      ofertaAtual = 0;
+
+    }
+
+
+    moverOfertas();
+
+  };
+
+
+  /* =========================
+     PASSAGEM AUTOMÁTICA
+  ========================= */
+
+  setInterval(function(){
+
+    mudarOferta(1);
+
+  }, 4000);
+
+
+  /* =========================
+     AJUSTAR AO REDIMENSIONAR
+  ========================= */
+
+  window.addEventListener(
+    "resize",
+    function(){
+
+      moverOfertas();
+
+    }
+  );
 
 });
-
 
 </script>
 </body>
