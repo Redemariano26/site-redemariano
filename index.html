@@ -1181,8 +1181,8 @@ iframe{
   max-width:1100px;
   margin:0 auto;
   position:relative;
-  display:flex;
-  align-items:center;
+  padding:0 45px;
+  box-sizing:border-box;
 }
 
 .ofertas-slider{
@@ -1190,23 +1190,24 @@ iframe{
   overflow:hidden;
 }
 
-.ofertas-slider{
+.ofertas-lista{
   display:flex;
   gap:15px;
   transition:transform .5s ease;
 }
 
 .oferta-img{
-  width:210px;
-  height:260px;
+  width:180px;
+  height:240px;
+  min-width:180px;
   object-fit:cover;
   flex-shrink:0;
-  border-radius:5px;
   display:block;
+  border-radius:5px;
 }
 
 
-/* ================= SETAS ================= */
+/* SETAS */
 
 .oferta-seta{
   position:absolute;
@@ -1225,13 +1226,11 @@ iframe{
   font-size:24px;
   cursor:pointer;
 
-  z-index:10;
-
   display:flex;
   align-items:center;
   justify-content:center;
 
-  transition:.2s ease;
+  z-index:10;
 }
 
 .oferta-seta:hover{
@@ -1239,33 +1238,30 @@ iframe{
 }
 
 .oferta-seta.esquerda{
-  left:-55px;
+  left:0;
 }
 
 .oferta-seta.direita{
-  right:-55px;
+  right:0;
 }
 
 
-/* ================= CELULAR ================= */
+/* CELULAR */
 
 @media(max-width:700px){
 
   .sec-ofertas{
-    padding:25px 15px 35px;
+    padding:25px 10px 35px;
+  }
+
+  .ofertas-container{
+    padding:0 35px;
   }
 
   .oferta-img{
-    width:150px;
+    width:145px;
     height:190px;
-  }
-
-  .oferta-seta.esquerda{
-    left:0;
-  }
-
-  .oferta-seta.direita{
-    right:0;
+    min-width:145px;
   }
 
 }
@@ -1347,6 +1343,7 @@ iframe{
 
 </section>
 <!-- ================= OFERTAS ================= -->
+
 <section class="sec-ofertas">
 
   <div class="ofertas-container">
@@ -1357,31 +1354,34 @@ iframe{
 
     <div class="ofertas-slider">
 
-      <img src="/assets/img/ofertas1.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
-      <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+      <div class="ofertas-lista">
+
+        <img src="/assets/img/ofertas1.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
+        <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+
+      </div>
 
     </div>
 
     <button class="oferta-seta direita" onclick="mudarOferta(1)">
-      &#10095;
+     &#10095;
     </button>
 
   </div>
 
 </section>
-
 
 <div class="faixa-bebe banner-destaque">
   <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
@@ -1514,56 +1514,58 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
 
-  /* =========================
+ /* =========================
    OFERTAS - CARROSSEL
 ========================= */
 
-const ofertasSlider = document.querySelector(".ofertas-slider");
-const ofertasImagens = document.querySelectorAll(".oferta-img");
+const listaOfertas = document.querySelector(".ofertas-lista");
+const imagensOfertas = document.querySelectorAll(".oferta-img");
 
 let ofertaAtual = 0;
 
+window.mudarOferta = function(direcao){
 
-function mudarOferta(direcao){
-
-  if(!ofertasSlider || ofertasImagens.length === 0){
+  if(!listaOfertas || imagensOfertas.length === 0){
     return;
   }
 
-  const larguraImagem = ofertasImagens[0].offsetWidth;
+  const imagem = imagensOfertas[0];
+
+  const largura = imagem.offsetWidth;
   const gap = 15;
+  const passo = largura + gap;
 
-  const larguraJanela =
-    document.querySelector(".ofertas-container").offsetWidth;
+  const janela = document.querySelector(".ofertas-slider");
 
-  const imagensVisiveis =
-    Math.floor(larguraJanela / (larguraImagem + gap));
+  const quantidadeVisivel =
+    Math.floor(janela.offsetWidth / passo);
 
-  const maximo =
-    Math.max(0, ofertasImagens.length - imagensVisiveis);
+  const limite =
+    Math.max(
+      0,
+      imagensOfertas.length - quantidadeVisivel
+    );
 
   ofertaAtual += direcao;
 
-  if(ofertaAtual > maximo){
+  if(ofertaAtual > limite){
     ofertaAtual = 0;
   }
 
   if(ofertaAtual < 0){
-    ofertaAtual = maximo;
+    ofertaAtual = limite;
   }
 
-  ofertasSlider.style.transform =
-    "translateX(-" +
-    (ofertaAtual * (larguraImagem + gap)) +
-    "px)";
-}
+  listaOfertas.style.transform =
+    "translateX(-" + (ofertaAtual * passo) + "px)";
+};
 
 
 /* =========================
    PASSAGEM AUTOMÁTICA
 ========================= */
 
-if(ofertasImagens.length > 1){
+if(imagensOfertas.length > 1){
 
   setInterval(function(){
 
