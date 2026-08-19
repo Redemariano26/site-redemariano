@@ -1149,6 +1149,113 @@ iframe{
 .faixa-cashback:hover img {
   transform: scale(1.04);
 }
+/* ÁREA DE PROMOÇÕES */
+.area-promocoes {
+  width: 100%;
+  background: #f5f5f5;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  box-sizing: border-box;
+}
+
+/* BANNERS CENTRAIS */
+.banners-centrais {
+  width: min(950px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* CARTÃO DO BANNER */
+.banner-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* PEQUENO MOVIMENTO AO PASSAR O MOUSE */
+.banner-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0,0,0,.18);
+}
+
+/* IMAGEM */
+.banner-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* OFERTAS LATERAIS */
+.promocao-lateral {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+/* CARD DO PRODUTO */
+.oferta-produto {
+  background: #fff;
+  border-radius: 16px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,.10);
+  transition: transform .3s ease;
+}
+
+/* MOVIMENTO DO PRODUTO */
+.oferta-produto:hover {
+  transform: translateY(-5px);
+}
+
+/* IMAGEM DO PRODUTO */
+.oferta-produto img {
+  width: 100%;
+  max-height: 130px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* TEXTO */
+.oferta-produto strong {
+  display: block;
+  color: #c4232a;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* PREÇO */
+.oferta-produto span {
+  display: block;
+  color: #c4232a;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+  .promocao-lateral {
+    display: none;
+  }
+
+  .area-promocoes {
+    padding: 20px 10px;
+  }
+
+  .banners-centrais {
+    width: 100%;
+  }
+
+  .banner-card {
+    border-radius: 12px;
+  }
+}
   
 </style>
 </head>
@@ -1205,14 +1312,27 @@ iframe{
   </div>
 
 </section>
+<div class="banners-centrais">
 
-<div class="faixa-bebe banner-destaque">
-  <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
-</div>
+    <div class="banner-card">
+      <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
+    </div>
 
-<div class="faixa-cashback banner-destaque">
-  <img src="/assets/img/cashback.png" alt="Cashback Mariano">
-</div>
+    <div class="banner-card">
+      <img src="/assets/img/cashback.png" alt="Cashback Mariano">
+    </div>
+
+  </div>
+
+  <div class="promocao-lateral direita">
+    <div class="oferta-produto">
+      <img src="/assets/img/produto2.png" alt="Produto em oferta">
+      <strong>Oferta do dia</strong>
+      <span>R$ 19,90</span>
+    </div>
+  </div>
+
+</section>
 <div class="cashback-cta">
 
   <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
