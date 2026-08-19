@@ -1168,42 +1168,48 @@ iframe{
 .faixa-cashback:hover img {
   transform: scale(1.04);
 }
-/* ================= OFERTAS ================= */
+/* =========================
+   OFERTAS
+========================= */
 
 .sec-ofertas{
   width:100%;
   background:#fff;
-  padding:35px 0 45px;
+  padding:45px 0 55px;
+  box-sizing:border-box;
 }
 
 .ofertas-container{
   width:100%;
   display:flex;
   align-items:center;
-  gap:25px;
-  padding:0 25px;
+  gap:30px;
+  padding:0 35px;
   box-sizing:border-box;
 }
 
 
 /* =========================
-   OFERTA DO DIA
+   OFERTA DO DIA - FIXA
 ========================= */
 
 .oferta-destaque{
   position:relative;
   flex-shrink:0;
+  z-index:5;
 }
 
 .oferta-img-destaque{
-  width:240px;
-  height:287px;
+  width:280px;
+  height:373px;
+
   object-fit:cover;
   display:block;
 
-  border-radius:7px;
+  border-radius:8px;
 
-  box-shadow:0 4px 15px rgba(0,0,0,.25);
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.28);
 }
 
 
@@ -1211,28 +1217,32 @@ iframe{
 
 .oferta-label{
   position:absolute;
-  top:-13px;
+
+  top:-14px;
   left:50%;
+
   transform:translateX(-50%);
 
   background:#C9232A;
   color:#fff;
 
-  padding:7px 18px;
+  padding:9px 24px;
 
-  border-radius:20px;
+  border-radius:22px;
 
-  font-size:14px;
-  font-weight:bold;
+  font-size:16px;
+  font-weight:700;
 
   white-space:nowrap;
 
-  z-index:5;
+  z-index:10;
+
+  box-shadow:0 3px 8px rgba(0,0,0,.20);
 }
 
 
 /* =========================
-   CARROSSEL
+   ÁREA DO CARROSSEL
 ========================= */
 
 .ofertas-carrossel{
@@ -1249,21 +1259,30 @@ iframe{
 .ofertas-lista{
   display:flex;
   align-items:center;
-  gap:16px;
+
+  gap:20px;
 
   transition:transform .5s ease;
 }
 
+
+/* =========================
+   IMAGENS DO CARROSSEL
+========================= */
+
 .oferta-img{
-  width:220px;
-  min-width:200px;
-  height:267px;
+  width:255px;
+  min-width:255px;
+
+  height:340px;
 
   object-fit:cover;
 
-  border-radius:6px;
-
   display:block;
+
+  border-radius:8px;
+
+  flex-shrink:0;
 }
 
 
@@ -1277,24 +1296,27 @@ iframe{
   top:50%;
   transform:translateY(-50%);
 
-  width:42px;
-  height:42px;
+  width:46px;
+  height:46px;
 
-  border:0;
-  border-radius:6px;
+  border:none;
+  border-radius:7px;
 
   background:#c8cdd5;
+
   color:#fff;
 
-  font-size:26px;
+  font-size:28px;
 
   cursor:pointer;
 
-  z-index:10;
+  z-index:20;
 
   display:flex;
   align-items:center;
   justify-content:center;
+
+  transition:all .2s ease;
 }
 
 .oferta-seta:hover{
@@ -1302,39 +1324,82 @@ iframe{
 }
 
 .oferta-seta.esquerda{
-  left:-18px;
+  left:-23px;
 }
 
 .oferta-seta.direita{
-  right:-18px;
+  right:-23px;
 }
 
 
 /* =========================
-   CELULAR
+   TELAS MENORES
 ========================= */
+
+@media(max-width:1100px){
+
+  .ofertas-container{
+    gap:20px;
+    padding:0 25px;
+  }
+
+  .oferta-img-destaque{
+    width:250px;
+    height:333px;
+  }
+
+  .oferta-img{
+    width:225px;
+    min-width:225px;
+    height:300px;
+  }
+
+}
+
 
 @media(max-width:700px){
 
+  .sec-ofertas{
+    padding:35px 0 40px;
+  }
+
   .ofertas-container{
-    padding:25px 15px;
+    padding:0 15px;
     gap:15px;
   }
 
   .oferta-img-destaque{
-    width:150px;
-    height:200px;
+    width:170px;
+    height:227px;
   }
 
   .oferta-img{
-    width:150px;
-    min-width:150px;
-    height:200px;
+    width:165px;
+    min-width:165px;
+    height:220px;
   }
 
   .oferta-label{
+    top:-11px;
+
     font-size:11px;
-    padding:5px 10px;
+
+    padding:6px 12px;
+  }
+
+  .oferta-seta{
+    width:36px;
+    height:40px;
+
+    font-size:22px;
+  }
+
+  .oferta-seta.esquerda{
+    left:-8px;
+  }
+
+  .oferta-seta.direita{
+    right:-8px;
   }
 
 }
@@ -1607,8 +1672,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
 let ofertaAtual = 0;
 
-const listaOfertas = document.querySelector(".ofertas-lista");
-const imagensOfertas = document.querySelectorAll(".ofertas-lista .oferta-img");
+const listaOfertas =
+  document.querySelector(".ofertas-lista");
+
+const imagensOfertas =
+  document.querySelectorAll(
+    ".ofertas-lista .oferta-img"
+  );
 
 
 function mudarOferta(direcao){
@@ -1619,36 +1689,74 @@ function mudarOferta(direcao){
 
   ofertaAtual += direcao;
 
-  const quantidadeVisivel =
-    Math.floor(
-      document.querySelector(".ofertas-slider").offsetWidth /
-      (imagensOfertas[0].offsetWidth + 20)
-    );
+
+  /* largura real da imagem + espaço */
+
+  const largura =
+    imagensOfertas[0].offsetWidth;
+
+  const gap = 20;
+
+  const passo =
+    largura + gap;
+
+
+  /*
+     Quantas imagens cabem
+     na área disponível
+  */
+
+  const area =
+    document.querySelector(
+      ".ofertas-slider"
+    ).offsetWidth;
+
+  const visiveis =
+    Math.floor(area / passo);
+
+
+  /*
+     Limite para não deixar
+     espaço vazio no final
+  */
 
   const limite =
-    Math.max(0, imagensOfertas.length - quantidadeVisivel);
+    Math.max(
+      0,
+      imagensOfertas.length - visiveis
+    );
 
+
+  /*
+     Ao chegar no final,
+     volta para a primeira
+  */
 
   if(ofertaAtual > limite){
     ofertaAtual = 0;
   }
+
 
   if(ofertaAtual < 0){
     ofertaAtual = limite;
   }
 
 
-  const deslocamento =
-    ofertaAtual *
-    (imagensOfertas[0].offsetWidth + 20);
-
+  /*
+     Move somente o carrossel.
+     A Oferta do Dia permanece fixa.
+  */
 
   listaOfertas.style.transform =
-    "translateX(-" + deslocamento + "px)";
+    "translateX(-" +
+    (ofertaAtual * passo) +
+    "px)";
 }
 
 
-/* PASSAGEM AUTOMÁTICA */
+/* =========================
+   PASSAGEM AUTOMÁTICA
+========================= */
 
 setInterval(function(){
 
