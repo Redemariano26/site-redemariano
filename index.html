@@ -235,23 +235,30 @@ margin:auto;
 }
 
 /* ================= CASHBACK ================= */
+
 .faixa-cashback{
-width:100%;
-background:#C4232A;
-text-align:center;
-padding:10px 0 30px;
+  width:100%;
+  background:#C4232A;
+  text-align:center;
+  padding:10px 0 30px;
+  position:relative;
 }
 
 .faixa-cashback img{
-width:100%;
-max-width:950px;
-height:auto;
-display:block;
-margin:auto;
+  width:100%;
+  max-width:950px;
+  height:auto;
+  display:block;
+  margin:auto;
 }
-.sec-mariano-card{
-  background:#fff;
-  padding:80px 20px;
+
+/* BOTÃO SOBRE A IMAGEM */
+.cashback-cta{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
 }
 
 /* LIMITA A LARGURA */
@@ -327,13 +334,14 @@ margin:auto;
   border-radius:50px;
   font-size:16px;
   transition:.25s ease;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
 .btn-cashback:hover{
   background:#a61c22;
   transform:translateY(-2px);
 }
+
 /* BANNER FULL WIDTH ENCARTE */
 .encarte-banner-full{
   width:100vw;
