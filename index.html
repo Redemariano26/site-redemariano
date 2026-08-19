@@ -1683,6 +1683,8 @@ document.addEventListener("DOMContentLoaded", function(){
   const sliderOfertas =
     document.querySelector(".ofertas-slider");
 
+  let temporizadorOfertas;
+
 
   /* =========================
      MOVER OFERTAS
@@ -1760,6 +1762,33 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* =========================
+     TEMPORIZADOR AUTOMÁTICO
+  ========================= */
+
+  function iniciarTemporizadorOfertas(){
+
+    /*
+       Cancela o contador anterior
+    */
+
+    clearTimeout(temporizadorOfertas);
+
+
+    /*
+       Começa uma nova contagem
+       de 4 segundos
+    */
+
+    temporizadorOfertas = setTimeout(function(){
+
+      mudarOferta(1);
+
+    }, 4000);
+
+  }
+
+
+  /* =========================
      SETAS
   ========================= */
 
@@ -1769,6 +1798,18 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
 
+
+    /*
+       Cancela o contador atual
+       quando o usuário clica
+    */
+
+    clearTimeout(temporizadorOfertas);
+
+
+    /*
+       Avança ou volta
+    */
 
     ofertaAtual += direcao;
 
@@ -1796,20 +1837,28 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
+    /*
+       Move imediatamente
+    */
+
     moverOfertas();
+
+
+    /*
+       Depois do clique começa
+       uma nova contagem de 4 segundos
+    */
+
+    iniciarTemporizadorOfertas();
 
   };
 
 
   /* =========================
-     PASSAGEM AUTOMÁTICA
+     INICIAR AUTOMÁTICO
   ========================= */
 
-  setInterval(function(){
-
-    mudarOferta(1);
-
-  }, 4000);
+  iniciarTemporizadorOfertas();
 
 
   /* =========================
