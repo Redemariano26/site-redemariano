@@ -1409,17 +1409,99 @@ iframe{
 
 .destaque-cliente {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
     background: #fff;
-    line-height: 0;
+    margin: 0;
+    padding: 10px 15px;
+    box-sizing: border-box;
 }
 
-.destaque-cliente img {
+
+/* =========================
+   BANNER CENTRAL
+========================= */
+
+.banner-cliente {
+    width: 72%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-cliente img {
     width: 100%;
     height: auto;
     display: block;
+}
+
+
+/* =========================
+   MASCOTES
+========================= */
+
+.mascote {
+    width: 13%;
+    max-width: 190px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.mascote img {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* =========================
+   MASCOTE ESQUERDO
+========================= */
+
+.mascote-esquerdo {
+    align-self: flex-end;
+}
+
+
+/* =========================
+   MASCOTE DIREITO
+========================= */
+
+.mascote-direito {
+    align-self: flex-end;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 768px) {
+
+    .destaque-cliente {
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .banner-cliente {
+        width: 78%;
+    }
+
+    .mascote {
+        width: 11%;
+    }
+
+    .mascote img {
+        max-height: 180px;
+    }
+
 }
   
 </style>
@@ -1465,15 +1547,35 @@ iframe{
 <section class="banner">
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
 </section>
-<!-- ================= DESTAQUE MÊS DO CLIENTE ================= -->
+<!-- =========================
+     DESTAQUE MÊS DO CLIENTE
+========================= -->
 
 <section class="destaque-cliente">
 
-  <img
-    src="/assets/img/mes-do-cliente.jpeg"
-    alt="Mês do Cliente Mariano"
-    class="imagem-destaque-cliente"
-  >
+    <!-- MASCOTE ESQUERDO -->
+    <div class="mascote mascote-esquerdo">
+        <img 
+            src="/assets/img/mascote-menina.png" 
+            alt="Mascote Mariano"
+        >
+    </div>
+
+    <!-- BANNER -->
+    <div class="banner-cliente">
+        <img 
+            src="/assets/img/mes-do-cliente.png" 
+            alt="Mês do Cliente Mariano"
+        >
+    </div>
+
+    <!-- MASCOTE DIREITO -->
+    <div class="mascote mascote-direito">
+        <img 
+            src="/assets/img/mascote-bebe.png" 
+            alt="Mascote Mariano"
+        >
+    </div>
 
 </section>
 
