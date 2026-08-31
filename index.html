@@ -1403,104 +1403,69 @@ iframe{
   }
 
 }
-/* =========================
-   DESTAQUE MÊS DO CLIENTE
-========================= */
+/* =========================================
+   MASCOTES LATERAIS
+========================================= */
 
-.destaque-cliente {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    overflow: hidden;
-    background: #fff;
-    margin: 0;
-    padding: 10px 15px;
-    box-sizing: border-box;
+.mascotes-laterais {
+  position: relative;
+  width: 100%;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
 }
-
-
-/* =========================
-   BANNER CENTRAL
-========================= */
-
-.banner-cliente {
-    width: 72%;
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.banner-cliente img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-
-/* =========================
-   MASCOTES
-========================= */
 
 .mascote {
-    width: 13%;
-    max-width: 190px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+  position: absolute;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
-.mascote img {
-    width: 100%;
-    height: auto;
-    max-height: 280px;
-    object-fit: contain;
-    display: block;
+/* Mascote do bebê - lado esquerdo */
+.mascote-bebe {
+  left: 15px;
+  top: 20px;
 }
 
-
-/* =========================
-   MASCOTE ESQUERDO
-========================= */
-
-.mascote-esquerdo {
-    align-self: flex-end;
+/* Mascote menina - lado direito */
+.mascote-menina {
+  right: 15px;
+  top: 20px;
 }
 
 
-/* =========================
-   MASCOTE DIREITO
-========================= */
+/* =========================================
+   TELAS MENORES
+========================================= */
 
-.mascote-direito {
-    align-self: flex-end;
+@media (max-width: 1200px) {
+
+  .mascote {
+    width: 120px;
+  }
+
+  .mascote-bebe {
+    left: 5px;
+  }
+
+  .mascote-menina {
+    right: 5px;
+  }
+
 }
 
 
-/* =========================
+/* =========================================
    CELULAR
-========================= */
+========================================= */
 
 @media (max-width: 768px) {
 
-    .destaque-cliente {
-        gap: 5px;
-        padding: 5px;
-    }
-
-    .banner-cliente {
-        width: 78%;
-    }
-
-    .mascote {
-        width: 11%;
-    }
-
-    .mascote img {
-        max-height: 180px;
-    }
+  .mascotes-laterais {
+    display: none;
+  }
 
 }
   
