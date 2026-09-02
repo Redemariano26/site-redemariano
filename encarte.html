@@ -18,10 +18,37 @@
             font-family: Arial, sans-serif;
         }
 
+        /* ================================
+           ÁREA DO VÍDEO
+        ================================= */
+
+        .video-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px 10px;
+            background: #f5f5f5;
+        }
+
+        .video-encarte {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            max-height: 240px;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ================================
+           ÁREA DO ENCARTE
+        ================================= */
+
         .encarte-container {
             width: 100%;
-            min-height: 100vh;
-            padding: 20px;
+            padding: 10px 20px 20px;
             display: flex;
             justify-content: center;
         }
@@ -29,25 +56,85 @@
         .encarte {
             width: 100%;
             max-width: 1400px;
-            height: calc(100vh - 40px);
-            min-height: 650px;
+            height: calc(100vh - 320px);
+            min-height: 550px;
             border: none;
+            display: block;
         }
 
+        /* ================================
+           CELULAR / TABLET
+        ================================= */
+
         @media (max-width: 768px) {
+
+            .video-container {
+                padding: 10px;
+            }
+
+            .video-encarte {
+                max-height: 200px;
+                border-radius: 8px;
+            }
+
             .encarte-container {
-                padding: 0;
+                padding: 5px 0 10px;
             }
 
             .encarte {
-                height: 100vh;
-                min-height: 600px;
+                width: 100%;
+                height: calc(100vh - 230px);
+                min-height: 500px;
+            }
+        }
+
+        /* ================================
+           CELULARES PEQUENOS
+        ================================= */
+
+        @media (max-width: 480px) {
+
+            .video-encarte {
+                max-height: 170px;
+            }
+
+            .encarte {
+                height: calc(100vh - 200px);
+                min-height: 450px;
             }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- =================================
+         VÍDEO DE DESTAQUE
+    ================================== -->
+
+    <div class="video-container">
+
+        <video
+            class="video-encarte"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls>
+            
+            <source
+                src="/assets/img/video-encarte.mp4"
+                type="video/mp4">
+
+            Seu navegador não suporta vídeos.
+        </video>
+
+    </div>
+
+
+    <!-- =================================
+         ENCARTE
+    ================================== -->
 
     <div class="encarte-container">
 
