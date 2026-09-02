@@ -170,10 +170,10 @@ to{transform:scale(1);opacity:1}
 
 /* MAPA */
 .mapa-full{
-width:100%;
-height:720px;
-border:none;
-margin-top:60px;
+  width:100%;
+  height:500px;
+  border:none;
+  margin-top:20px;
 }
 
 footer{
@@ -221,7 +221,7 @@ opacity:.95;
 /* ================= TERÇA DO BEBÊ ================= */
 .faixa-bebe{
 width:100%;
-background:#fff;
+background:#C4232A;
 text-align:center;
 padding:15px 0;
 }
@@ -235,28 +235,42 @@ margin:auto;
 }
 
 /* ================= CASHBACK ================= */
+
 .faixa-cashback{
-width:100%;
-background:#fff;
-text-align:center;
-padding:10px 0 30px;
+  width:100%;
+  background:#C4232A;
+  text-align:center;
+  padding:10px 0 30px;
+  position:relative;
 }
 
 .faixa-cashback img{
-width:100%;
-max-width:950px;
-height:auto;
-display:block;
-margin:auto;
+  width:100%;
+  max-width:950px;
+  height:auto;
+  display:block;
+  margin:auto;
 }
+
+/* BOTÃO SOBRE A IMAGEM */
+.cashback-cta{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+}
+/* =========================
+   SEÇÃO MARIANO CARD
+========================= */
 .sec-mariano-card{
-  background:#fff;
-  padding:80px 20px;
+  background:#f4f6fb;
+  padding:90px 20px;
 }
 
 /* LIMITA A LARGURA */
 .card-container{
-  max-width:1100px; /* controla tamanho total */
+  max-width:1150px; /* controla tamanho total */
   margin:0 auto;
 }
 
@@ -306,9 +320,13 @@ margin:auto;
   width:220px;
 }
 .cashback-cta{
-  background:#fff;
-  text-align:center;
-  padding:25px 20px 40px;
+  position:absolute;
+  bottom: 25px;
+  left:68%;
+  transform:translateX(-50%);
+  z-index:10;
+  background:transparent;
+  padding:0;
 }
 
 .logo-cashback{
@@ -316,24 +334,25 @@ margin:auto;
   margin-bottom:18px;
 }
 
-/* BOTÃO */
 .btn-cashback{
   display:inline-block;
-  background:#C4232A;
-  color:#fff;
-  padding:14px 28px;
+  background:transparent;
+  color:#000;
+  padding:12px 25px;
   font-weight:700;
   text-decoration:none;
   border-radius:50px;
   font-size:16px;
   transition:.25s ease;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  box-shadow:none;
+  border:none;
 }
 
 .btn-cashback:hover{
-  background:#a61c22;
-  transform:translateY(-2px);
+  background:transparent;
+  color:#C4232A;
 }
+
 /* BANNER FULL WIDTH ENCARTE */
 .encarte-banner-full{
   width:100vw;
@@ -822,7 +841,7 @@ iframe{
 
 .encarte-cta{
   width:100%;
-  background:#fff;
+  background:#FFD000;
   padding:55px 20px;
   display:flex;
   justify-content:center;
@@ -968,6 +987,509 @@ iframe{
   }
 
 }
+ /* ==========================================
+   FAIXA PUBLICITÁRIA ANIMADA
+========================================== */
+
+.faixa-publicitaria {
+  width: 100%;
+  height: 88px;
+  background: #C4232A;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* brilho passando pela faixa */
+
+.faixa-publicitaria::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.15),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: brilhoFaixa 6s infinite;
+  pointer-events: none;
+}
+
+.faixa-frases {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Cada frase ocupa exatamente o centro */
+
+.frase {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  color: #fff;
+
+  opacity: 0;
+  transform: translateY(25px) scale(.96);
+
+  pointer-events: none;
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+/* frase ativa */
+
+.frase.ativa {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* destaque principal */
+
+.frase strong {
+  font-size: clamp(25px, 3.5vw, 43px);
+  font-weight: 800;
+}
+
+/* texto secundário */
+
+.frase span {
+  font-size: clamp(20px, 3vw, 34px);
+  font-weight: 400;
+}
+
+/* link do encarte */
+
+.frase a {
+  display: inline-flex;
+  align-items: center;
+
+  background: #FFD400;
+  color: #C4232A;
+
+  padding: 10px 20px;
+  border-radius: 30px;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  transition: .25s ease;
+}
+
+.frase a:hover {
+  background: #fff;
+  transform: translateX(5px);
+}
+
+
+/* ==========================================
+   BRILHO
+========================================== */
+
+@keyframes brilhoFaixa {
+
+  0% {
+    left: -30%;
+  }
+
+  45% {
+    left: 120%;
+  }
+
+  100% {
+    left: 120%;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .faixa-publicitaria {
+    height: 75px;
+  }
+
+  .frase {
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .frase strong {
+    font-size: 22px;
+  }
+
+  .frase span {
+    font-size: 15px;
+  }
+
+  .frase a {
+    font-size: 13px;
+    padding: 7px 15px;
+  }
+
+} 
+  .faixa-bebe,
+.faixa-cashback {
+  overflow: hidden;
+}
+
+.faixa-bebe img,
+.faixa-cashback img {
+  display: block;
+  width: 100%;
+  transition: transform 0.8s ease;
+}
+
+/* Zoom somente na imagem */
+
+.faixa-bebe:hover img,
+.faixa-cashback:hover img {
+  transform: scale(1.04);
+}
+/* =========================
+   OFERTAS
+========================= */
+
+.sec-ofertas{
+  width:100%;
+  background:#fff;
+  padding:45px 0 55px;
+  box-sizing:border-box;
+}
+
+.ofertas-container{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:0 35px;
+  box-sizing:border-box;
+}
+
+
+/* =========================
+   OFERTA DO DIA - FIXA
+========================= */
+
+.oferta-destaque{
+  position:relative;
+  flex-shrink:0;
+  z-index:5;
+}
+
+.oferta-img-destaque{
+  width:280px;
+  height:373px;
+
+  object-fit:cover;
+  display:block;
+
+  border-radius:8px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.28);
+}
+
+
+/* FAIXA OFERTA DO DIA */
+
+.oferta-label{
+  position:absolute;
+
+  top:-14px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  background:#C9232A;
+  color:#fff;
+
+  padding:9px 24px;
+
+  border-radius:22px;
+
+  font-size:16px;
+  font-weight:700;
+
+  white-space:nowrap;
+
+  z-index:10;
+
+  box-shadow:0 3px 8px rgba(0,0,0,.20);
+}
+
+
+/* =========================
+   ÁREA DO CARROSSEL
+========================= */
+
+.ofertas-carrossel{
+  position:relative;
+  flex:1;
+  min-width:0;
+}
+
+.ofertas-slider{
+  width:100%;
+  overflow:hidden;
+}
+
+.ofertas-lista{
+  display:flex;
+  align-items:center;
+
+  gap:20px;
+
+  transition:transform .5s ease;
+}
+
+
+/* =========================
+   IMAGENS DO CARROSSEL
+========================= */
+
+.oferta-img{
+  width:255px;
+  min-width:255px;
+
+  height:340px;
+
+  object-fit:cover;
+
+  display:block;
+
+  border-radius:8px;
+
+  flex-shrink:0;
+}
+
+
+/* =========================
+   SETAS
+========================= */
+
+.oferta-seta{
+  position:absolute;
+
+  top:50%;
+  transform:translateY(-50%);
+
+  width:46px;
+  height:46px;
+
+  border:none;
+  border-radius:7px;
+
+  background:#c8cdd5;
+
+  color:#fff;
+
+  font-size:28px;
+
+  cursor:pointer;
+
+  z-index:20;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:all .2s ease;
+}
+
+.oferta-seta:hover{
+  background:#C9232A;
+}
+
+.oferta-seta.esquerda{
+  left:-23px;
+}
+
+.oferta-seta.direita{
+  right:-23px;
+}
+
+
+/* =========================
+   TELAS MENORES
+========================= */
+
+@media(max-width:1100px){
+
+  .ofertas-container{
+    gap:20px;
+    padding:0 25px;
+  }
+
+  .oferta-img-destaque{
+    width:250px;
+    height:333px;
+  }
+
+  .oferta-img{
+    width:225px;
+    min-width:225px;
+    height:300px;
+  }
+
+}
+
+
+@media(max-width:700px){
+
+  .sec-ofertas{
+    padding:35px 0 40px;
+  }
+
+  .ofertas-container{
+    padding:0 15px;
+    gap:15px;
+  }
+
+  .oferta-img-destaque{
+    width:170px;
+    height:227px;
+  }
+
+  .oferta-img{
+    width:165px;
+    min-width:165px;
+    height:220px;
+  }
+
+  .oferta-label{
+    top:-11px;
+
+    font-size:11px;
+
+    padding:6px 12px;
+  }
+
+  .oferta-seta{
+    width:36px;
+    height:40px;
+
+    font-size:22px;
+  }
+
+  .oferta-seta.esquerda{
+    left:-8px;
+  }
+
+  .oferta-seta.direita{
+    right:-8px;
+  }
+
+}
+/* =========================================
+   MASCOTES LATERAIS
+========================================= */
+
+.mascotes-laterais {
+  position: relative;
+  width: 100%;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.mascote {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+/* Mascote do bebê - lado esquerdo */
+.mascote-bebe {
+  left: 15px;
+  top: 20px;
+}
+
+/* Mascote menina - lado direito */
+.mascote-menina {
+  right: 15px;
+  top: 20px;
+}
+
+
+/* =========================================
+   TELAS MENORES
+========================================= */
+
+@media (max-width: 1200px) {
+
+  .mascote {
+    width: 120px;
+  }
+
+  .mascote-bebe {
+    left: 5px;
+  }
+
+  .mascote-menina {
+    right: 5px;
+  }
+
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 768px) {
+
+  .mascotes-laterais {
+    display: none;
+  }
+
+}
+/* =========================
+   BANNER MARIANO CARD
+========================= */
+
+.sec-mariano-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #f5f6fa;
+  padding: 15px 0;
+}
+
+.banner-mariano-card {
+  display: block;
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  object-fit: contain;
+}
+  
 </style>
 </head>
 
@@ -1012,65 +1534,98 @@ iframe{
 <img src="/assets/img/banner-novo.png" alt="Rede Mariano">
 </section>
 
-<section class="faixa-slogan">
-  <p>
-    <span class="destaque">+30 filiais</span>
-    <span class="resto"> no estado de Santa Catarina</span>
-  </p>
-</section>
+<!-- ================= OFERTAS ================= -->
+<section class="sec-ofertas">
 
-<div class="faixa-bebe">
-  <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
-</div>
+  <div class="ofertas-container">
 
-<div class="faixa-cashback">
-  <img src="/assets/img/cashback.png" alt="Cashback Mariano">
-</div>
-<div class="cashback-cta">
+    <!-- OFERTA DO DIA FIXA -->
+    <div class="oferta-destaque">
+      <span class="oferta-label">OFERTA DO DIA</span>
 
-  <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
-   Cadastre-se já
-  </a>
-
-</div>
-/<section class="banner-personagens">
-  <img src="/assets/img/Valentina.png"alt="Valentina herói">
-  <img src="/assets/img/Eloah.png"alt="Eloah Baby">
-</section>
-
-<section class="sec-mariano-card">
-
-  <div class="card-layout">
-
-    <!-- ESQUERDA -->
-    <div class="lado esquerdo">
-      <img src="/assets/img/card-texto2.png">
-      <img src="/assets/img/card-texto3.png">
+      <img src="/assets/img/ofertas1.jpeg" class="oferta-img-destaque">
     </div>
 
-    <!-- CENTRO COM TOPO + CARTÃO + BASE -->
-    <div class="card-centro">
 
-      <!-- TEXTO SUPERIOR -->
-      <img src="/assets/img/card-texto1.png" class="texto-topo">
+    <!-- CARROSSEL -->
+    <div class="ofertas-carrossel">
 
-      <!-- CARTÃO -->
-      <img src="/assets/img/mariano-card.png" class="img-card">
+      <button class="oferta-seta esquerda" onclick="mudarOferta(-1)">
+        &#10094;
+      </button>
 
-      <!-- TEXTO INFERIOR -->
-      <img src="/assets/img/card-texto6.png" class="texto-base">
+      <div class="ofertas-slider">
 
-    </div>
+        <div class="ofertas-lista">
 
-    <!-- DIREITA -->
-    <div class="lado direito">
-      <img src="/assets/img/card-texto4.png">
-      <img src="/assets/img/card-texto5.png">
+          <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
+          <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
+
+        </div>
+
+      </div>
+
+      <button class="oferta-seta direita" onclick="mudarOferta(1)">
+        &#10095;
+      </button>
+
     </div>
 
   </div>
 
 </section>
+
+<!-- =========================
+     MARIANO CARD
+========================= -->
+
+<section class="sec-mariano-card">
+
+  <img
+  src="assets/img/mariano-card-completo.png"
+  alt="Mariano Card"
+  class="banner-mariano-card"
+>
+
+</section>
+
+</section>
+
+<div class="faixa-bebe banner-destaque">
+  <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
+</div>
+
+<div class="faixa-cashback banner-destaque">
+
+  <img src="/assets/img/cashback.png" alt="Cashback Mariano">
+
+  <div class="cashback-cta">
+    <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
+      Cadastre-se já
+    </a>
+  </div>
+
+</div>
+
+<section class="faixa-publicitaria">
+
+  <div class="faixa-frases">
+
+  <div class="frase ativa">
+  <strong>+30 filiais no estado de Santa Catarina</strong>
+</div>
+
 
 
   </div>
@@ -1125,28 +1680,269 @@ src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
 </footer>
 
 <script>
+
 function toggleSidebar() {
   document.getElementById("mobileSidebar").classList.toggle("active");
   document.getElementById("mobileOverlay").classList.toggle("active");
 }
+
 document.addEventListener("DOMContentLoaded", function(){
 
-let index = 0;
-const slides = document.getElementById("slides");
-const total = slides.children.length;
+  /* =========================
+     LINK ATIVO DO MENU
+  ========================= */
+
+  const links = document.querySelectorAll("nav a");
+  const atual = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+
+    if(link.getAttribute("href") === atual){
+      link.classList.add("ativo");
+    }
+
+  });
 
 
-/* LINK ATIVO MENU */
-const links = document.querySelectorAll("nav a");
-const atual = window.location.pathname.split("/").pop();
+  /* =========================
+     FAIXA PUBLICITÁRIA
+  ========================= */
 
-links.forEach(link=>{
-  if(link.getAttribute("href") === atual){
-    link.classList.add("ativo");
+  const frases = document.querySelectorAll(
+    ".faixa-publicitaria .frase"
+  );
+
+  let fraseAtual = 0;
+
+  if(frases.length > 1){
+
+    setInterval(function(){
+
+      frases[fraseAtual].classList.remove("ativa");
+
+      fraseAtual++;
+
+      if(fraseAtual >= frases.length){
+        fraseAtual = 0;
+      }
+
+      frases[fraseAtual].classList.add("ativa");
+
+    }, 4000);
+
   }
-});
+
+
+  /* =========================
+     CARROSSEL DE OFERTAS
+  ========================= */
+
+  let ofertaAtual = 0;
+
+  const listaOfertas =
+    document.querySelector(".ofertas-lista");
+
+  const imagensOfertas =
+    document.querySelectorAll(
+      ".ofertas-lista .oferta-img"
+    );
+
+  const sliderOfertas =
+    document.querySelector(".ofertas-slider");
+
+  let temporizadorOfertas;
+
+
+  /* =========================
+     MOVER OFERTAS
+  ========================= */
+
+  function moverOfertas(){
+
+    if(!listaOfertas || imagensOfertas.length === 0){
+      return;
+    }
+
+
+    const larguraImagem =
+      imagensOfertas[0].offsetWidth;
+
+    const gap = 20;
+
+    const passo =
+      larguraImagem + gap;
+
+
+    const larguraTotal =
+      imagensOfertas.length * passo - gap;
+
+
+    const larguraVisivel =
+      sliderOfertas.offsetWidth;
+
+
+    /*
+       Limite máximo do deslocamento
+    */
+
+    const maxDeslocamento =
+      Math.max(
+        0,
+        larguraTotal - larguraVisivel
+      );
+
+
+    let deslocamento =
+      ofertaAtual * passo;
+
+
+    /*
+       Não deixa passar do final
+    */
+
+    if(deslocamento > maxDeslocamento){
+      deslocamento = maxDeslocamento;
+    }
+
+
+    /*
+       Não deixa passar do começo
+    */
+
+    if(deslocamento < 0){
+      deslocamento = 0;
+    }
+
+
+    /*
+       Move somente as ofertas.
+
+       A OFERTA DO DIA permanece fixa.
+    */
+
+    listaOfertas.style.transform =
+      "translateX(-" +
+      deslocamento +
+      "px)";
+
+  }
+
+
+  /* =========================
+     TEMPORIZADOR AUTOMÁTICO
+  ========================= */
+
+  function iniciarTemporizadorOfertas(){
+
+    /*
+       Cancela o contador anterior
+    */
+
+    clearTimeout(temporizadorOfertas);
+
+
+    /*
+       Começa uma nova contagem
+       de 4 segundos
+    */
+
+    temporizadorOfertas = setTimeout(function(){
+
+      mudarOferta(1);
+
+    }, 4000);
+
+  }
+
+
+  /* =========================
+     SETAS
+  ========================= */
+
+  window.mudarOferta = function(direcao){
+
+    if(!listaOfertas || imagensOfertas.length === 0){
+      return;
+    }
+
+
+    /*
+       Cancela o contador atual
+       quando o usuário clica
+    */
+
+    clearTimeout(temporizadorOfertas);
+
+
+    /*
+       Avança ou volta
+    */
+
+    ofertaAtual += direcao;
+
+
+    /*
+       Voltou antes da primeira
+    */
+
+    if(ofertaAtual < 0){
+
+      ofertaAtual =
+        imagensOfertas.length - 1;
+
+    }
+
+
+    /*
+       Passou da última
+    */
+
+    if(ofertaAtual >= imagensOfertas.length){
+
+      ofertaAtual = 0;
+
+    }
+
+
+    /*
+       Move imediatamente
+    */
+
+    moverOfertas();
+
+
+    /*
+       Depois do clique começa
+       uma nova contagem de 4 segundos
+    */
+
+    iniciarTemporizadorOfertas();
+
+  };
+
+
+  /* =========================
+     INICIAR AUTOMÁTICO
+  ========================= */
+
+  iniciarTemporizadorOfertas();
+
+
+  /* =========================
+     AJUSTAR AO REDIMENSIONAR
+  ========================= */
+
+  window.addEventListener(
+    "resize",
+    function(){
+
+      moverOfertas();
+
+    }
+  );
 
 });
+
 </script>
 </body>
 </html>
