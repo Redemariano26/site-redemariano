@@ -1468,6 +1468,42 @@ iframe{
   }
 
 }
+/* =========================
+   MARIANO CARD
+========================= */
+
+.sec-mariano-card {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #f5f6fa;
+}
+
+.banner-mariano-card {
+  display: block;
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 768px) {
+
+  .banner-mariano-card {
+    width: 100%;
+    height: auto;
+  }
+
+}
   
 </style>
 </head>
@@ -1564,39 +1600,15 @@ iframe{
   </div>
 
 </section>
-
+<!-- ================= MARIANO CARD ================= -->
 
 <section class="sec-mariano-card">
 
-  <div class="card-layout">
-
-    <!-- ESQUERDA -->
-    <div class="lado esquerdo">
-      <img src="/assets/img/card-texto2.png">
-      <img src="/assets/img/card-texto3.png">
-    </div>
-
-    <!-- CENTRO COM TOPO + CARTÃO + BASE -->
-    <div class="card-centro">
-
-      <!-- TEXTO SUPERIOR -->
-      <img src="/assets/img/card-texto1.png" class="texto-topo">
-
-      <!-- CARTÃO -->
-      <img src="/assets/img/mariano-card.png" class="img-card">
-
-      <!-- TEXTO INFERIOR -->
-      <img src="/assets/img/card-texto6.png" class="texto-base">
-
-    </div>
-
-    <!-- DIREITA -->
-    <div class="lado direito">
-      <img src="/assets/img/card-texto4.png">
-      <img src="/assets/img/card-texto5.png">
-    </div>
-
-  </div>
+  <img 
+    src="/assets/img/mariano-card-completo.png"
+    alt="Mariano Card - Benefícios"
+    class="banner-mariano-card"
+  >
 
 </section>
 </section>
