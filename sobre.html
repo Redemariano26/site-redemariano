@@ -1,236 +1,619 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Sobre - Rede Mariano</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<title>Sobre - Rede Mariano</title>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
 <link rel="icon" href="/assets/img/favicon.png">
 
+
 <style>
-body{
+
+/* =========================
+   RESET
+========================= */
+
+*{
   margin:0;
-  font-family:Montserrat,Arial;
+  padding:0;
+  box-sizing:border-box;
+}
+
+
+body{
+
+  font-family:'Montserrat',Arial,sans-serif;
+
   background:#f4f6fb;
+
+  color:#333;
+
 }
 
-/* 🔴 FAIXA VERMELHA TOPO */
+
+/* =========================
+   TOPO VERMELHO
+========================= */
+
 .topo-vermelho{
-  background:#C4232A;
+
+  position:fixed;
+
+  top:0;
+  left:0;
+
+  width:100%;
+
   height:70px;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
+
+  background:#C4232A;
+
   z-index:999;
+
 }
 
-/* HEADER */
+
+/* =========================
+   MENU
+========================= */
+
 header{
+
   position:fixed;
+
   top:0;
   left:0;
+
   width:100%;
-  padding:20px 40px;
+
+  height:70px;
+
   display:flex;
+
   justify-content:center;
+
+  align-items:center;
+
   z-index:1000;
+
 }
 
-/* MENU */
+
 nav{
+
   display:flex;
-  gap:30px;
+
+  gap:35px;
+
 }
+
 
 nav a{
+
+  color:#fff;
+
   text-decoration:none;
-  color:#fff; /* branco */
-  font-weight:700;
+
   font-size:15px;
-  transition:.3s;
+
+  font-weight:700;
+
+  transition:.25s ease;
+
 }
+
 
 nav a:hover{
-  color:#FFD400; /* amarelo */
+
+  color:#FFD000;
+
 }
 
-/* CONTEUDO */
+
+/* =========================
+   CONTEÚDO
+========================= */
+
 .conteudo{
-  margin-top:120px;
+
+  padding-top:70px;
+
 }
 
-/* CEO */
-.ceo-section{
-  padding:80px 20px;
-  background:#fff;
+
+/* =========================
+   BANNER PRINCIPAL
+========================= */
+
+.banner-sobre{
+
+  width:100%;
+
+  background:#C4232A;
+
+  display:flex;
+
+  justify-content:center;
+
+  overflow:hidden;
+
 }
+
+
+.banner-sobre img{
+
+  width:100%;
+
+  max-width:1600px;
+
+  height:auto;
+
+  display:block;
+
+}
+
+
+/* =========================
+   APRESENTAÇÃO CEO
+========================= */
+
+.ceo-section{
+
+  background:#fff;
+
+  padding:90px 20px;
+
+}
+
 
 .ceo-container{
-  max-width:1200px;
+
+  max-width:1150px;
+
   margin:auto;
+
   display:flex;
+
   align-items:center;
-  gap:60px;
+
+  gap:65px;
+
 }
+
+
+/* FOTO */
+
+.ceo-foto{
+
+  flex:0 0 auto;
+
+}
+
 
 .ceo-foto img{
+
   width:360px;
-  border-radius:16px;
-  box-shadow:0 25px 60px rgba(0,0,0,.15);
+
+  height:auto;
+
+  display:block;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.15);
+
 }
+
+
+/* TEXTO */
+
+.ceo-texto{
+
+  flex:1;
+
+}
+
 
 .ceo-texto h2{
-  font-size:36px;
-  margin:0;
+
   color:#C4232A;
+
+  font-size:36px;
+
+  font-weight:800;
+
+  margin-bottom:8px;
+
 }
+
 
 .ceo-texto h4{
-  margin:8px 0 20px;
-  font-weight:600;
+
   color:#777;
+
+  font-size:17px;
+
+  font-weight:600;
+
+  margin-bottom:25px;
+
 }
+
 
 .ceo-texto p{
-  font-size:17px;
-  line-height:1.6;
-  margin-bottom:15px;
+
   color:#444;
+
+  font-size:17px;
+
+  line-height:1.7;
+
+  margin-bottom:18px;
+
 }
+
 
 .assinatura{
+
+  color:#C4232A !important;
+
+  font-weight:700;
+
   font-style:italic;
+
   margin-top:25px;
-  color:#C4232A;
-  font-weight:600;
+
 }
 
-/* MOBILE */
+
+/* =========================
+   NOSSA HISTÓRIA
+========================= */
+
+.timeline-full{
+
+  background:#f4f6fb;
+
+  padding:90px 20px;
+
+  text-align:center;
+
+}
+
+
+.timeline-full h2{
+
+  color:#C4232A;
+
+  font-size:34px;
+
+  font-weight:800;
+
+  margin-bottom:45px;
+
+}
+
+
+.timeline-wrapper{
+
+  max-width:1150px;
+
+  margin:auto;
+
+}
+
+
+.timeline-wrapper img{
+
+  width:100%;
+
+  height:auto;
+
+  display:block;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.12);
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:768px){
-  .ceo-container{
-    flex-direction:column;
-    text-align:center;
+
+  nav{
+
+    gap:20px;
+
   }
+
+
+  nav a{
+
+    font-size:14px;
+
+  }
+
+
+  .banner-sobre img{
+
+    width:100%;
+
+    min-height:180px;
+
+    object-fit:cover;
+
+  }
+
+
+  .ceo-section{
+
+    padding:55px 20px;
+
+  }
+
+
+  .ceo-container{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:35px;
+
+  }
+
 
   .ceo-foto img{
-    width:260px;
-  }
-}
-.linha-tempo {
-  margin-top: 40px;
-  text-align: center;
-}
 
-.linha-tempo h2 {
-  font-family: 'Montserrat', sans-serif;
-  margin-bottom: 20px;
-  color: #c40000; /* vermelho da marca */
-}
-/* ===== TIMELINE 1650px ===== */
-.timeline-full {
-  background: #f4f6fb;
-  padding: 80px 20px;
-  text-align: center;
-}
+    width:280px;
 
-.timeline-full h2 {
-  color: #C4232A;
-  font-size: 32px;
-  margin-bottom: 40px;
-}
-
-/* Container limitado */
-.timeline-wrapper {
-  max-width: 1100px; /* 👈 aqui */
-  margin: auto;
-}
-
-/* Imagem responsiva */
-.timeline-wrapper img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 12px;
-}
-.timeline-wrapper img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  box-shadow: 0 25px 70px rgba(0,0,0,.15);
-}
-body {
-  background-color: #D2D3D5;
-}
-@media (max-width: 768px) {
-  nav {
-    height: 60px;
   }
 
-  nav a {
-    font-size: 16px;
-    margin: 0 10px;
+
+  .ceo-texto h2{
+
+    font-size:30px;
+
   }
+
+
+  .ceo-texto h4{
+
+    font-size:16px;
+
+  }
+
+
+  .ceo-texto p{
+
+    font-size:15px;
+
+    line-height:1.6;
+
+  }
+
+
+  .timeline-full{
+
+    padding:55px 15px;
+
+  }
+
+
+  .timeline-full h2{
+
+    font-size:28px;
+
+    margin-bottom:30px;
+
+  }
+
+
+  .timeline-wrapper img{
+
+    border-radius:12px;
+
+  }
+
 }
 
 
+/* =========================
+   CELULAR PEQUENO
+========================= */
+
+@media(max-width:480px){
+
+  nav{
+
+    gap:14px;
+
+  }
 
 
+  nav a{
+
+    font-size:13px;
+
+  }
+
+
+  .ceo-foto img{
+
+    width:240px;
+
+  }
+
+
+  .ceo-texto h2{
+
+    font-size:27px;
+
+  }
+
+}
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- FAIXA -->
+
+<!-- =========================
+     TOPO
+========================= -->
+
 <div class="topo-vermelho"></div>
 
+
 <header>
-<nav>
-  <a href="index.html">Início</a>
-  <a href="servicos.html">Serviços</a>
-  <a href="contato.html">Contato</a>
-</nav>
+
+  <nav>
+
+    <a href="index.html">Início</a>
+
+    <a href="servicos.html">Serviços</a>
+
+    <a href="contato.html">Contato</a>
+
+  </nav>
+
 </header>
+
+
+<!-- =========================
+     CONTEÚDO
+========================= -->
 
 <div class="conteudo">
 
-<section class="ceo-section">
-<div class="ceo-container">
 
-<div class="ceo-foto">
-  <img src="/assets/img/joarez-mariano.jpeg" alt="Joarez Mariano">
+  <!-- =========================
+       BANNER
+  ========================= -->
+
+  <section class="banner-sobre">
+
+    <img
+      src="/assets/img/FACEBOOK.png"
+      alt="A farmácia queridinha do povo"
+    >
+
+  </section>
+
+
+  <!-- =========================
+       CEO
+  ========================= -->
+
+  <section class="ceo-section">
+
+    <div class="ceo-container">
+
+
+      <div class="ceo-foto">
+
+        <img
+          src="/assets/img/joarez-mariano.jpeg"
+          alt="Joarez Mariano"
+        >
+
+      </div>
+
+
+      <div class="ceo-texto">
+
+        <h2>
+          Joarez Mariano
+        </h2>
+
+
+        <h4>
+          CEO da Rede Mariano
+        </h4>
+
+
+        <p>
+
+          Fundador da Rede Mariano, Joarez Mariano
+          construiu uma trajetória sólida baseada em
+          trabalho, visão e compromisso com a saúde
+          das pessoas.
+
+        </p>
+
+
+        <p>
+
+          Desde 1994, lidera a expansão da rede com
+          foco em atendimento humanizado, preços
+          acessíveis e inovação no varejo farmacêutico,
+          tornando a Mariano uma das redes mais queridas
+          de Santa Catarina.
+
+        </p>
+
+
+        <p class="assinatura">
+
+          — Joarez Mariano
+
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       NOSSA HISTÓRIA
+  ========================= -->
+
+  <section class="timeline-full">
+
+
+    <h2>
+      Nossa História
+    </h2>
+
+
+    <div class="timeline-wrapper">
+
+      <img
+        src="/assets/img/linha-do-tempo.png"
+        alt="Linha do tempo Rede Mariano"
+      >
+
+    </div>
+
+
+  </section>
+
+
 </div>
 
-<div class="ceo-texto">
-  <h2>Joarez Mariano</h2>
-  <h4>CEO da Rede Mariano</h4>
 
-  <p>
-    Fundador da Rede Mariano, Joarez Mariano construiu uma trajetória sólida
-    baseada em trabalho, visão e compromisso com a saúde das pessoas.
-  </p>
-
-  <p>
-    Desde 1994, lidera a expansão da rede com foco em atendimento humanizado,
-    preços acessíveis e inovação no varejo farmacêutico, tornando a Mariano
-    uma das redes mais queridas de Santa Catarina.
-  </p>
-
-  <p class="assinatura">— Joarez Mariano</p>
-</div>
-</section>
-<section class="timeline-full">
-  <h2>Nossa História</h2>
-
-  <div class="timeline-wrapper">
-    <img src="/assets/img/linha-do-tempo.png" alt="Linha do tempo Rede Mariano">
-  </div>
-</section>
-
-
-</div>
 </body>
+
 </html>
