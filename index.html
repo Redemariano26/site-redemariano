@@ -1539,49 +1539,47 @@ iframe{
 
   <div class="ofertas-container">
 
-    <!-- OFERTA DO DIA FIXA -->
+    <!-- OFERTA DO DIA -->
     <div class="oferta-destaque">
-
-      <span class="oferta-label">
-        OFERTA DO DIA
-      </span>
+      <span class="oferta-label">OFERTA DO DIA</span>
 
       <img
         id="ofertaDoDia"
         class="oferta-img-destaque"
         alt="Oferta do dia"
       >
-
     </div>
-
 
     <!-- CARROSSEL -->
     <div class="ofertas-carrossel">
 
       <button
+        type="button"
         class="oferta-seta esquerda"
-        onclick="mudarOferta(-1)">
+        id="setaEsquerda"
+        aria-label="Oferta anterior"
+      >
         &#10094;
       </button>
 
-
       <div class="ofertas-slider">
-
-        <div
-          class="ofertas-lista"
-          id="ofertasLista">
-        </div>
-
+        <div class="ofertas-lista" id="listaOfertas"></div>
       </div>
 
-
       <button
+        type="button"
         class="oferta-seta direita"
-        onclick="mudarOferta(1)">
+        id="setaDireita"
+        aria-label="Próxima oferta"
+      >
         &#10095;
       </button>
 
     </div>
+
+  </div>
+
+</section>
 
   </div>
 
@@ -1732,172 +1730,139 @@ document.addEventListener("DOMContentLoaded", function(){
     }, 4000);
 
   }
-  /* =========================
-   CARROSSEL DE OFERTAS
-   POR DIA DA SEMANA
-========================= */
+  
 
-document.addEventListener("DOMContentLoaded", function(){
+});
+/* =====================================================
+   OFERTAS AUTOMÁTICAS POR DIA DA SEMANA
+===================================================== */
 
-  const listaOfertas =
-    document.querySelector(".ofertas-lista");
+(function(){
 
-  const sliderOfertas =
-    document.querySelector(".ofertas-slider");
+  const configuracaoOfertas = {
 
-  const destaque =
-    document.querySelector(".oferta-img-destaque");
+    // DOMINGO
+    0: null,
 
-  if(!listaOfertas || !sliderOfertas || !destaque){
-    return;
-  }
+    // SEGUNDA
+    1: null,
 
+    // TERÇA
+    2: {
+      pasta: "assets/img/terca/",
+      prefixo: "terca",
+      quantidade: 17
+    },
 
-  /* =========================
-     IDENTIFICAR O DIA
-  ========================= */
+    // QUARTA
+    3: {
+      pasta: "assets/img/quarta/",
+      prefixo: "ofertas",
+      quantidade: 14
+    },
 
-  const dias = [
-    "domingo",
-    "segunda",
-    "terca",
-    "quarta",
-    "quinta",
-    "sexta",
-    "sabado"
-  ];
+    // QUINTA
+    4: null,
 
-  const hoje = new Date().getDay();
-  const pastaDia = dias[hoje];
+    // SEXTA
+    5: null,
 
-
-  /* =========================
-     QUANTIDADE DE IMAGENS
-  ========================= */
-
-  /*
-     Coloque aqui a quantidade de
-     imagens que existem em cada pasta.
-
-     Por enquanto:
-     TERÇA = 17 imagens
-  */
-
-  const quantidadePorDia = {
-
-    domingo: 0,
-    segunda: 0,
-    terca: 17,
-    quarta: 0,
-    quinta: 0,
-    sexta: 0,
-    sabado: 0
-
+    // SÁBADO
+    6: null
   };
 
+  const secao = document.getElementById("secOfertas");
+  const ofertaDoDia = document.getElementById("ofertaDoDia");
+  const listaOfertas = document.getElementById("listaOfertas");
+  const setaEsquerda = document.getElementById("setaEsquerda");
+  const setaDireita = document.getElementById("setaDireita");
 
-  const quantidade =
-    quantidadePorDia[pastaDia];
-
-
-  /* =========================
-     DIA SEM PROMOÇÃO
-  ========================= */
-
-  if(quantidade === 0){
-
-    document.querySelector(".sec-ofertas").style.display = "none";
-
+  if(
+    !secao ||
+    !ofertaDoDia ||
+    !listaOfertas ||
+    !setaEsquerda ||
+    !setaDireita
+  ){
     return;
-
   }
 
+  const hoje = new Date().getDay();
+  const configuracao = configuracaoOfertas[hoje];
 
-  /* =========================
-     OFERTA DO DIA
-  ========================= */
+  /* DIA SEM OFERTAS */
+  if(!configuracao){
+    secao.style.display = "none";
+    return;
+  }
 
-  destaque.src =
-    "/assets/img/" +
-    pastaDia +
-    "/" +
-    pastaDia +
+  secao.style.display = "block";
+
+  /* OFERTA DO DIA */
+  ofertaDoDia.src =
+    configuracao.pasta +
+    configuracao.prefixo +
     "1.jpeg";
 
-
-  destaque.alt =
-    "Oferta do Dia - " + pastaDia;
-
-
-  /* =========================
-     CRIAR CARROSSEL
-  ========================= */
-
+  /* CARREGA AS DEMAIS OFERTAS */
   listaOfertas.innerHTML = "";
 
+  for(let i = 2; i <= configuracao.quantidade; i++){
 
-  for(let i = 2; i <= quantidade; i++){
+    const imagem = document.createElement("img");
 
-    const img =
-      document.createElement("img");
-
-    img.src =
-      "/assets/img/" +
-      pastaDia +
-      "/" +
-      pastaDia +
+    imagem.src =
+      configuracao.pasta +
+      configuracao.prefixo +
       i +
       ".jpeg";
 
-    img.className = "oferta-img";
+    imagem.className = "oferta-img";
 
-    img.alt =
-      "Oferta " + i + " - " + pastaDia;
+    imagem.alt = "Oferta " + i;
 
-    listaOfertas.appendChild(img);
+    listaOfertas.appendChild(imagem);
+  }
+
+  let ofertaAtual = 0;
+  let temporizador = null;
+
+  function obterImagens(){
+
+    return listaOfertas.querySelectorAll(".oferta-img");
 
   }
 
-
-  /* =========================
-     VARIÁVEIS
-  ========================= */
-
-  let ofertaAtual = 0;
-
-  let temporizadorOfertas;
-
-
-  /* =========================
-     MOVER OFERTAS
-  ========================= */
-
   function moverOfertas(){
 
-    const imagensOfertas =
-      listaOfertas.querySelectorAll(".oferta-img");
+    const imagens = obterImagens();
 
-    if(imagensOfertas.length === 0){
+    if(imagens.length === 0){
       return;
     }
 
+    const primeiraImagem = imagens[0];
 
     const larguraImagem =
-      imagensOfertas[0].offsetWidth;
+      primeiraImagem.offsetWidth;
 
-    const gap = 20;
+    const estilo =
+      window.getComputedStyle(listaOfertas);
+
+    const gap =
+      parseFloat(estilo.gap) || 20;
 
     const passo =
       larguraImagem + gap;
 
-
-    const larguraTotal =
-      imagensOfertas.length * passo - gap;
-
+    const slider =
+      listaOfertas.parentElement;
 
     const larguraVisivel =
-      sliderOfertas.offsetWidth;
+      slider.offsetWidth;
 
+    const larguraTotal =
+      imagens.length * passo - gap;
 
     const maxDeslocamento =
       Math.max(
@@ -1905,106 +1870,102 @@ document.addEventListener("DOMContentLoaded", function(){
         larguraTotal - larguraVisivel
       );
 
-
     let deslocamento =
       ofertaAtual * passo;
-
 
     if(deslocamento > maxDeslocamento){
       deslocamento = maxDeslocamento;
     }
 
-
     if(deslocamento < 0){
       deslocamento = 0;
     }
-
 
     listaOfertas.style.transform =
       "translateX(-" +
       deslocamento +
       "px)";
+  }
+
+  function iniciarTemporizador(){
+
+    clearTimeout(temporizador);
+
+    temporizador = setTimeout(function(){
+
+      mudarOferta(1);
+
+    }, 4000);
 
   }
 
+  function mudarOferta(direcao){
 
-  /* =========================
-     TEMPORIZADOR
-  ========================= */
+    const imagens = obterImagens();
 
-  function iniciarTemporizadorOfertas(){
+    if(imagens.length === 0){
+      return;
+    }
 
-    clearTimeout(temporizadorOfertas);
+    clearTimeout(temporizador);
 
+    ofertaAtual += direcao;
 
-    temporizadorOfertas =
+    if(ofertaAtual < 0){
+
+      ofertaAtual =
+        imagens.length - 1;
+
+    }
+
+    if(ofertaAtual >= imagens.length){
+
+      ofertaAtual = 0;
+
+    }
+
+    moverOfertas();
+
+    iniciarTemporizador();
+
+  }
+
+  /* SETA ESQUERDA */
+  setaEsquerda.addEventListener(
+    "click",
+    function(){
+
+      mudarOferta(-1);
+
+    }
+  );
+
+  /* SETA DIREITA */
+  setaDireita.addEventListener(
+    "click",
+    function(){
+
+      mudarOferta(1);
+
+    }
+  );
+
+  /* ESPERA AS IMAGENS CARREGAREM */
+  window.addEventListener(
+    "load",
+    function(){
+
       setTimeout(function(){
 
-        mudarOferta(1);
+        moverOfertas();
+        iniciarTemporizador();
 
-      }, 4000);
+      }, 100);
 
-  }
+    }
+  );
 
-
-  /* =========================
-     SETAS
-  ========================= */
-
-  window.mudarOferta =
-    function(direcao){
-
-      const imagensOfertas =
-        listaOfertas.querySelectorAll(".oferta-img");
-
-
-      if(imagensOfertas.length === 0){
-        return;
-      }
-
-
-      clearTimeout(temporizadorOfertas);
-
-
-      ofertaAtual += direcao;
-
-
-      if(ofertaAtual < 0){
-
-        ofertaAtual =
-          imagensOfertas.length - 1;
-
-      }
-
-
-      if(ofertaAtual >= imagensOfertas.length){
-
-        ofertaAtual = 0;
-
-      }
-
-
-      moverOfertas();
-
-
-      iniciarTemporizadorOfertas();
-
-    };
-
-
-  /* =========================
-     INICIAR
-  ========================= */
-
-  moverOfertas();
-
-  iniciarTemporizadorOfertas();
-
-
-  /* =========================
-     REDIMENSIONAR
-  ========================= */
-
+  /* AJUSTA AO REDIMENSIONAR */
   window.addEventListener(
     "resize",
     function(){
@@ -2014,12 +1975,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   );
 
-});
-
-  
-
-    }
-  );
+})();
 
 
 </script>
