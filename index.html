@@ -1593,10 +1593,10 @@ iframe{
 <section class="sec-mariano-card">
 
   <img
-    src="/assets/img/mariano-card-completo.png"
-    alt="Mariano Card"
-    class="banner-mariano-card"
-  >
+  src="assets/img/mariano-card-completo.png"
+  alt="Mariano Card"
+  class="banner-mariano-card"
+>
 
 </section>
 
@@ -1731,217 +1731,402 @@ document.addEventListener("DOMContentLoaded", function(){
     }, 4000);
 
   }
-
-
   /* =========================
-     CARROSSEL DE OFERTAS
-  ========================= */
+   CARROSSEL DE OFERTAS
+   AUTOMÁTICO POR DIA
+========================= */
 
-  let ofertaAtual = 0;
+let ofertaAtual = 0;
+let temporizadorOfertas;
+let imagensOfertas = [];
+let listaOfertas;
+let sliderOfertas;
 
-  const listaOfertas =
+
+/* =========================
+   CONFIGURAÇÃO DOS DIAS
+========================= */
+
+const campanhas = {
+
+  0: { pasta: "domingo", prefixo: "domingo" },
+  1: { pasta: "segunda", prefixo: "segunda" },
+
+  /* TERÇA DO BEBÊ */
+  2: { pasta: "terça", prefixo: "terca" },
+
+  3: { pasta: "quarta", prefixo: "quarta" },
+  4: { pasta: "quinta", prefixo: "quinta" },
+  5: { pasta: "sexta", prefixo: "sexta" },
+  6: { pasta: "sabado", prefixo: "sabado" }
+
+};
+
+
+/* =========================
+   CARREGAR OFERTAS
+========================= */
+
+function carregarOfertasDoDia(){
+
+  const secao =
+    document.querySelector(".sec-ofertas");
+
+  const destaque =
+    document.querySelector(".oferta-img-destaque");
+
+  listaOfertas =
     document.querySelector(".ofertas-lista");
 
-  const imagensOfertas =
-    document.querySelectorAll(
-      ".ofertas-lista .oferta-img"
-    );
-
-  const sliderOfertas =
+  sliderOfertas =
     document.querySelector(".ofertas-slider");
 
-  let temporizadorOfertas;
+
+  if(!secao || !listaOfertas || !destaque){
+    return;
+  }
 
 
-  /* =========================
-     MOVER OFERTAS
-  ========================= */
+  /*
+     Dia da semana:
 
-  function moverOfertas(){
+     0 = domingo
+     1 = segunda
+     2 = terça
+     3 = quarta
+     4 = quinta
+     5 = sexta
+     6 = sábado
+  */
 
-    if(!listaOfertas || imagensOfertas.length === 0){
-      return;
-    }
-
-
-    const larguraImagem =
-      imagensOfertas[0].offsetWidth;
-
-    const gap = 20;
-
-    const passo =
-      larguraImagem + gap;
+  const diaHoje =
+    new Date().getDay();
 
 
-    const larguraTotal =
-      imagensOfertas.length * passo - gap;
+  const campanha =
+    campanhas[diaHoje];
 
 
-    const larguraVisivel =
-      sliderOfertas.offsetWidth;
+  /*
+     Limpa o carrossel antigo
+  */
+
+  listaOfertas.innerHTML = "";
+
+  imagensOfertas = [];
+
+  ofertaAtual = 0;
 
 
-    /*
-       Limite máximo do deslocamento
-    */
+  /*
+     Se não houver campanha
+  */
 
-    const maxDeslocamento =
-      Math.max(
-        0,
-        larguraTotal - larguraVisivel
-      );
+  if(!campanha){
 
+    secao.style.display = "none";
 
-    let deslocamento =
-      ofertaAtual * passo;
-
-
-    /*
-       Não deixa passar do final
-    */
-
-    if(deslocamento > maxDeslocamento){
-      deslocamento = maxDeslocamento;
-    }
-
-
-    /*
-       Não deixa passar do começo
-    */
-
-    if(deslocamento < 0){
-      deslocamento = 0;
-    }
-
-
-    /*
-       Move somente as ofertas.
-
-       A OFERTA DO DIA permanece fixa.
-    */
-
-    listaOfertas.style.transform =
-      "translateX(-" +
-      deslocamento +
-      "px)";
+    return;
 
   }
 
 
-  /* =========================
-     TEMPORIZADOR AUTOMÁTICO
-  ========================= */
+  /*
+     Primeira imagem =
+     OFERTA DO DIA
+  */
 
-  function iniciarTemporizadorOfertas(){
+  destaque.src =
+    "/assets/img/" +
+    campanha.pasta +
+    "/" +
+    campanha.prefixo +
+    "1.jpeg";
+
+
+  /*
+     Vamos procurar até 50 imagens.
+
+     As que não existirem serão
+     automaticamente ignoradas.
+  */
+
+  for(let i = 1; i <= 50; i++){
+
+    const imagem =
+      document.createElement("img");
+
+
+    imagem.src =
+      "/assets/img/" +
+      campanha.pasta +
+      "/" +
+      campanha.prefixo +
+      i +
+      ".jpeg";
+
+
+    imagem.className =
+      "oferta-img";
+
+
+    imagem.alt =
+      "Oferta " + i;
+
 
     /*
-       Cancela o contador anterior
+       Se a imagem não existir,
+       remove automaticamente.
     */
 
-    clearTimeout(temporizadorOfertas);
+    imagem.onerror = function(){
+
+      this.remove();
+
+      atualizarListaOfertas();
+
+    };
 
 
-    /*
-       Começa uma nova contagem
-       de 4 segundos
-    */
+    listaOfertas.appendChild(imagem);
 
-    temporizadorOfertas = setTimeout(function(){
+  }
+
+
+  /*
+     Mostra a seção
+  */
+
+  secao.style.display = "block";
+
+
+  /*
+     Aguarda as imagens carregarem
+     antes de calcular o tamanho
+  */
+
+  setTimeout(function(){
+
+    atualizarListaOfertas();
+
+    moverOfertas();
+
+    iniciarTemporizadorOfertas();
+
+  }, 300);
+
+}
+
+
+/* =========================
+   ATUALIZAR LISTA
+========================= */
+
+function atualizarListaOfertas(){
+
+  imagensOfertas =
+    Array.from(
+      listaOfertas.querySelectorAll(".oferta-img")
+    );
+
+
+  /*
+     Se não existir nenhuma imagem,
+     esconde a seção.
+  */
+
+  if(imagensOfertas.length === 0){
+
+    document.querySelector(".sec-ofertas").style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  /*
+     Primeira imagem é a OFERTA DO DIA,
+     portanto ela não entra no carrossel.
+
+     O carrossel começa na segunda imagem.
+  */
+
+  imagensOfertas =
+    imagensOfertas.slice(1);
+
+
+  moverOfertas();
+
+}
+
+
+/* =========================
+   MOVER OFERTAS
+========================= */
+
+function moverOfertas(){
+
+  if(
+    !listaOfertas ||
+    imagensOfertas.length === 0
+  ){
+    return;
+  }
+
+
+  const imagem =
+    imagensOfertas[0];
+
+
+  const larguraImagem =
+    imagem.offsetWidth;
+
+
+  const gap = 20;
+
+
+  const passo =
+    larguraImagem + gap;
+
+
+  const larguraTotal =
+    imagensOfertas.length * passo - gap;
+
+
+  const larguraVisivel =
+    sliderOfertas.offsetWidth;
+
+
+  const maxDeslocamento =
+    Math.max(
+      0,
+      larguraTotal - larguraVisivel
+    );
+
+
+  let deslocamento =
+    ofertaAtual * passo;
+
+
+  if(deslocamento > maxDeslocamento){
+
+    deslocamento =
+      maxDeslocamento;
+
+  }
+
+
+  if(deslocamento < 0){
+
+    deslocamento = 0;
+
+  }
+
+
+  listaOfertas.style.transform =
+    "translateX(-" +
+    deslocamento +
+    "px)";
+
+}
+
+
+/* =========================
+   TEMPORIZADOR
+========================= */
+
+function iniciarTemporizadorOfertas(){
+
+  clearTimeout(temporizadorOfertas);
+
+
+  temporizadorOfertas =
+    setTimeout(function(){
 
       mudarOferta(1);
 
     }, 4000);
 
+}
+
+
+/* =========================
+   SETAS
+========================= */
+
+window.mudarOferta =
+function(direcao){
+
+  if(imagensOfertas.length === 0){
+    return;
   }
 
 
-  /* =========================
-     SETAS
-  ========================= */
-
-  window.mudarOferta = function(direcao){
-
-    if(!listaOfertas || imagensOfertas.length === 0){
-      return;
-    }
+  clearTimeout(
+    temporizadorOfertas
+  );
 
 
-    /*
-       Cancela o contador atual
-       quando o usuário clica
-    */
-
-    clearTimeout(temporizadorOfertas);
+  ofertaAtual += direcao;
 
 
-    /*
-       Avança ou volta
-    */
+  if(ofertaAtual < 0){
 
-    ofertaAtual += direcao;
+    ofertaAtual =
+      imagensOfertas.length - 1;
 
-
-    /*
-       Voltou antes da primeira
-    */
-
-    if(ofertaAtual < 0){
-
-      ofertaAtual =
-        imagensOfertas.length - 1;
-
-    }
+  }
 
 
-    /*
-       Passou da última
-    */
+  if(ofertaAtual >= imagensOfertas.length){
 
-    if(ofertaAtual >= imagensOfertas.length){
+    ofertaAtual = 0;
 
-      ofertaAtual = 0;
-
-    }
+  }
 
 
-    /*
-       Move imediatamente
-    */
+  moverOfertas();
 
-    moverOfertas();
-
-
-    /*
-       Depois do clique começa
-       uma nova contagem de 4 segundos
-    */
-
-    iniciarTemporizadorOfertas();
-
-  };
-
-
-  /* =========================
-     INICIAR AUTOMÁTICO
-  ========================= */
 
   iniciarTemporizadorOfertas();
 
+};
 
-  /* =========================
-     AJUSTAR AO REDIMENSIONAR
-  ========================= */
 
-  window.addEventListener(
-    "resize",
-    function(){
+/* =========================
+   INICIAR
+========================= */
 
-      moverOfertas();
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    carregarOfertasDoDia();
+
+  }
+);
+
+
+/* =========================
+   REDIMENSIONAR
+========================= */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    moverOfertas();
+
+  }
+);
+
+
+  
 
     }
   );
 
-});
 
 </script>
 </body>
