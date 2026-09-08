@@ -1734,394 +1734,287 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   /* =========================
    CARROSSEL DE OFERTAS
-   AUTOMÁTICO POR DIA
+   POR DIA DA SEMANA
 ========================= */
 
-let ofertaAtual = 0;
-let temporizadorOfertas;
-let imagensOfertas = [];
-let listaOfertas;
-let sliderOfertas;
+document.addEventListener("DOMContentLoaded", function(){
 
+  const listaOfertas =
+    document.querySelector(".ofertas-lista");
 
-/* =========================
-   CONFIGURAÇÃO DOS DIAS
-========================= */
-
-const campanhas = {
-
-  0: { pasta: "domingo", prefixo: "domingo" },
-  1: { pasta: "segunda", prefixo: "segunda" },
-
-  /* TERÇA DO BEBÊ */
-  2: { pasta: "terça", prefixo: "terca" },
-
-  3: { pasta: "quarta", prefixo: "quarta" },
-  4: { pasta: "quinta", prefixo: "quinta" },
-  5: { pasta: "sexta", prefixo: "sexta" },
-  6: { pasta: "sabado", prefixo: "sabado" }
-
-};
-
-
-/* =========================
-   CARREGAR OFERTAS
-========================= */
-
-function carregarOfertasDoDia(){
-
-  const secao =
-    document.querySelector(".sec-ofertas");
+  const sliderOfertas =
+    document.querySelector(".ofertas-slider");
 
   const destaque =
     document.querySelector(".oferta-img-destaque");
 
-  listaOfertas =
-    document.querySelector(".ofertas-lista");
-
-  sliderOfertas =
-    document.querySelector(".ofertas-slider");
-
-
-  if(!secao || !listaOfertas || !destaque){
+  if(!listaOfertas || !sliderOfertas || !destaque){
     return;
   }
 
 
-  /*
-     Dia da semana:
+  /* =========================
+     IDENTIFICAR O DIA
+  ========================= */
 
-     0 = domingo
-     1 = segunda
-     2 = terça
-     3 = quarta
-     4 = quinta
-     5 = sexta
-     6 = sábado
-  */
+  const dias = [
+    "domingo",
+    "segunda",
+    "terca",
+    "quarta",
+    "quinta",
+    "sexta",
+    "sabado"
+  ];
 
-  const diaHoje =
-    new Date().getDay();
-
-
-  const campanha =
-    campanhas[diaHoje];
+  const hoje = new Date().getDay();
+  const pastaDia = dias[hoje];
 
 
-  /*
-     Limpa o carrossel antigo
-  */
-
-  listaOfertas.innerHTML = "";
-
-  imagensOfertas = [];
-
-  ofertaAtual = 0;
-
+  /* =========================
+     QUANTIDADE DE IMAGENS
+  ========================= */
 
   /*
-     Se não houver campanha
+     Coloque aqui a quantidade de
+     imagens que existem em cada pasta.
+
+     Por enquanto:
+     TERÇA = 17 imagens
   */
 
-  if(!campanha){
+  const quantidadePorDia = {
 
-    secao.style.display = "none";
+    domingo: 0,
+    segunda: 0,
+    terca: 17,
+    quarta: 0,
+    quinta: 0,
+    sexta: 0,
+    sabado: 0
+
+  };
+
+
+  const quantidade =
+    quantidadePorDia[pastaDia];
+
+
+  /* =========================
+     DIA SEM PROMOÇÃO
+  ========================= */
+
+  if(quantidade === 0){
+
+    document.querySelector(".sec-ofertas").style.display = "none";
 
     return;
 
   }
 
 
-  /*
-     Primeira imagem =
+  /* =========================
      OFERTA DO DIA
-  */
+  ========================= */
 
   destaque.src =
     "/assets/img/" +
-    campanha.pasta +
+    pastaDia +
     "/" +
-    campanha.prefixo +
+    pastaDia +
     "1.jpeg";
 
 
-  /*
-     Vamos procurar até 50 imagens.
+  destaque.alt =
+    "Oferta do Dia - " + pastaDia;
 
-     As que não existirem serão
-     automaticamente ignoradas.
-  */
 
-  for(let i = 1; i <= 50; i++){
+  /* =========================
+     CRIAR CARROSSEL
+  ========================= */
 
-    const imagem =
+  listaOfertas.innerHTML = "";
+
+
+  for(let i = 2; i <= quantidade; i++){
+
+    const img =
       document.createElement("img");
 
-
-    imagem.src =
+    img.src =
       "/assets/img/" +
-      campanha.pasta +
+      pastaDia +
       "/" +
-      campanha.prefixo +
+      pastaDia +
       i +
       ".jpeg";
 
+    img.className = "oferta-img";
 
-    imagem.className =
-      "oferta-img";
+    img.alt =
+      "Oferta " + i + " - " + pastaDia;
+
+    listaOfertas.appendChild(img);
+
+  }
 
 
-    imagem.alt =
-      "Oferta " + i;
+  /* =========================
+     VARIÁVEIS
+  ========================= */
+
+  let ofertaAtual = 0;
+
+  let temporizadorOfertas;
 
 
-    /*
-       Se a imagem não existir,
-       remove automaticamente.
-    */
+  /* =========================
+     MOVER OFERTAS
+  ========================= */
 
-    imagem.onerror = function(){
+  function moverOfertas(){
 
-      this.remove();
+    const imagensOfertas =
+      listaOfertas.querySelectorAll(".oferta-img");
 
-      atualizarListaOfertas();
+    if(imagensOfertas.length === 0){
+      return;
+    }
+
+
+    const larguraImagem =
+      imagensOfertas[0].offsetWidth;
+
+    const gap = 20;
+
+    const passo =
+      larguraImagem + gap;
+
+
+    const larguraTotal =
+      imagensOfertas.length * passo - gap;
+
+
+    const larguraVisivel =
+      sliderOfertas.offsetWidth;
+
+
+    const maxDeslocamento =
+      Math.max(
+        0,
+        larguraTotal - larguraVisivel
+      );
+
+
+    let deslocamento =
+      ofertaAtual * passo;
+
+
+    if(deslocamento > maxDeslocamento){
+      deslocamento = maxDeslocamento;
+    }
+
+
+    if(deslocamento < 0){
+      deslocamento = 0;
+    }
+
+
+    listaOfertas.style.transform =
+      "translateX(-" +
+      deslocamento +
+      "px)";
+
+  }
+
+
+  /* =========================
+     TEMPORIZADOR
+  ========================= */
+
+  function iniciarTemporizadorOfertas(){
+
+    clearTimeout(temporizadorOfertas);
+
+
+    temporizadorOfertas =
+      setTimeout(function(){
+
+        mudarOferta(1);
+
+      }, 4000);
+
+  }
+
+
+  /* =========================
+     SETAS
+  ========================= */
+
+  window.mudarOferta =
+    function(direcao){
+
+      const imagensOfertas =
+        listaOfertas.querySelectorAll(".oferta-img");
+
+
+      if(imagensOfertas.length === 0){
+        return;
+      }
+
+
+      clearTimeout(temporizadorOfertas);
+
+
+      ofertaAtual += direcao;
+
+
+      if(ofertaAtual < 0){
+
+        ofertaAtual =
+          imagensOfertas.length - 1;
+
+      }
+
+
+      if(ofertaAtual >= imagensOfertas.length){
+
+        ofertaAtual = 0;
+
+      }
+
+
+      moverOfertas();
+
+
+      iniciarTemporizadorOfertas();
 
     };
 
 
-    listaOfertas.appendChild(imagem);
-
-  }
-
-
-  /*
-     Mostra a seção
-  */
-
-  secao.style.display = "block";
-
-
-  /*
-     Aguarda as imagens carregarem
-     antes de calcular o tamanho
-  */
-
-  setTimeout(function(){
-
-    atualizarListaOfertas();
-
-    moverOfertas();
-
-    iniciarTemporizadorOfertas();
-
-  }, 300);
-
-}
-
-
-/* =========================
-   ATUALIZAR LISTA
-========================= */
-
-function atualizarListaOfertas(){
-
-  imagensOfertas =
-    Array.from(
-      listaOfertas.querySelectorAll(".oferta-img")
-    );
-
-
-  /*
-     Se não existir nenhuma imagem,
-     esconde a seção.
-  */
-
-  if(imagensOfertas.length === 0){
-
-    document.querySelector(".sec-ofertas").style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  /*
-     Primeira imagem é a OFERTA DO DIA,
-     portanto ela não entra no carrossel.
-
-     O carrossel começa na segunda imagem.
-  */
-
-  imagensOfertas =
-    imagensOfertas.slice(1);
-
+  /* =========================
+     INICIAR
+  ========================= */
 
   moverOfertas();
-
-}
-
-
-/* =========================
-   MOVER OFERTAS
-========================= */
-
-function moverOfertas(){
-
-  if(
-    !listaOfertas ||
-    imagensOfertas.length === 0
-  ){
-    return;
-  }
-
-
-  const imagem =
-    imagensOfertas[0];
-
-
-  const larguraImagem =
-    imagem.offsetWidth;
-
-
-  const gap = 20;
-
-
-  const passo =
-    larguraImagem + gap;
-
-
-  const larguraTotal =
-    imagensOfertas.length * passo - gap;
-
-
-  const larguraVisivel =
-    sliderOfertas.offsetWidth;
-
-
-  const maxDeslocamento =
-    Math.max(
-      0,
-      larguraTotal - larguraVisivel
-    );
-
-
-  let deslocamento =
-    ofertaAtual * passo;
-
-
-  if(deslocamento > maxDeslocamento){
-
-    deslocamento =
-      maxDeslocamento;
-
-  }
-
-
-  if(deslocamento < 0){
-
-    deslocamento = 0;
-
-  }
-
-
-  listaOfertas.style.transform =
-    "translateX(-" +
-    deslocamento +
-    "px)";
-
-}
-
-
-/* =========================
-   TEMPORIZADOR
-========================= */
-
-function iniciarTemporizadorOfertas(){
-
-  clearTimeout(temporizadorOfertas);
-
-
-  temporizadorOfertas =
-    setTimeout(function(){
-
-      mudarOferta(1);
-
-    }, 4000);
-
-}
-
-
-/* =========================
-   SETAS
-========================= */
-
-window.mudarOferta =
-function(direcao){
-
-  if(imagensOfertas.length === 0){
-    return;
-  }
-
-
-  clearTimeout(
-    temporizadorOfertas
-  );
-
-
-  ofertaAtual += direcao;
-
-
-  if(ofertaAtual < 0){
-
-    ofertaAtual =
-      imagensOfertas.length - 1;
-
-  }
-
-
-  if(ofertaAtual >= imagensOfertas.length){
-
-    ofertaAtual = 0;
-
-  }
-
-
-  moverOfertas();
-
 
   iniciarTemporizadorOfertas();
 
-};
 
+  /* =========================
+     REDIMENSIONAR
+  ========================= */
 
-/* =========================
-   INICIAR
-========================= */
+  window.addEventListener(
+    "resize",
+    function(){
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
+      moverOfertas();
 
-    carregarOfertasDoDia();
+    }
+  );
 
-  }
-);
-
-
-/* =========================
-   REDIMENSIONAR
-========================= */
-
-window.addEventListener(
-  "resize",
-  function(){
-
-    moverOfertas();
-
-  }
-);
-
+});
 
   
 
