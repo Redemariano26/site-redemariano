@@ -758,6 +758,27 @@ footer{
     padding:0 15px;
   }
 }
+.banner-produtos-link{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+}
+
+.banner-produtos-link img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+.link-conheca-produtos{
+    position:absolute;
+    left:2.5%;
+    bottom:9%;
+    width:22%;
+    height:11%;
+    display:block;
+    cursor:pointer;
+}
 </style>
 </head>
 
@@ -900,15 +921,20 @@ footer{
      PRODUTOS DE MARCA PRÓPRIA
 ======================================================= -->
 
-<section class="marca-propria">
+<div class="banner-produtos-link">
 
-  <img
-    src="/assets/img/produtos-marca-propria.png"
-    alt="Produtos de marca própria Mariano"
-  >
+    <img
+        src="/assets/img/produtos-marca-propria.png"
+        alt="Produtos de marca própria Mariano"
+    >
 
-</section>
+    <a
+        href="produtos.html"
+        class="link-conheca-produtos"
+        aria-label="Conheça nossos produtos de marca própria">
+    </a>
 
+</div>
 
 <!-- =======================================================
      MARIANO CARD
