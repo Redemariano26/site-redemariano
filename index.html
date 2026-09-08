@@ -2,239 +2,319 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Rede Mariano</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Rede Mariano</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="/assets/img/favicon.png">
 
 <style>
-  body{
-  margin:0;
+/* =========================================================
+   RESET / BASE
+========================================================= */
+
+*{
+  box-sizing:border-box;
 }
 
-section{
-  position:relative;
-  z-index:1;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-margin:0;
-font-family:'Montserrat',sans-serif;
-background:#f4f6fb;
-color:#222;
+  margin:0;
+  font-family:'Montserrat',Arial,sans-serif;
+  background:#f4f6fb;
+  color:#222;
 }
 
-/* HEADER */
+img{
+  max-width:100%;
+}
+
+button,
+a{
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   MENU DESKTOP
+========================================================= */
+
 header{
   position:absolute;
   top:0;
   left:0;
   width:100%;
+  padding:24px 30px;
   display:flex;
-  padding:25px 50px;
-  z-index:5; /* MAIOR QUE O BANNER */
+  justify-content:center;
+  z-index:1000;
   background:transparent;
 }
 
-
-
-
-.logo-area img{height:110px;}
-nav a{margin-left:25px;text-decoration:none;color:#333;font-weight:600;}
-.banner img{width:100%;display:block;}
-
-.faixa-marca{
-background:#C4232A;
-padding:70px 20px;
-text-align:center;
-font-weight:800;
-font-size:clamp(28px,5vw,60px);
-color:#fff;
-}
-.texto-destaque{color:#FFCC00;}
-
-.section{
-padding:90px 20px;
-text-align:center;
+header nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:34px;
 }
 
-/* SLIDER */
-.revista-slider{
-position:relative;
-max-width:850px;
-margin:40px auto;
-overflow:hidden;
-border-radius:14px;
-box-shadow:0 25px 60px rgba(0,0,0,.25);
-background:#000;
-}
-
-.slides{
-display:flex;
-transition:transform .4s ease;
-}
-
-.slides img{
-width:100%;
-flex-shrink:0;
-display:block;
-cursor:zoom-in;
-}
-
-/* SETAS */
-.nav{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:#C4232A;
-color:#fff;
-border:none;
-width:48px;
-height:48px;
-border-radius:50%;
-font-size:22px;
-cursor:pointer;
-z-index:10;
-box-shadow:0 10px 25px rgba(0,0,0,.25);
-}
-
-.prev{left:-20px;}
-.next{right:-20px;}
-
-.nav:hover{
-transform:translateY(-50%) scale(1.1);
-}
-@media(max-width:768px){
-  nav{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
-  }
-
-  nav a{
-    margin:4px;
-    font-size:14px;
-  }
-}
-nav a{
-  margin-left:18px;
+header nav a{
+  position:relative;
+  color:#fff;
   text-decoration:none;
+  font-size:15px;
   font-weight:700;
-  background:#C4232A;
+  transition:.25s ease;
+  text-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+
+header nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0;
+  height:2px;
+  background:#FFD400;
+  transition:.25s ease;
+}
+
+header nav a:hover{
   color:#FFD400;
-  padding:10px 16px;
-  border-radius:8px;
-  transition:.25s;
 }
 
-nav a:hover{
-  color:#C4232A;
-}
-
-
-
-/* ZOOM MODAL */
-.zoom-modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.92);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999;
-}
-
-.zoom-modal img{
-max-width:95%;
-max-height:95%;
-border-radius:12px;
-box-shadow:0 30px 80px rgba(0,0,0,.5);
-animation:zoomIn .25s ease;
-}
-
-.zoom-close{
-position:absolute;
-top:20px;
-right:30px;
-font-size:32px;
-color:#fff;
-cursor:pointer;
-}
-
-@keyframes zoomIn{
-from{transform:scale(.85);opacity:0}
-to{transform:scale(1);opacity:1}
-}
-
-/* MAPA */
-.mapa-full{
+header nav a:hover::after,
+header nav a.ativo::after{
   width:100%;
-  height:500px;
-  border:none;
-  margin-top:20px;
 }
 
-footer{
-background:#111827;
-color:#fff;
-text-align:center;
-padding:25px;
-font-size:14px;
+.menu-instagram:hover{
+  background:linear-gradient(
+    45deg,
+    #f58529,
+    #dd2a7b,
+    #8134af,
+    #515bd4
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-/* MOBILE */
-@media(max-width:768px){
 
-header{flex-direction:column;padding:12px}
-.logo-area img{height:65px}
+/* =========================================================
+   BANNER PRINCIPAL
+========================================================= */
 
-.nav{display:none;}
-.mapa-full{height:60vh;}
-}
-/* ================= FAIXA SLOGAN ================= */
-.faixa-slogan{
-background:#C4232A;
-padding:18px 10px;
-text-align:center;
-color:#fff;
+.banner{
+  width:100%;
+  overflow:hidden;
+  background:#C4232A;
 }
 
-.faixa-slogan p{
-margin:0;
-font-size:clamp(24px,3.5vw,42px);
-font-weight:500;
-color:#fff;
+.banner img{
+  width:100%;
+  height:auto;
+  display:block;
 }
 
-.faixa-slogan .destaque{
-font-weight:800;
-color:#fff;
+
+/* =========================================================
+   OFERTAS
+========================================================= */
+
+.sec-ofertas{
+  width:100%;
+  background:#fff;
+  padding:55px 0 60px;
 }
 
-.faixa-slogan .resto{
-font-weight:400;
-opacity:.95;
+.ofertas-container{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:32px;
+  padding:0 38px;
+  margin:0 auto;
 }
 
-/* ================= TERÇA DO BEBÊ ================= */
+/* Oferta do dia */
+
+.oferta-destaque{
+  position:relative;
+  flex-shrink:0;
+  z-index:5;
+}
+
+.oferta-img-destaque{
+  width:280px;
+  height:373px;
+  object-fit:cover;
+  display:block;
+  border-radius:10px;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+
+.oferta-label{
+  position:absolute;
+  top:-15px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#C9232A;
+  color:#fff;
+  padding:10px 25px;
+  border-radius:24px;
+  font-size:15px;
+  font-weight:800;
+  white-space:nowrap;
+  z-index:10;
+  box-shadow:0 5px 12px rgba(0,0,0,.18);
+}
+
+/* Carrossel */
+
+.ofertas-carrossel{
+  position:relative;
+  flex:1;
+  min-width:0;
+}
+
+.ofertas-slider{
+  width:100%;
+  overflow:hidden;
+  border-radius:10px;
+}
+
+.ofertas-lista{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  transition:transform .5s ease;
+  will-change:transform;
+}
+
+.oferta-img{
+  width:255px;
+  min-width:255px;
+  height:340px;
+  object-fit:cover;
+  display:block;
+  border-radius:10px;
+  flex-shrink:0;
+}
+
+/* Setas */
+
+.oferta-seta{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  border:0;
+  border-radius:10px;
+  background:#c8cdd5;
+  color:#fff;
+  font-size:29px;
+  line-height:1;
+  cursor:pointer;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s ease;
+}
+
+.oferta-seta:hover{
+  background:#C9232A;
+  transform:translateY(-50%) scale(1.05);
+}
+
+.oferta-seta:active{
+  transform:translateY(-50%) scale(.97);
+}
+
+.oferta-seta.esquerda{
+  left:-24px;
+}
+
+.oferta-seta.direita{
+  right:-24px;
+}
+
+
+/* =========================================================
+   PRODUTOS DE MARCA PRÓPRIA
+========================================================= */
+
+.marca-propria{
+  width:100%;
+  background:#fff;
+  overflow:hidden;
+}
+
+.marca-propria img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+
+/* =========================================================
+   MARIANO CARD
+========================================================= */
+
+.sec-mariano-card{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  background:#f5f6fa;
+  padding:18px 0;
+}
+
+.banner-mariano-card{
+  display:block;
+  width:100%;
+  max-width:1500px;
+  height:auto;
+  object-fit:contain;
+}
+
+
+/* =========================================================
+   TERÇA DO BEBÊ
+========================================================= */
+
 .faixa-bebe{
-width:100%;
-background:#C4232A;
-text-align:center;
-padding:15px 0;
+  width:100%;
+  background:#C4232A;
+  text-align:center;
+  padding:15px 0;
+  overflow:hidden;
 }
 
 .faixa-bebe img{
-width:100%;
-max-width:950px;
-height:auto;
-display:block;
-margin:auto;
+  width:100%;
+  max-width:950px;
+  height:auto;
+  display:block;
+  margin:auto;
+  transition:transform .6s ease;
 }
 
-/* ================= CASHBACK ================= */
+.faixa-bebe:hover img{
+  transform:scale(1.02);
+}
+
+
+/* =========================================================
+   CASHBACK
+========================================================= */
 
 .faixa-cashback{
   width:100%;
@@ -242,96 +322,28 @@ margin:auto;
   text-align:center;
   padding:10px 0 30px;
   position:relative;
+  overflow:hidden;
 }
 
-.faixa-cashback img{
+.faixa-cashback > img{
   width:100%;
   max-width:950px;
   height:auto;
   display:block;
   margin:auto;
+  transition:transform .6s ease;
 }
 
-/* BOTÃO SOBRE A IMAGEM */
+.faixa-cashback:hover > img{
+  transform:scale(1.02);
+}
+
 .cashback-cta{
   position:absolute;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-}
-/* =========================
-   SEÇÃO MARIANO CARD
-========================= */
-.sec-mariano-card{
-  background:#f4f6fb;
-  padding:90px 20px;
-}
-
-/* LIMITA A LARGURA */
-.card-container{
-  max-width:1150px; /* controla tamanho total */
-  margin:0 auto;
-}
-
-.titulo-card{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:40px;
-}
-
-.card-layout{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:50px;
-  flex-wrap:wrap;
-}
-
-/* LADOS */
-.lado{
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-  max-width:240px;
-}
-
-.lado img{
-  width:100%;
-}
-
-/* CENTRO */
-.card-centro{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:18px;
-}
-
-.img-card{
-  width:220px; /* tamanho normal do cartão */
-}
-
-.texto-topo{
-  width:200px;
-}
-
-.texto-base{
-  width:220px;
-}
-.cashback-cta{
-  position:absolute;
-  bottom: 25px;
+  bottom:25px;
   left:68%;
   transform:translateX(-50%);
   z-index:10;
-  background:transparent;
-  padding:0;
-}
-
-.logo-cashback{
-  max-width:220px;
-  margin-bottom:18px;
 }
 
 .btn-cashback{
@@ -339,505 +351,22 @@ margin:auto;
   background:transparent;
   color:#000;
   padding:12px 25px;
+  font-size:16px;
   font-weight:700;
   text-decoration:none;
+  border:0;
   border-radius:50px;
-  font-size:16px;
   transition:.25s ease;
-  box-shadow:none;
-  border:none;
 }
 
 .btn-cashback:hover{
-  background:transparent;
   color:#C4232A;
 }
 
-/* BANNER FULL WIDTH ENCARTE */
-.encarte-banner-full{
-  width:100vw;
-  margin-left:calc(-50vw + 50%);
-  margin-bottom:25px;
-  overflow:hidden;
-  position:relative;
-}
-.encarte-banner-full img{
-  width:100%;
-  height:auto;
-  display:block;
 
-  /* NÃO CORTA MAIS */
-  object-fit:contain;
-
-  /* sombra premium */
-  filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
-
-  animation:floatEnc 6s ease-in-out infinite;
-}
-  /* efeito flutuante */
-  animation:floatEnc 6s ease-in-out infinite;
-
-  .encarte-banner-full img{
-    max-height:none; /* remove corte no celular */
-    border-radius:0;
-    animation:floatEncMobile 6s ease-in-out infinite;
-  }
-.encarte-banner-full::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to right,
-    rgba(255,255,255,.6),
-    transparent 20%,
-    transparent 80%,
-    rgba(255,255,255,.6)
-  );
-  pointer-events:none;
-}
-.banner img{
-  width:100%;
-  display:block;
-  margin-top:0;
-}
-.banner{
-  position:relative;
-  z-index:1;
-}
-
-.banner img{
-  width:100%;
-  display:block;
-}
-/* HEADER CENTRALIZADO */
-header{
-  position:relative;
-  top:0;
-  left:0;
-  width:100%;
-  padding:25px 40px;
-  display:flex;
-  justify-content:center; /* centraliza */
-  z-index:1000;
-}
-/* HEADER */
-header{
-  width:100%;
-  padding:25px 40px;
-  display:flex;
-  justify-content:center;
-}
-
-/* MENU */
-header nav{
-  display:flex;
-  gap:40px;
-}
-
-/* LINKS LIMPOS */
-header nav a{
-  color:#fff; /* branco */
-  text-decoration:none;
-  font-weight:600;
-  font-size:16px;
-  font-family:Montserrat, Arial, sans-serif;
-  transition:.3s;
-  background:none; /* remove vermelho */
-  padding:0; /* remove botão */
-  border-radius:0;
-}
-
-/* HOVER AMARELO */
-header nav a:hover{
-  color:#FFD400;
-}
-header{
-  background:transparent;
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-}
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 999; /* MUITO IMPORTANTE */
-  cursor: pointer;
-}
-.revista-slider {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-}
-
-.slides {
-  display: flex;
-  transition: transform 0.4s ease;
-}
-
-.slides img {
-  width: 100%;
-  flex-shrink: 0;
-  border-radius: 12px;
-}
-
-/* Botões */
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 28px;
-  padding: 10px 14px;
-  cursor: pointer;
-  z-index: 999;
-  border-radius: 50%;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-/* =========================
-   MOBILE SIDEBAR ONLY
-========================= */
-.mobile-menu-btn,
-.mobile-sidebar,
-.mobile-overlay {
-  display: none;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-
-  /* ESCONDE MENU ORIGINAL */
-  header nav {
-    display: none;
-  }
-
-  /* BOTÃO ☰ */
-  .mobile-menu-btn {
-    display: block;
-    position: fixed;
-    top: 18px;
-    left: 15px;
-    font-size: 26px;
-    color: white;
-    z-index: 2000;
-    cursor: pointer;
-  }
-
-  /* SIDEBAR */
-  .mobile-sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 260px;
-    height: 100%;
-    background: #C92026;
-    padding-top: 80px;
-    transition: 0.3s;
-    z-index: 2100;
-  }
-
-  .mobile-sidebar a {
-    display: block;
-    padding: 15px 25px;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-  }
-
-  /* OVERLAY */
-  .mobile-overlay {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-    z-index: 2050;
-  }
-
-  /* ABERTO */
-  .mobile-sidebar.active {
-    left: 0;
-  }
-
-  .mobile-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* ESPAÇO DO HEADER */
-  body {
-    padding-top: 70px;
-  }
-}
-/* ================= MOBILE SIDEBAR ================= */
-.mobile-topbar,
-.mobile-sidebar,
-.mobile-overlay {
-  display: none;
-}
-
-@media (max-width: 768px) {
-
-  /* ESCONDE MENU NORMAL */
-  header nav {
-    display: none;
-  }
-
-  /* FAIXA VERMELHA */
-  .mobile-topbar {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: #C92026;
-    align-items: center;
-    padding: 0 15px;
-    z-index: 3000;
-  }
-
-  .mobile-menu-btn {
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
-  }
-
-  /* SIDEBAR */
-  .mobile-sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 260px;
-    height: 100%;
-    background: #C92026;
-    padding-top: 70px;
-    transition: 0.3s;
-    z-index: 3100;
-  }
-
-  .mobile-sidebar a {
-    display: block;
-    padding: 15px 25px;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-  }
-
-  /* OVERLAY */
-  .mobile-overlay {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-    z-index: 3050;
-  }
-
-  /* ABERTO */
-  .mobile-sidebar.active {
-    left: 0;
-  }
-
-  .mobile-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* espaço do topo */
-  body {
-    padding-top: 60px;
-  }
-}
-/* =========================
-   FAIXA SLOGAN MOBILE
-========================= */
-@media (max-width: 768px) {
-
-  .faixa-slogan {
-    padding: 16px 10px; /* diminui altura */
-  }
-
-  .faixa-slogan p {
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .faixa-slogan .destaque {
-    font-size: 18px; /* +30 menor */
-  }
-
-  .faixa-slogan .resto {
-    font-size: 12px;
-  }
-
-}
-/* =========================
-   SETAS ENCARTE MOBILE
-========================= */
-@media (max-width: 768px) {
-
-  .revista-slider {
-    position: relative;
-  }
-
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    font-size: 24px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav.prev {
-    left: 8px;
-  }
-
-  .nav.next {
-    right: 8px;
-  }
-
-}
-* {
-  box-sizing: border-box;
-}
-/* =========================
-   PERSONAGENS PROMO
-========================= */
-.banner-personagens {
-  display: flex;
-  flex-direction: column; /* 🔥 força empilhar */
-  align-items: center;
-  gap: 25px;
-  padding: 30px 15px;
-  background: #f7f7f7;
-}
-
-.banner-personagens img {
-  width: 100%;
-  max-width: 700px; /* maior no PC */
-  height: auto;
-  display: block;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-}
-nav a{
-  margin-right:15px;
-}
-.menu-instagram{
-  position:relative;
-  transition:0.3s;
-}
-
-.menu-instagram:hover{
-  background: linear-gradient(
-    45deg,
-    #f58529,
-    #dd2a7b,
-    #8134af,
-    #515bd4
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.faixa-slogan,
-.faixa-slogan * {
-  text-decoration: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
-.faixa-farmacia{
-  background:#C4232A;
-  padding:18px 12px; /* mais fina */
-  text-align:center;
-}
-
-.faixa-farmacia h2{
-  margin:0;
-  color:#fff;
-  font-family:'Montserrat', sans-serif;
-  font-weight:700;
-  font-size:clamp(18px, 2.5vw, 28px);
-}
-.faixa-farmacia{
-  background:linear-gradient(90deg,#C4232A,#a61c22);
-  padding:40px 15px;
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-.banner-mapa{
-  width:100%;
-  background:#fff;
-  text-align:center;
-  padding:12px 0;
-}
-
-.banner-mapa img{
-  max-width:100%;
-  height:auto;
-  display:block;
-  margin:0 auto;
-}
-.banner-mapa{
-  padding: 5px 0;   /* diminui altura da faixa */
-  margin-bottom: 0;
-}
-
-.banner-mapa img{
-  display:block;
-}
-
-.mapa-container,
-#map,
-iframe{
-  margin-top: 0 !important;
-}
-.faixa-localizacao{
-  width:100%;
-  background:#fff;
-  text-align:center;
-}
-
-.faixa-localizacao img{
-  width:100%;
-  height:auto;
-  display:block;
-}
-@media (max-width:768px){
-  .faixa-localizacao{
-    padding:0 10px; /* respiro lateral */
-  }
-
-  .faixa-localizacao img{
-    width:100%;
-    height:auto;
-  }
-}
-/* =========================
-   BOTÃO / CHAMADA DO ENCARTЕ
-========================= */
+/* =========================================================
+   CHAMADA DO ENCARTЕ
+========================================================= */
 
 .encarte-cta{
   width:100%;
@@ -950,9 +479,199 @@ iframe{
   transform:scale(1.05);
 }
 
-/* MOBILE */
+
+/* =========================================================
+   LOCALIZAÇÃO
+========================================================= */
+
+.faixa-localizacao{
+  width:100%;
+  background:#fff;
+  text-align:center;
+}
+
+.faixa-localizacao img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.mapa-full{
+  width:100%;
+  height:500px;
+  border:0;
+  display:block;
+  margin:0;
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+footer{
+  background:#111827;
+  color:#fff;
+  text-align:center;
+  padding:25px;
+  font-size:14px;
+}
+
+
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+.mobile-topbar,
+.mobile-sidebar,
+.mobile-overlay{
+  display:none;
+}
 
 @media(max-width:768px){
+
+  body{
+    padding-top:60px;
+  }
+
+  header{
+    display:none;
+  }
+
+  .mobile-topbar{
+    display:flex;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background:#C92026;
+    align-items:center;
+    padding:0 15px;
+    z-index:3000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+
+  .mobile-menu-btn{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:27px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  .mobile-sidebar{
+    display:block;
+    position:fixed;
+    top:0;
+    left:-280px;
+    width:280px;
+    height:100%;
+    background:#C92026;
+    padding-top:75px;
+    transition:.3s ease;
+    z-index:3100;
+    box-shadow:10px 0 30px rgba(0,0,0,.2);
+  }
+
+  .mobile-sidebar a{
+    display:block;
+    padding:16px 25px;
+    color:#fff;
+    text-decoration:none;
+    font-size:17px;
+    font-weight:600;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    transition:.2s ease;
+  }
+
+  .mobile-sidebar a:hover{
+    background:rgba(255,255,255,.10);
+    padding-left:30px;
+  }
+
+  .mobile-overlay{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+    z-index:3050;
+  }
+
+  .mobile-sidebar.active{
+    left:0;
+  }
+
+  .mobile-overlay.active{
+    opacity:1;
+    visibility:visible;
+  }
+
+  /* Ofertas no celular */
+
+  .sec-ofertas{
+    padding:38px 0 45px;
+  }
+
+  .ofertas-container{
+    padding:0 15px;
+    gap:15px;
+  }
+
+  .oferta-img-destaque{
+    width:170px;
+    height:227px;
+    border-radius:8px;
+  }
+
+  .oferta-img{
+    width:165px;
+    min-width:165px;
+    height:220px;
+    border-radius:8px;
+  }
+
+  .oferta-label{
+    top:-11px;
+    font-size:11px;
+    padding:6px 12px;
+  }
+
+  .oferta-seta{
+    width:38px;
+    height:42px;
+    font-size:22px;
+    border-radius:8px;
+  }
+
+  .oferta-seta.esquerda{
+    left:-8px;
+  }
+
+  .oferta-seta.direita{
+    right:-8px;
+  }
+
+  /* Cashback */
+
+  .cashback-cta{
+    bottom:18px;
+    left:68%;
+  }
+
+  .btn-cashback{
+    font-size:13px;
+    padding:8px 14px;
+  }
+
+  /* Encarte */
 
   .encarte-cta{
     padding:30px 15px;
@@ -976,6 +695,7 @@ iframe{
 
   .encarte-cta-texto p{
     font-size:14px;
+    line-height:1.5;
   }
 
   .encarte-cta-icone{
@@ -984,359 +704,27 @@ iframe{
 
   .btn-encarte{
     padding:14px 22px;
+    font-size:14px;
   }
 
-}
- /* ==========================================
-   FAIXA PUBLICITÁRIA ANIMADA
-========================================== */
+  /* Localização */
 
-.faixa-publicitaria {
-  width: 100%;
-  height: 88px;
-  background: #C4232A;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* brilho passando pela faixa */
-
-.faixa-publicitaria::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -30%;
-  width: 20%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.15),
-    transparent
-  );
-  transform: skewX(-20deg);
-  animation: brilhoFaixa 6s infinite;
-  pointer-events: none;
-}
-
-.faixa-frases {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-/* Cada frase ocupa exatamente o centro */
-
-.frase {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  color: #fff;
-
-  opacity: 0;
-  transform: translateY(25px) scale(.96);
-
-  pointer-events: none;
-
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-}
-
-/* frase ativa */
-
-.frase.ativa {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* destaque principal */
-
-.frase strong {
-  font-size: clamp(25px, 3.5vw, 43px);
-  font-weight: 800;
-}
-
-/* texto secundário */
-
-.frase span {
-  font-size: clamp(20px, 3vw, 34px);
-  font-weight: 400;
-}
-
-/* link do encarte */
-
-.frase a {
-  display: inline-flex;
-  align-items: center;
-
-  background: #FFD400;
-  color: #C4232A;
-
-  padding: 10px 20px;
-  border-radius: 30px;
-
-  font-size: 17px;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  transition: .25s ease;
-}
-
-.frase a:hover {
-  background: #fff;
-  transform: translateX(5px);
-}
-
-
-/* ==========================================
-   BRILHO
-========================================== */
-
-@keyframes brilhoFaixa {
-
-  0% {
-    left: -30%;
+  .faixa-localizacao{
+    padding:0 10px;
   }
 
-  45% {
-    left: 120%;
+  .mapa-full{
+    height:60vh;
+    min-height:420px;
   }
-
-  100% {
-    left: 120%;
-  }
-
 }
 
 
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media (max-width: 768px) {
-
-  .faixa-publicitaria {
-    height: 75px;
-  }
-
-  .frase {
-    flex-direction: column;
-    gap: 2px;
-    text-align: center;
-    padding: 0 15px;
-  }
-
-  .frase strong {
-    font-size: 22px;
-  }
-
-  .frase span {
-    font-size: 15px;
-  }
-
-  .frase a {
-    font-size: 13px;
-    padding: 7px 15px;
-  }
-
-} 
-  .faixa-bebe,
-.faixa-cashback {
-  overflow: hidden;
-}
-
-.faixa-bebe img,
-.faixa-cashback img {
-  display: block;
-  width: 100%;
-  transition: transform 0.8s ease;
-}
-
-/* Zoom somente na imagem */
-
-.faixa-bebe:hover img,
-.faixa-cashback:hover img {
-  transform: scale(1.04);
-}
-/* =========================
-   OFERTAS
-========================= */
-
-.sec-ofertas{
-  width:100%;
-  background:#fff;
-  padding:45px 0 55px;
-  box-sizing:border-box;
-}
-
-.ofertas-container{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:30px;
-  padding:0 35px;
-  box-sizing:border-box;
-}
-
-
-/* =========================
-   OFERTA DO DIA - FIXA
-========================= */
-
-.oferta-destaque{
-  position:relative;
-  flex-shrink:0;
-  z-index:5;
-}
-
-.oferta-img-destaque{
-  width:280px;
-  height:373px;
-
-  object-fit:cover;
-  display:block;
-
-  border-radius:8px;
-
-  box-shadow:
-    0 5px 18px rgba(0,0,0,.28);
-}
-
-
-/* FAIXA OFERTA DO DIA */
-
-.oferta-label{
-  position:absolute;
-
-  top:-14px;
-  left:50%;
-
-  transform:translateX(-50%);
-
-  background:#C9232A;
-  color:#fff;
-
-  padding:9px 24px;
-
-  border-radius:22px;
-
-  font-size:16px;
-  font-weight:700;
-
-  white-space:nowrap;
-
-  z-index:10;
-
-  box-shadow:0 3px 8px rgba(0,0,0,.20);
-}
-
-
-/* =========================
-   ÁREA DO CARROSSEL
-========================= */
-
-.ofertas-carrossel{
-  position:relative;
-  flex:1;
-  min-width:0;
-}
-
-.ofertas-slider{
-  width:100%;
-  overflow:hidden;
-}
-
-.ofertas-lista{
-  display:flex;
-  align-items:center;
-
-  gap:20px;
-
-  transition:transform .5s ease;
-}
-
-
-/* =========================
-   IMAGENS DO CARROSSEL
-========================= */
-
-.oferta-img{
-  width:255px;
-  min-width:255px;
-
-  height:340px;
-
-  object-fit:cover;
-
-  display:block;
-
-  border-radius:8px;
-
-  flex-shrink:0;
-}
-
-
-/* =========================
-   SETAS
-========================= */
-
-.oferta-seta{
-  position:absolute;
-
-  top:50%;
-  transform:translateY(-50%);
-
-  width:46px;
-  height:46px;
-
-  border:none;
-  border-radius:7px;
-
-  background:#c8cdd5;
-
-  color:#fff;
-
-  font-size:28px;
-
-  cursor:pointer;
-
-  z-index:20;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  transition:all .2s ease;
-}
-
-.oferta-seta:hover{
-  background:#C9232A;
-}
-
-.oferta-seta.esquerda{
-  left:-23px;
-}
-
-.oferta-seta.direita{
-  right:-23px;
-}
-
-
-/* =========================
-   TELAS MENORES
-========================= */
-
-@media(max-width:1100px){
+/* =========================================================
+   TABLET / TELAS MENORES
+========================================================= */
+
+@media(max-width:1100px) and (min-width:769px){
 
   .ofertas-container{
     gap:20px;
@@ -1354,216 +742,124 @@ iframe{
     height:300px;
   }
 
+  header nav{
+    gap:25px;
+  }
 }
 
+
+/* =========================================================
+   CARROSSEL - PEQUENAS TELAS
+========================================================= */
 
 @media(max-width:700px){
 
-  .sec-ofertas{
-    padding:35px 0 40px;
-  }
-
   .ofertas-container{
     padding:0 15px;
-    gap:15px;
   }
-
-  .oferta-img-destaque{
-    width:170px;
-    height:227px;
-  }
-
-  .oferta-img{
-    width:165px;
-    min-width:165px;
-    height:220px;
-  }
-
-  .oferta-label{
-    top:-11px;
-
-    font-size:11px;
-
-    padding:6px 12px;
-  }
-
-  .oferta-seta{
-    width:36px;
-    height:40px;
-
-    font-size:22px;
-  }
-
-  .oferta-seta.esquerda{
-    left:-8px;
-  }
-
-  .oferta-seta.direita{
-    right:-8px;
-  }
-
 }
-/* =========================================
-   MASCOTES LATERAIS
-========================================= */
-
-.mascotes-laterais {
-  position: relative;
-  width: 100%;
-  height: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.mascote {
-  position: absolute;
-  width: 150px;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-}
-
-/* Mascote do bebê - lado esquerdo */
-.mascote-bebe {
-  left: 15px;
-  top: 20px;
-}
-
-/* Mascote menina - lado direito */
-.mascote-menina {
-  right: 15px;
-  top: 20px;
-}
-
-
-/* =========================================
-   TELAS MENORES
-========================================= */
-
-@media (max-width: 1200px) {
-
-  .mascote {
-    width: 120px;
-  }
-
-  .mascote-bebe {
-    left: 5px;
-  }
-
-  .mascote-menina {
-    right: 5px;
-  }
-
-}
-
-
-/* =========================================
-   CELULAR
-========================================= */
-
-@media (max-width: 768px) {
-
-  .mascotes-laterais {
-    display: none;
-  }
-
-}
-/* =========================
-   BANNER MARIANO CARD
-========================= */
-
-.sec-mariano-card {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: #f5f6fa;
-  padding: 15px 0;
-}
-
-.banner-mariano-card {
-  display: block;
-  width: 100%;
-  max-width: 1500px;
-  height: auto;
-  object-fit: contain;
-}
-/* =========================
-   PRODUTOS DE MARCA PRÓPRIA
-========================= */
-
-.marca-propria{
-    width:100%;
-    background:#fff;
-    overflow:hidden;
-}
-
-.marca-propria img{
-    width:100%;
-    height:auto;
-    display:block;
-}
-  
 </style>
 </head>
 
 <body>
 
-<!-- TOPO VERMELHO MOBILE -->
+<!-- =======================================================
+     TOPO MOBILE
+======================================================= -->
+
 <div class="mobile-topbar">
-  <div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+  <div
+    class="mobile-menu-btn"
+    onclick="toggleSidebar()"
+    aria-label="Abrir menu"
+  >☰</div>
 </div>
 
-<!-- SIDEBAR -->
 <div class="mobile-sidebar" id="mobileSidebar">
   <a href="index.html">Início</a>
   <a href="sobre.html">Sobre</a>
   <a href="servicos.html">Serviços</a>
   <a href="contato.html">Contato</a>
+  <a href="login.html">Área do colaborador</a>
   <a href="encarte.html">📰 Encarte</a>
 
-   <a href="https://instagram.com/rede.mariano"
-     target="_blank"
-     rel="noopener noreferrer">
-    📸 Instagram
-  </a>
+  <a
+    href="https://instagram.com/rede.mariano"
+    target="_blank"
+    rel="noopener noreferrer"
+  >📸 Instagram</a>
 </div>
 
-<!-- FUNDO ESCURO -->
-<div class="mobile-overlay" id="mobileOverlay" onclick="toggleSidebar()"></div>
+<div
+  class="mobile-overlay"
+  id="mobileOverlay"
+  onclick="toggleSidebar()"
+></div>
+
+
+<!-- =======================================================
+     MENU DESKTOP
+======================================================= -->
+
 <header>
   <nav class="menu-topo">
+
     <a href="sobre.html">Sobre</a>
+
     <a href="servicos.html">Serviços</a>
+
     <a href="contato.html">Contato</a>
+
     <a href="login.html">Área do colaborador</a>
+
     <a href="encarte.html">Encarte</a>
-    <a href="https://instagram.com/rede.mariano" target="_blank" class="menu-instagram">
-  Instagram
-</a>
+
+    <a
+      href="https://instagram.com/rede.mariano"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="menu-instagram"
+    >Instagram</a>
+
   </nav>
 </header>
 
+
+<!-- =======================================================
+     BANNER PRINCIPAL
+======================================================= -->
+
 <section class="banner">
-<img src="/assets/img/banner-novo.png" alt="Rede Mariano">
+  <img
+    src="/assets/img/banner-novo.png"
+    alt="Rede Mariano"
+  >
 </section>
 
-<!-- ================= OFERTAS ================= -->
+
+<!-- =======================================================
+     OFERTAS AUTOMÁTICAS
+======================================================= -->
+
 <section class="sec-ofertas" id="secOfertas">
 
   <div class="ofertas-container">
 
     <!-- OFERTA DO DIA -->
     <div class="oferta-destaque">
-      <span class="oferta-label">OFERTA DO DIA</span>
+
+      <span class="oferta-label">
+        OFERTA DO DIA
+      </span>
 
       <img
         id="ofertaDoDia"
         class="oferta-img-destaque"
         alt="Oferta do dia"
       >
+
     </div>
+
 
     <!-- CARROSSEL -->
     <div class="ofertas-carrossel">
@@ -1578,7 +874,10 @@ iframe{
       </button>
 
       <div class="ofertas-slider">
-        <div class="ofertas-lista" id="listaOfertas"></div>
+        <div
+          class="ofertas-lista"
+          id="listaOfertas"
+        ></div>
       </div>
 
       <button
@@ -1596,206 +895,281 @@ iframe{
 
 </section>
 
-<!-- ================= PRODUTOS DE MARCA PRÓPRIA ================= -->
+
+<!-- =======================================================
+     PRODUTOS DE MARCA PRÓPRIA
+======================================================= -->
 
 <section class="marca-propria">
-    <img 
-        src="/assets/img/produtos-marca-propria.png"
-        alt="Produtos de marca própria Mariano"
-    >
+
+  <img
+    src="/assets/img/produtos-marca-propria.png"
+    alt="Produtos de marca própria Mariano"
+  >
+
 </section>
 
-<!-- =========================
+
+<!-- =======================================================
      MARIANO CARD
-========================= -->
+======================================================= -->
 
 <section class="sec-mariano-card">
 
   <img
-  src="assets/img/mariano-card-completo.png"
-  alt="Mariano Card"
-  class="banner-mariano-card"
->
+    src="/assets/img/mariano-card-completo.png"
+    alt="Mariano Card"
+    class="banner-mariano-card"
+  >
 
 </section>
 
-</section>
 
-<div class="faixa-bebe banner-destaque">
-  <img src="/assets/img/terca-do-bebe.png" alt="Terça do Bebê">
+<!-- =======================================================
+     TERÇA DO BEBÊ
+======================================================= -->
+
+<div class="faixa-bebe">
+
+  <img
+    src="/assets/img/terca-do-bebe.png"
+    alt="Terça do Bebê"
+  >
+
 </div>
 
-<div class="faixa-cashback banner-destaque">
 
-  <img src="/assets/img/cashback.png" alt="Cashback Mariano">
+<!-- =======================================================
+     CASHBACK
+======================================================= -->
+
+<div class="faixa-cashback">
+
+  <img
+    src="/assets/img/cashback.png"
+    alt="Cashback Mariano"
+  >
 
   <div class="cashback-cta">
-    <a href="https://farmaciasmariano.fidelidade.mk/" class="btn-cashback">
+
+    <a
+      href="https://farmaciasmariano.fidelidade.mk/"
+      class="btn-cashback"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       Cadastre-se já
     </a>
+
   </div>
 
 </div>
 
-<section class="faixa-publicitaria">
 
-  <div class="faixa-frases">
-
-  <div class="frase ativa">
-  <strong>+30 filiais no estado de Santa Catarina</strong>
-</div>
-
-
-
-  </div>
-
-</section>
+<!-- =======================================================
+     CHAMADA DO ENCARTЕ
+======================================================= -->
 
 <section class="encarte-cta">
 
   <div class="encarte-cta-conteudo">
 
     <div class="encarte-cta-texto">
-      <span class="encarte-tag">📰ENCARTЕ</span>
 
-      <h2>Confira nossas ofertas!</h2>
+      <span class="encarte-tag">
+        📰 ENCARTE
+      </span>
+
+      <h2>
+        Confira nossas ofertas!
+      </h2>
 
       <p>
         Veja o nosso encarte completo com todas as promoções
         e ofertas da Rede Mariano.
       </p>
 
-      <a href="encarte.html" class="btn-encarte">
-        ABRIR ENCARTЕ
+      <a
+        href="encarte.html"
+        class="btn-encarte"
+      >
+        ABRIR ENCARTE
         <span>→</span>
       </a>
+
     </div>
 
-     <div class="encarte-cta-icone">
-  <img src="/assets/img/logo-mariano.png" alt="Mariano Rede de Farmácias">
-    </div>
-    
+    <div class="encarte-cta-icone">
+
+      <img
+        src="/assets/img/logo-mariano.png"
+        alt="Mariano Rede de Farmácias"
+      >
+
     </div>
 
   </div>
 
 </section>
 
-</div>
 
-</div>
-</section>
+<!-- =======================================================
+     LOCALIZAÇÃO
+======================================================= -->
 
 <div class="faixa-localizacao">
-  <img src="assets/img/banner-localizacao.png" alt="Encontre a Mariano mais perto de você">
+
+  <img
+    src="/assets/img/banner-localizacao.png"
+    alt="Encontre a Mariano mais perto de você"
+  >
+
 </div>
 
-<iframe class="mapa-full"
-src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0">
-</iframe>
+<iframe
+  class="mapa-full"
+  src="https://www.google.com/maps/d/embed?mid=18V0_GZ6viBMGSU9vUxXrw7M3pK5dtM0"
+  title="Mapa das lojas Rede Mariano"
+  loading="lazy"
+></iframe>
+
+
+<!-- =======================================================
+     RODAPÉ
+======================================================= -->
 
 <footer>
-© 2026 Rede Mariano
+  © 2026 Rede Mariano
 </footer>
+
 
 <script>
 
-function toggleSidebar() {
-  document.getElementById("mobileSidebar").classList.toggle("active");
-  document.getElementById("mobileOverlay").classList.toggle("active");
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+function toggleSidebar(){
+
+  const sidebar =
+    document.getElementById("mobileSidebar");
+
+  const overlay =
+    document.getElementById("mobileOverlay");
+
+  sidebar.classList.toggle("active");
+  overlay.classList.toggle("active");
+
 }
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", function(){
 
-  /* =========================
-     LINK ATIVO DO MENU
-  ========================= */
+  /* MENU ATIVO */
 
-  const links = document.querySelectorAll("nav a");
-  const atual = window.location.pathname.split("/").pop();
+  const links =
+    document.querySelectorAll("header nav a");
 
-  links.forEach(link => {
+  const atual =
+    window.location.pathname
+      .split("/")
+      .pop();
+
+  links.forEach(function(link){
 
     if(link.getAttribute("href") === atual){
+
       link.classList.add("ativo");
+
     }
 
   });
 
-
-  /* =========================
-     FAIXA PUBLICITÁRIA
-  ========================= */
-
-  const frases = document.querySelectorAll(
-    ".faixa-publicitaria .frase"
-  );
-
-  let fraseAtual = 0;
-
-  if(frases.length > 1){
-
-    setInterval(function(){
-
-      frases[fraseAtual].classList.remove("ativa");
-
-      fraseAtual++;
-
-      if(fraseAtual >= frases.length){
-        fraseAtual = 0;
-      }
-
-      frases[fraseAtual].classList.add("ativa");
-
-    }, 4000);
-
-  }
-  
-
 });
-/* =====================================================
+
+
+/* =========================================================
    OFERTAS AUTOMÁTICAS POR DIA DA SEMANA
-===================================================== */
+========================================================= */
 
 (function(){
 
+  /*
+    0 = domingo
+    1 = segunda
+    2 = terça
+    3 = quarta
+    4 = quinta
+    5 = sexta
+    6 = sábado
+
+    Para um dia sem ofertas:
+    coloque null.
+
+    Exemplo:
+    4: null
+
+    Para adicionar ofertas:
+    pasta = pasta das imagens
+    prefixo = começo do nome
+    quantidade = quantidade total de imagens
+  */
+
   const configuracaoOfertas = {
 
-    // DOMINGO
+    /* DOMINGO */
     0: null,
 
-    // SEGUNDA
+    /* SEGUNDA */
     1: null,
 
-    // TERÇA
+    /* TERÇA */
     2: {
-      pasta: "assets/img/terca/",
+      pasta: "/assets/img/terca/",
       prefixo: "terca",
       quantidade: 17
     },
 
-    // QUARTA
+    /* QUARTA */
     3: {
-      pasta: "assets/img/quarta/",
+      pasta: "/assets/img/quarta/",
       prefixo: "ofertas",
       quantidade: 14
     },
 
-    // QUINTA
+    /* QUINTA */
     4: null,
 
-    // SEXTA
+    /* SEXTA */
     5: null,
 
-    // SÁBADO
+    /* SÁBADO */
     6: null
+
   };
 
-  const secao = document.getElementById("secOfertas");
-  const ofertaDoDia = document.getElementById("ofertaDoDia");
-  const listaOfertas = document.getElementById("listaOfertas");
-  const setaEsquerda = document.getElementById("setaEsquerda");
-  const setaDireita = document.getElementById("setaDireita");
+
+  const secao =
+    document.getElementById("secOfertas");
+
+  const ofertaDoDia =
+    document.getElementById("ofertaDoDia");
+
+  const listaOfertas =
+    document.getElementById("listaOfertas");
+
+  const setaEsquerda =
+    document.getElementById("setaEsquerda");
+
+  const setaDireita =
+    document.getElementById("setaDireita");
+
+
+  /* Se algum elemento não existir, encerra */
 
   if(
     !secao ||
@@ -1807,29 +1181,64 @@ document.addEventListener("DOMContentLoaded", function(){
     return;
   }
 
-  const hoje = new Date().getDay();
-  const configuracao = configuracaoOfertas[hoje];
 
-  /* DIA SEM OFERTAS */
+  /* Dia atual */
+
+  const hoje =
+    new Date().getDay();
+
+  const configuracao =
+    configuracaoOfertas[hoje];
+
+
+  /* =======================================================
+     DIA SEM OFERTAS
+  ======================================================= */
+
   if(!configuracao){
+
     secao.style.display = "none";
+
     return;
+
   }
+
 
   secao.style.display = "block";
 
-  /* OFERTA DO DIA */
+
+  /* =======================================================
+     PRIMEIRA IMAGEM = OFERTA DO DIA
+  ======================================================= */
+
   ofertaDoDia.src =
     configuracao.pasta +
     configuracao.prefixo +
     "1.jpeg";
 
-  /* CARREGA AS DEMAIS OFERTAS */
+
+  ofertaDoDia.onerror = function(){
+
+    ofertaDoDia.style.display = "none";
+
+  };
+
+
+  /* =======================================================
+     DEMAIS IMAGENS = CARROSSEL
+  ======================================================= */
+
   listaOfertas.innerHTML = "";
 
-  for(let i = 2; i <= configuracao.quantidade; i++){
 
-    const imagem = document.createElement("img");
+  for(
+    let i = 2;
+    i <= configuracao.quantidade;
+    i++
+  ){
+
+    const imagem =
+      document.createElement("img");
 
     imagem.src =
       configuracao.pasta +
@@ -1837,43 +1246,81 @@ document.addEventListener("DOMContentLoaded", function(){
       i +
       ".jpeg";
 
-    imagem.className = "oferta-img";
+    imagem.className =
+      "oferta-img";
 
-    imagem.alt = "Oferta " + i;
+    imagem.alt =
+      "Oferta " + i;
 
     listaOfertas.appendChild(imagem);
+
   }
 
+
+  /* =======================================================
+     CONTROLE DO CARROSSEL
+  ======================================================= */
+
   let ofertaAtual = 0;
+
   let temporizador = null;
+
 
   function obterImagens(){
 
-    return listaOfertas.querySelectorAll(".oferta-img");
+    return listaOfertas
+      .querySelectorAll(".oferta-img");
 
   }
 
-  function moverOfertas(){
 
-    const imagens = obterImagens();
+  function obterPasso(){
 
-    if(imagens.length === 0){
-      return;
+    const imagens =
+      obterImagens();
+
+    if(!imagens.length){
+      return 0;
     }
 
-    const primeiraImagem = imagens[0];
-
-    const larguraImagem =
-      primeiraImagem.offsetWidth;
+    const primeira =
+      imagens[0];
 
     const estilo =
-      window.getComputedStyle(listaOfertas);
+      window.getComputedStyle(
+        listaOfertas
+      );
 
     const gap =
       parseFloat(estilo.gap) || 20;
 
+    return primeira.offsetWidth + gap;
+
+  }
+
+
+  function obterMaximo(){
+
+    const imagens =
+      obterImagens();
+
+    if(!imagens.length){
+      return 0;
+    }
+
     const passo =
-      larguraImagem + gap;
+      obterPasso();
+
+    const estilo =
+      window.getComputedStyle(
+        listaOfertas
+      );
+
+    const gap =
+      parseFloat(estilo.gap) || 20;
+
+    const larguraTotal =
+      (imagens.length * passo) - gap;
 
     const slider =
       listaOfertas.parentElement;
@@ -1881,55 +1328,87 @@ document.addEventListener("DOMContentLoaded", function(){
     const larguraVisivel =
       slider.offsetWidth;
 
-    const larguraTotal =
-      imagens.length * passo - gap;
+    return Math.max(
+      0,
+      larguraTotal - larguraVisivel
+    );
 
-    const maxDeslocamento =
-      Math.max(
-        0,
-        larguraTotal - larguraVisivel
-      );
+  }
+
+
+  function moverOfertas(){
+
+    const imagens =
+      obterImagens();
+
+    if(!imagens.length){
+      return;
+    }
+
+    const passo =
+      obterPasso();
+
+    const maximo =
+      obterMaximo();
 
     let deslocamento =
       ofertaAtual * passo;
 
-    if(deslocamento > maxDeslocamento){
-      deslocamento = maxDeslocamento;
+    if(deslocamento > maximo){
+
+      deslocamento = maximo;
+
     }
 
     if(deslocamento < 0){
+
       deslocamento = 0;
+
     }
 
     listaOfertas.style.transform =
       "translateX(-" +
       deslocamento +
       "px)";
+
   }
+
 
   function iniciarTemporizador(){
 
     clearTimeout(temporizador);
 
-    temporizador = setTimeout(function(){
+    temporizador =
+      setTimeout(function(){
 
-      mudarOferta(1);
+        mudarOferta(1);
 
-    }, 4000);
+      }, 4000);
 
   }
 
+
   function mudarOferta(direcao){
 
-    const imagens = obterImagens();
+    const imagens =
+      obterImagens();
 
-    if(imagens.length === 0){
+    if(!imagens.length){
       return;
     }
 
     clearTimeout(temporizador);
 
+
     ofertaAtual += direcao;
+
+
+    if(ofertaAtual >= imagens.length){
+
+      ofertaAtual = 0;
+
+    }
+
 
     if(ofertaAtual < 0){
 
@@ -1938,11 +1417,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
 
-    if(ofertaAtual >= imagens.length){
-
-      ofertaAtual = 0;
-
-    }
 
     moverOfertas();
 
@@ -1950,7 +1424,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
   }
 
-  /* SETA ESQUERDA */
+
+  /* =======================================================
+     SETAS
+  ======================================================= */
+
   setaEsquerda.addEventListener(
     "click",
     function(){
@@ -1960,7 +1438,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   );
 
-  /* SETA DIREITA */
+
   setaDireita.addEventListener(
     "click",
     function(){
@@ -1970,22 +1448,43 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   );
 
-  /* ESPERA AS IMAGENS CARREGAREM */
-  window.addEventListener(
-    "load",
-    function(){
 
-      setTimeout(function(){
+  /* =======================================================
+     QUANDO AS IMAGENS TERMINAREM DE CARREGAR
+  ======================================================= */
 
-        moverOfertas();
-        iniciarTemporizador();
+  function iniciarCarrossel(){
 
-      }, 100);
+    setTimeout(function(){
 
-    }
-  );
+      moverOfertas();
 
-  /* AJUSTA AO REDIMENSIONAR */
+      iniciarTemporizador();
+
+    }, 150);
+
+  }
+
+
+  if(document.readyState === "complete"){
+
+    iniciarCarrossel();
+
+  }else{
+
+    window.addEventListener(
+      "load",
+      iniciarCarrossel,
+      {once:true}
+    );
+
+  }
+
+
+  /* =======================================================
+     AJUSTE AO REDIMENSIONAR
+  ======================================================= */
+
   window.addEventListener(
     "resize",
     function(){
@@ -1995,9 +1494,33 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   );
 
+
+  /* =======================================================
+     PAUSA AO PASSAR O MOUSE
+     (somente computador)
+  ======================================================= */
+
+  listaOfertas.addEventListener(
+    "mouseenter",
+    function(){
+
+      clearTimeout(temporizador);
+
+    }
+  );
+
+
+  listaOfertas.addEventListener(
+    "mouseleave",
+    function(){
+
+      iniciarTemporizador();
+
+    }
+  );
+
 })();
-
-
 </script>
+
 </body>
 </html>
