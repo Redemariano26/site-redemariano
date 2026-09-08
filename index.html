@@ -1535,48 +1535,49 @@ iframe{
 </section>
 
 <!-- ================= OFERTAS ================= -->
-<section class="sec-ofertas">
+<section class="sec-ofertas" id="secOfertas">
 
   <div class="ofertas-container">
 
     <!-- OFERTA DO DIA FIXA -->
     <div class="oferta-destaque">
-      <span class="oferta-label">OFERTA DO DIA</span>
 
-      <img src="/assets/img/ofertas1.jpeg" class="oferta-img-destaque">
+      <span class="oferta-label">
+        OFERTA DO DIA
+      </span>
+
+      <img
+        id="ofertaDoDia"
+        class="oferta-img-destaque"
+        alt="Oferta do dia"
+      >
+
     </div>
 
 
     <!-- CARROSSEL -->
     <div class="ofertas-carrossel">
 
-      <button class="oferta-seta esquerda" onclick="mudarOferta(-1)">
+      <button
+        class="oferta-seta esquerda"
+        onclick="mudarOferta(-1)">
         &#10094;
       </button>
 
+
       <div class="ofertas-slider">
 
-        <div class="ofertas-lista">
-
-          <img src="/assets/img/ofertas2.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas3.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas4.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas5.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas6.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas7.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas8.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas9.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas10.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas11.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas12.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas13.jpeg" class="oferta-img">
-          <img src="/assets/img/ofertas14.jpeg" class="oferta-img">
-
+        <div
+          class="ofertas-lista"
+          id="ofertasLista">
         </div>
 
       </div>
 
-      <button class="oferta-seta direita" onclick="mudarOferta(1)">
+
+      <button
+        class="oferta-seta direita"
+        onclick="mudarOferta(1)">
         &#10095;
       </button>
 
