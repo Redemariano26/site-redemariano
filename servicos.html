@@ -1,208 +1,711 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Serviços | Rede Mariano</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <link rel="icon" href="/assets/img/favicon.png">
 
 <style>
-body{
+
+/* =========================
+   RESET
+========================= */
+
+*{
   margin:0;
-  font-family:'Montserrat',sans-serif;
-  background:#f4f6fb;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* FAIXA VERMELHA TOPO */
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#f5f7fb;
+  color:#222;
+}
+
+
+/* =========================
+   TOPO VERMELHO
+========================= */
+
 .faixa-topo{
   width:100%;
   height:70px;
   background:#C4232A;
-  position:fixed;
+  position:absolute;
   top:0;
   left:0;
-  z-index:999;
+  z-index:1;
 }
 
-/* HEADER */
+
+/* =========================
+   MENU
+========================= */
+
 header{
-  background:transparent;
-  padding:20px 30px;
+  height:70px;
   display:flex;
   justify-content:center;
   align-items:center;
   position:relative;
-  z-index:1000;
-  margin-top:10px;
+  z-index:10;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:38px;
 }
 
 nav a{
-  margin:0 15px;
   text-decoration:none;
   color:#fff;
+  font-size:18px;
   font-weight:600;
-  transition:.3s;
+  transition:.25s ease;
 }
 
 nav a:hover{
   color:#FFD000;
 }
 
-/* FAIXA SERVIÇOS */
-.faixa-servicos{
+
+/* =========================
+   BANNER PRINCIPAL
+========================= */
+
+.banner-principal{
   width:100%;
-  background:#c91c23;
-  display:flex;
-  justify-content:center;
+  overflow:hidden;
+  background:#C4232A;
 }
 
-.faixa-servicos img{
-  width:65%;
-  max-width:700px;
+.banner-principal img{
+  width:100%;
   height:auto;
   display:block;
 }
 
-/* 🔥 FUNDO COM LOGO */
-.servicos-bg{
-  position:relative;
-  padding:60px 20px;
+
+/* =========================
+   FAIXA +30 FILIAIS
+========================= */
+
+.faixa-servicos{
+  width:100%;
+  background:#C91C23;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   overflow:hidden;
 }
 
-/* logo no fundo */
+.faixa-servicos img{
+  width:65%;
+  max-width:900px;
+  height:auto;
+  display:block;
+}
+
+
+/* =========================
+   ÁREA DOS SERVIÇOS
+========================= */
+
+.servicos-bg{
+  position:relative;
+  padding:55px 20px 80px;
+  overflow:hidden;
+  background:#f5f7fb;
+}
+
+
+/* LOGO DE FUNDO */
+
 .servicos-bg::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url('assets/img/logo-fundo.jpeg') center no-repeat;
-  background-size:1100px;
-  opacity:0.08; /* transparência da logo */
+
+  background:url('/assets/img/logo-fundo.jpeg') center center no-repeat;
+
+  background-size:900px;
+
+  opacity:.055;
+
+  pointer-events:none;
 }
 
-/* conteúdo por cima */
-.servicos-bg .container{
-  position:relative;
-  z-index:1;
-}
 
-/* SERVIÇOS */
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
   max-width:1100px;
   margin:auto;
+  position:relative;
+  z-index:2;
 }
+
+
+/* =========================
+   TÍTULO
+========================= */
+
+.titulo-servicos{
+  text-align:center;
+  margin-bottom:42px;
+}
+
+.titulo-pequeno{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+
+  color:#C4232A;
+
+  font-size:18px;
+  font-weight:700;
+
+  margin-bottom:4px;
+}
+
+.titulo-pequeno::before,
+.titulo-pequeno::after{
+  content:"";
+
+  width:42px;
+  height:2px;
+
+  background:#C4232A;
+}
+
+.titulo-servicos h1{
+  color:#C4232A;
+
+  font-size:52px;
+  line-height:1;
+
+  font-weight:800;
+
+  margin:0 0 10px;
+}
+
+.titulo-servicos p{
+  color:#5d6570;
+
+  font-size:17px;
+
+  margin:0;
+}
+
+
+/* =========================
+   GRID
+========================= */
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:22px;
 }
+
+
+/* =========================
+   CARD
+========================= */
 
 .card{
   background:#fff;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+  min-height:285px;
+
+  padding:28px 25px;
+
+  border-radius:18px;
+
   text-align:center;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.07);
+
+  border:1px solid rgba(0,0,0,.025);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
 }
+
+
+/* EFEITO MOUSE */
+
+.card:hover{
+  transform:translateY(-6px);
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.12);
+}
+
+
+/* =========================
+   ÍCONE
+========================= */
 
 .card span{
-  font-size:30px;
+  width:88px;
+  height:88px;
+
+  border-radius:50%;
+
+  background:#fff0f1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:45px;
+
+  margin-bottom:18px;
 }
+
+
+/* =========================
+   TÍTULO DO CARD
+========================= */
 
 .card h3{
-  margin:10px 0;
-  font-size:18px;
+  color:#C4232A;
+
+  font-size:19px;
+
+  line-height:1.2;
+
+  font-weight:800;
+
+  margin:0 0 10px;
+
+  max-width:260px;
 }
 
+
+/* =========================
+   TEXTO
+========================= */
+
+.card p{
+  color:#5d6570;
+
+  font-size:15px;
+
+  line-height:1.5;
+
+  margin:0;
+
+  max-width:270px;
+}
+
+
+/* LINHA DECORATIVA */
+
+.card::after{
+  content:"";
+
+  width:45px;
+  height:3px;
+
+  background:#C4232A;
+
+  margin-top:20px;
+
+  border-radius:10px;
+}
+
+
+/* =========================
+   RODAPÉ
+========================= */
+
 footer{
-  background:#111827;
+  background:#151d2b;
+
   color:#fff;
+
   text-align:center;
-  padding:20px;
+
+  padding:24px 20px;
+
   font-size:14px;
 }
 
-/* MOBILE */
-@media (max-width:768px){
-  .faixa-servicos img{
-    max-width:95%;
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width:768px){
+
+  header{
+    height:65px;
   }
 
-  .servicos-bg::before{
-    background-size:350px; /* logo menor no celular */
-    opacity:0.06;
+  nav{
+    gap:20px;
   }
+
+  nav a{
+    font-size:14px;
+  }
+
+
+  /* BANNER */
+
+  .banner-principal img{
+    width:100%;
+    height:auto;
+  }
+
+
+  /* FILIAIS */
+
+  .faixa-servicos img{
+    width:100%;
+    max-width:none;
+  }
+
+
+  /* ÁREA */
+
+  .servicos-bg{
+    padding:45px 15px 60px;
+  }
+
+
+  /* TÍTULO */
+
+  .titulo-pequeno{
+    font-size:15px;
+  }
+
+  .titulo-pequeno::before,
+  .titulo-pequeno::after{
+    width:28px;
+  }
+
+  .titulo-servicos h1{
+    font-size:40px;
+  }
+
+  .titulo-servicos p{
+    font-size:15px;
+  }
+
+
+  /* GRID */
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+  }
+
+
+  /* CARDS */
+
+  .card{
+    min-height:245px;
+
+    padding:22px 12px;
+
+    border-radius:15px;
+  }
+
+  .card span{
+    width:70px;
+    height:70px;
+
+    font-size:35px;
+
+    margin-bottom:14px;
+  }
+
+  .card h3{
+    font-size:16px;
+  }
+
+  .card p{
+    font-size:13px;
+  }
+
 }
+
+
+/* =========================
+   CELULAR PEQUENO
+========================= */
+
+@media(max-width:480px){
+
+  nav{
+    gap:14px;
+  }
+
+  nav a{
+    font-size:13px;
+  }
+
+
+  .titulo-servicos h1{
+    font-size:34px;
+  }
+
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+
+  .card{
+    min-height:230px;
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     FAIXA VERMELHA
+========================= -->
+
 <div class="faixa-topo"></div>
 
+
+<!-- =========================
+     MENU
+========================= -->
+
 <header>
+
   <nav>
+
     <a href="index.html">Início</a>
+
     <a href="sobre.html">Sobre</a>
+
     <a href="contato.html">Contato</a>
+
   </nav>
+
 </header>
 
+
+<!-- =========================
+     BANNER PRINCIPAL
+========================= -->
+
+<div class="banner-principal">
+
+  <img
+    src="/assets/img/FACEBOOK.png"
+    alt="A farmácia queridinha do povo"
+  >
+
+</div>
+
+
+<!-- =========================
+     +30 FILIAIS
+========================= -->
+
 <section class="faixa-servicos">
-  <img src="assets/img/filiais.png" alt="Serviços">
+
+  <img
+    src="/assets/img/filiais.png"
+    alt="+30 filiais no estado"
+  >
+
 </section>
 
-<!-- 🔥 SEÇÃO COM LOGO DE FUNDO -->
+
+<!-- =========================
+     SERVIÇOS
+========================= -->
+
 <section class="servicos-bg">
+
   <div class="container">
-    <div class="grid">
 
-      <div class="card">
-        <span>💉</span>
-        <h3>Aplicação de injetáveis</h3>
-        <p>Com profissionais capacitados.</p>
+
+    <!-- TÍTULO -->
+
+    <div class="titulo-servicos">
+
+      <div class="titulo-pequeno">
+        <span>Nossos</span>
       </div>
 
-      <div class="card">
-        <span>🩺</span>
-        <h3>Aferição de pressão</h3>
-        <p>Acompanhamento da sua saúde.</p>
-      </div>
+      <h1>Serviços</h1>
 
-      <div class="card">
-        <span>🩸</span>
-        <h3>Teste de glicose</h3>
-        <p>Resultados rápidos e confiáveis.</p>
-      </div>
-
-      <div class="card">
-        <span>🚚</span>
-        <h3>Entrega rápida</h3>
-        <p>Receba seus medicamentos em casa.</p>
-      </div>
-
-      <div class="card">
-        <span>💊</span>
-        <h3>Atendimento farmacêutico</h3>
-        <p>Orientação profissional.</p>
-      </div>
-
-      <div class="card">
-        <span>🎁</span>
-        <h3>Convênios e descontos</h3>
-        <p>Parcerias com planos e empresas.</p>
-      </div>
+      <p>
+        Cuidado e bem-estar sempre ao seu lado.
+      </p>
 
     </div>
+
+
+    <!-- CARDS -->
+
+    <div class="grid">
+
+
+      <!-- 1 -->
+
+      <div class="card">
+
+        <span>💉</span>
+
+        <h3>
+          Aplicação de injetáveis
+        </h3>
+
+        <p>
+          Com profissionais capacitados
+          e segurança para você.
+        </p>
+
+      </div>
+
+
+      <!-- 2 -->
+
+      <div class="card">
+
+        <span>🩺</span>
+
+        <h3>
+          Aferição de pressão
+        </h3>
+
+        <p>
+          Acompanhamento da sua saúde
+          de forma rápida e precisa.
+        </p>
+
+      </div>
+
+
+      <!-- 3 -->
+
+      <div class="card">
+
+        <span>🩸</span>
+
+        <h3>
+          Teste de glicose
+        </h3>
+
+        <p>
+          Resultados rápidos
+          e confiáveis.
+        </p>
+
+      </div>
+
+
+      <!-- 4 -->
+
+      <div class="card">
+
+        <span>🚚</span>
+
+        <h3>
+          Entrega rápida
+        </h3>
+
+        <p>
+          Receba seus medicamentos
+          em casa com praticidade.
+        </p>
+
+      </div>
+
+
+      <!-- 5 -->
+
+      <div class="card">
+
+        <span>💊</span>
+
+        <h3>
+          Atendimento farmacêutico
+        </h3>
+
+        <p>
+          Orientação profissional
+          para o uso correto dos medicamentos.
+        </p>
+
+      </div>
+
+
+      <!-- 6 -->
+
+      <div class="card">
+
+        <span>🎁</span>
+
+        <h3>
+          Convênios e descontos
+        </h3>
+
+        <p>
+          Parcerias com planos de saúde
+          e empresas para você economizar.
+        </p>
+
+      </div>
+
+
+    </div>
+
   </div>
+
 </section>
 
+
+<!-- =========================
+     RODAPÉ
+========================= -->
+
 <footer>
-© 2026 Rede Mariano
+
+  © 2026 Rede Mariano. Todos os direitos reservados.
+
 </footer>
 
+
 </body>
+
 </html>
