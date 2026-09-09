@@ -1,0 +1,195 @@
+name: Sincronizar ofertas do Google Drive
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do site
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          pip install google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlib
+
+      - name: Criar credencial do Google
+        env:
+          GOOGLE_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          printf '%s' "$GOOGLE_JSON" > service-account.json
+
+      - name: Sincronizar imagens
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: service-account.json
+        run: |
+          python <<'PY'
+          import os
+          import io
+          import shutil
+          from google.oauth2 import service_account
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+
+          SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
+
+          credentials = service_account.Credentials.from_service_account_file(
+              "service-account.json",
+              scopes=SCOPES
+          )
+
+          drive = build("drive", "v3", credentials=credentials)
+
+          PASTA_PRINCIPAL = "REDE MARIANO – OFERTAS DO SITE"
+
+          PASTAS = {
+              "SEGUNDA": "assets/img/segunda",
+              "TERÇA": "assets/img/terca",
+              "QUARTA": "assets/img/quarta",
+              "QUINTA": "assets/img/quinta",
+              "SEXTA": "assets/img/sexta",
+              "SÁBADO": "assets/img/sabado",
+              "DOMINGO": "assets/img/domingo",
+          }
+
+          def encontrar_pasta(nome, pasta_pai=None):
+              consulta = (
+                  "name = '{}' "
+                  "and mimeType = 'application/vnd.google-apps.folder' "
+                  "and trashed = false"
+              ).format(nome.replace("'", "\\'"))
+
+              if pasta_pai:
+                  consulta += " and '{}' in parents".format(pasta_pai)
+
+              resultado = drive.files().list(
+                  q=consulta,
+                  spaces="drive",
+                  fields="files(id,name)",
+                  pageSize=10
+              ).execute()
+
+              arquivos = resultado.get("files", [])
+
+              if not arquivos:
+                  return None
+
+              return arquivos[0]["id"]
+
+          def listar_imagens(pasta_id):
+              consulta = (
+                  "'{}' in parents "
+                  "and trashed = false "
+                  "and mimeType != 'application/vnd.google-apps.folder'"
+              ).format(pasta_id)
+
+              resultado = drive.files().list(
+                  q=consulta,
+                  spaces="drive",
+                  fields="files(id,name,mimeType)",
+                  pageSize=1000
+              ).execute()
+
+              return resultado.get("files", [])
+
+          def baixar_arquivo(file_id, destino):
+              request = drive.files().get_media(fileId=file_id)
+
+              with open(destino, "wb") as arquivo:
+                  downloader = MediaIoBaseDownload(arquivo, request)
+                  concluido = False
+
+                  while not concluido:
+                      _, concluido = downloader.next_chunk()
+
+          print("Procurando pasta principal...")
+
+          raiz_id = encontrar_pasta(PASTA_PRINCIPAL)
+
+          if not raiz_id:
+              raise Exception(
+                  "A pasta principal 'REDE MARIANO – OFERTAS DO SITE' não foi encontrada."
+              )
+
+          print("Pasta principal encontrada:", raiz_id)
+
+          for nome_pasta, destino in PASTAS.items():
+
+              print()
+              print("========================================")
+              print("Processando:", nome_pasta)
+              print("========================================")
+
+              pasta_id = encontrar_pasta(nome_pasta, raiz_id)
+
+              if not pasta_id:
+                  print("Pasta não encontrada. Pulando:", nome_pasta)
+                  continue
+
+              imagens = listar_imagens(pasta_id)
+
+              os.makedirs(destino, exist_ok=True)
+
+              extensoes = (".jpg", ".jpeg", ".png", ".webp")
+
+              imagens_validas = [
+                  imagem
+                  for imagem in imagens
+                  if imagem["name"].lower().endswith(extensoes)
+              ]
+
+              arquivos_existentes = os.listdir(destino)
+
+              for arquivo in arquivos_existentes:
+                  caminho = os.path.join(destino, arquivo)
+
+                  if os.path.isfile(caminho):
+                      os.remove(caminho)
+
+              for imagem in imagens_validas:
+                  caminho = os.path.join(destino, imagem["name"])
+
+                  print("Baixando:", imagem["name"])
+
+                  baixar_arquivo(
+                      imagem["id"],
+                      caminho
+                  )
+
+          if os.path.exists("service-account.json"):
+              os.remove("service-account.json")
+
+          print()
+          print("Sincronização concluída com sucesso!")
+          PY
+
+      - name: Atualizar site no GitHub
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add assets/img
+
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração encontrada."
+          else
+            git commit -m "Atualizar ofertas automaticamente"
+            git push
+          fi
+
+      - name: Remover credencial
+        if: always()
+        run: |
+          rm -f service-account.json
