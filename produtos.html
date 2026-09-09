@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,60 +21,58 @@
             color: #333;
         }
 
+
         /* =========================
-           TOPO
+           MENU SUPERIOR VERMELHO
         ========================= */
 
-        .topo {
+        .header-produtos {
+            width: 100%;
             background: #C4232A;
-            padding: 18px 30px;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+        }
+
+        .menu-produtos {
+            max-width: 1250px;
+            min-height: 70px;
+            margin: 0 auto;
+            padding: 0 20px;
+
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            gap: 0;
         }
 
-        .topo img {
-            max-width: 180px;
-            height: auto;
-        }
-
-        /* =========================
-           BOTÃO VOLTAR
-        ========================= */
-
-        .voltar-area {
-            background: #fff;
-            padding: 18px 30px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .btn-voltar {
-            display: inline-block;
-            color: #C4232A;
+        .menu-produtos a {
+            color: #fff;
             text-decoration: none;
+
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 600;
+
+            padding: 25px 16px;
+
             transition: .25s ease;
+            white-space: nowrap;
         }
 
-        .btn-voltar:hover {
-            color: #e0a900;
+        .menu-produtos a:hover {
+            background: #A91D23;
+            color: #FFD000;
         }
 
-        /* =========================
-           BANNER
-        ========================= */
-
-        .banner-produtos {
-            width: 100%;
-            overflow: hidden;
+        .menu-produtos .menu-ativo {
+            background: #A91D23;
+            color: #FFD000;
         }
 
-        .banner-produtos img {
-            width: 100%;
-            height: auto;
-            display: block;
+        .menu-instagram {
+            font-weight: 700;
         }
+
 
         /* =========================
            APRESENTAÇÃO
@@ -104,10 +101,13 @@
         .apresentacao p {
             max-width: 850px;
             margin: auto;
+
             font-size: 17px;
             line-height: 1.7;
+
             color: #666;
         }
+
 
         /* =========================
            PRODUTOS
@@ -121,47 +121,72 @@
         .produtos-container {
             max-width: 1200px;
             margin: auto;
+
             display: flex;
             flex-direction: column;
+
             gap: 35px;
         }
 
+
         /* =========================
-           CARD
+           CARD DOS PRODUTOS
         ========================= */
 
         .produto-card {
             background: #fff;
+
             border-radius: 22px;
             overflow: hidden;
+
             display: flex;
             align-items: center;
+
             min-height: 430px;
+
             box-shadow: 0 12px 35px rgba(0,0,0,.08);
+
             transition: .3s ease;
         }
 
         .produto-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(0,0,0,.12);
+
+            box-shadow:
+                0 18px 40px rgba(0,0,0,.12);
         }
+
+
+        /* =========================
+           IMAGEM
+        ========================= */
 
         .produto-imagem {
             width: 50%;
             min-height: 430px;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             padding: 25px;
+
             background: #fafafa;
         }
 
         .produto-imagem img {
             max-width: 100%;
             max-height: 400px;
+
             object-fit: contain;
+
             display: block;
         }
+
+
+        /* =========================
+           INFORMAÇÕES
+        ========================= */
 
         .produto-info {
             width: 50%;
@@ -170,37 +195,60 @@
 
         .produto-info h2 {
             color: #C4232A;
+
             font-size: 32px;
+
             margin-bottom: 12px;
         }
 
         .produto-info .categoria {
             display: inline-block;
+
             background: #FFD000;
             color: #222;
+
             font-weight: 700;
+
             padding: 7px 14px;
+
             border-radius: 20px;
+
             font-size: 13px;
+
             margin-bottom: 22px;
         }
 
         .produto-info p {
             font-size: 16px;
+
             line-height: 1.7;
+
             color: #666;
+
             margin-bottom: 15px;
         }
 
+
+        /* =========================
+           DESTAQUE DO PRODUTO
+        ========================= */
+
         .produto-destaque {
             margin-top: 20px;
+
             padding: 15px 18px;
+
             border-left: 5px solid #C4232A;
+
             background: #fff7d6;
+
             border-radius: 5px;
+
             font-weight: 700;
+
             color: #444;
         }
+
 
         /* =========================
            ORDEM ALTERNADA
@@ -210,45 +258,67 @@
             flex-direction: row-reverse;
         }
 
+
         /* =========================
            FINAL
         ========================= */
 
         .final-produtos {
             background: #C4232A;
+
             color: #fff;
+
             text-align: center;
+
             padding: 60px 20px;
         }
 
         .final-produtos h2 {
             font-size: 30px;
+
             margin-bottom: 15px;
         }
 
         .final-produtos p {
             max-width: 750px;
+
             margin: auto;
+
             font-size: 17px;
+
             line-height: 1.6;
         }
 
+
+        /* =========================
+           BOTÃO INÍCIO
+        ========================= */
+
         .btn-inicio {
             display: inline-block;
+
             margin-top: 28px;
+
             background: #FFD000;
             color: #C4232A;
+
             padding: 14px 28px;
+
             border-radius: 30px;
+
             text-decoration: none;
+
             font-weight: 800;
+
             transition: .25s ease;
         }
 
         .btn-inicio:hover {
             background: #fff;
+
             transform: translateY(-2px);
         }
+
 
         /* =========================
            RODAPÉ
@@ -256,11 +326,16 @@
 
         footer {
             background: #111;
+
             color: #fff;
+
             text-align: center;
+
             padding: 20px;
+
             font-size: 14px;
         }
+
 
         /* =========================
            CELULAR
@@ -268,13 +343,20 @@
 
         @media (max-width: 768px) {
 
-            .topo {
-                padding: 15px;
+            .menu-produtos {
+                min-height: auto;
+
+                flex-wrap: wrap;
+
+                padding: 8px 10px;
             }
 
-            .voltar-area {
-                padding: 15px 20px;
+            .menu-produtos a {
+                font-size: 13px;
+
+                padding: 10px 8px;
             }
+
 
             .apresentacao {
                 padding: 40px 20px 30px;
@@ -288,19 +370,25 @@
                 font-size: 15px;
             }
 
+
             .produtos {
                 padding: 30px 15px 50px;
             }
 
+
             .produto-card,
             .produto-card:nth-child(even) {
                 flex-direction: column;
+
                 min-height: auto;
             }
 
+
             .produto-imagem {
                 width: 100%;
+
                 min-height: 330px;
+
                 padding: 20px;
             }
 
@@ -308,8 +396,10 @@
                 max-height: 310px;
             }
 
+
             .produto-info {
                 width: 100%;
+
                 padding: 30px 25px 35px;
             }
 
@@ -321,77 +411,66 @@
                 font-size: 15px;
             }
 
+
             .final-produtos h2 {
                 font-size: 25px;
             }
 
         }
-        /* =========================
-   BANNER PRINCIPAL PRODUTOS
-========================= */
-
-.banner-produtos {
-    width: 100%;
-    overflow: hidden;
-    background: #fff;
-}
-
-.banner-produtos img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-@media (max-width: 768px) {
-
-    .banner-produtos img {
-        width: 100%;
-        height: auto;
-    }
-
-}
 
     </style>
 
 </head>
 
+
 <body>
-    <!-- =========================
-     BANNER PRINCIPAL PRODUTOS
-    ========================= -->
-
-     <section class="banner-produtos">
-      <img
-        src="/assets/img/FACEBOOK.png" 
-        alt="A farmácia queridinha do povo"
-      >
-     </section>
 
 
     <!-- =========================
-         VOLTAR
+         MENU SUPERIOR
     ========================= -->
 
-    <div class="voltar-area">
+    <header class="header-produtos">
 
-        <a href="index.html" class="btn-voltar">
-            ← Voltar para o início
-        </a>
+        <nav class="menu-produtos">
 
-    </div>
+            <a href="index.html">
+                Início
+            </a>
 
+            <a href="sobre.html">
+                Sobre
+            </a>
 
-    <!-- =========================
-         BANNER
-    ========================= -->
+            <a href="servicos.html">
+                Serviços
+            </a>
 
-    <section class="banner-produtos">
+            <a href="contato.html">
+                Contato
+            </a>
 
-        <img
-            src="/assets/img/produtos-marca-propria.png"
-            alt="Produtos de marca própria Mariano"
-        >
+            <a href="login.html">
+                Área do colaborador
+            </a>
 
-    </section>
+            <a href="encarte.html">
+                Encarte
+            </a>
+
+            <a
+                href="https://instagram.com/rede.mariano"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="menu-instagram"
+            >
+                Instagram
+            </a>
+
+        </nav>
+
+    </header>
+
 
 
     <!-- =========================
@@ -416,6 +495,7 @@
     </section>
 
 
+
     <!-- =========================
          PRODUTOS
     ========================= -->
@@ -425,7 +505,9 @@
         <div class="produtos-container">
 
 
-            <!-- FIGAMAR -->
+            <!-- =========================
+                 FIGAMAR
+            ========================= -->
 
             <div class="produto-card">
 
@@ -438,26 +520,31 @@
 
                 </div>
 
+
                 <div class="produto-info">
 
                     <span class="categoria">
                         MARIANO NUTRITION
                     </span>
 
+
                     <h2>
                         Figamar
                     </h2>
+
 
                     <p>
                         Suplemento alimentar líquido com sabor amargo,
                         apresentado em embalagem de 500 ml.
                     </p>
 
+
                     <p>
                         O produto traz em sua composição colina,
                         cianocobalamina e piridoxina, conforme
                         informações apresentadas na embalagem.
                     </p>
+
 
                     <div class="produto-destaque">
                         500 ml • Zero açúcar
@@ -468,7 +555,10 @@
             </div>
 
 
-            <!-- MARITOSS -->
+
+            <!-- =========================
+                 MARITOSS
+            ========================= -->
 
             <div class="produto-card">
 
@@ -481,25 +571,30 @@
 
                 </div>
 
+
                 <div class="produto-info">
 
                     <span class="categoria">
                         MARIANO NUTRITION
                     </span>
 
+
                     <h2>
                         Maritoss
                     </h2>
+
 
                     <p>
                         Xarope de acetilcisteína com mel,
                         apresentado em embalagem de 150 ml.
                     </p>
 
+
                     <p>
                         A embalagem destaca a presença de própolis,
                         hortelã e agrião, além do sabor mel com hortelã.
                     </p>
+
 
                     <div class="produto-destaque">
                         Conteúdo: 150 ml • Sabor mel com hortelã
@@ -510,7 +605,10 @@
             </div>
 
 
-            <!-- VALENTINA -->
+
+            <!-- =========================
+                 VALENTINA
+            ========================= -->
 
             <div class="produto-card">
 
@@ -523,15 +621,18 @@
 
                 </div>
 
+
                 <div class="produto-info">
 
                     <span class="categoria">
                         LINHA INFANTIL
                     </span>
 
+
                     <h2>
                         Valentina ImunoKids
                     </h2>
+
 
                     <p>
                         Suplemento alimentar líquido com sabor
@@ -539,10 +640,12 @@
                         de 240 ml.
                     </p>
 
+
                     <p>
                         A embalagem destaca vitaminas A, B, C, D e E,
                         além de zinco.
                     </p>
+
 
                     <div class="produto-destaque">
                         240 ml • Sabor frutas vermelhas
@@ -558,6 +661,7 @@
     </section>
 
 
+
     <!-- =========================
          FINAL
     ========================= -->
@@ -568,17 +672,23 @@
             Qualidade que leva o nome Mariano
         </h2>
 
+
         <p>
             Produtos de marca própria fazem parte do nosso compromisso
             em oferecer opções com a identidade e a confiança da
             Rede Mariano.
         </p>
 
-        <a href="index.html" class="btn-inicio">
+
+        <a
+            href="index.html"
+            class="btn-inicio"
+        >
             ← Voltar para a página inicial
         </a>
 
     </section>
+
 
 
     <!-- =========================
