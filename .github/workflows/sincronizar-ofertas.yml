@@ -288,53 +288,77 @@ jobs:
               )
 
 
-              # ========================================
-              # LIMPAR IMAGENS ANTIGAS
-              # ========================================
+            # ========================================
+          # ATUALIZAR SOMENTE SE HOUVER IMAGENS
+          # ========================================
 
-              arquivos_existentes = os.listdir(
-                  destino
+          if not imagens_validas:
+
+              print(
+                  "Nenhuma imagem encontrada no Drive."
               )
 
-              for arquivo in arquivos_existentes:
+              print(
+                  "As imagens existentes no site serão mantidas."
+              )
 
-                  caminho = os.path.join(
-                      destino,
-                      arquivo
-                  )
-
-                  if os.path.isfile(caminho):
-
-                      os.remove(
-                          caminho
-                      )
-
-                      print(
-                          "Removido:",
-                          arquivo
-                      )
+              continue
 
 
-              # ========================================
-              # BAIXAR NOVAS IMAGENS
-              # ========================================
+          print(
+              "Novas imagens encontradas:",
+              len(imagens_validas)
+          )
 
-              for imagem in imagens_validas:
 
-                  caminho = os.path.join(
-                      destino,
-                      imagem["name"]
-                  )
+          # ========================================
+          # LIMPAR IMAGENS ANTIGAS
+          # SOMENTE QUANDO HOUVER NOVAS IMAGENS
+          # ========================================
 
-                  print(
-                      "Baixando:",
-                      imagem["name"]
-                  )
+          arquivos_existentes = os.listdir(
+              destino
+          )
 
-                  baixar_arquivo(
-                      imagem["id"],
-                      caminho
-                  )
+          for arquivo in arquivos_existentes:
+
+              caminho = os.path.join(
+                  destino,
+                  arquivo
+              )
+
+              if os.path.isfile(caminho):
+
+              os.remove(
+                  caminho
+              )
+
+              print(
+                  "Removido:",
+                  arquivo
+              )
+
+
+          # ========================================
+          # BAIXAR NOVAS IMAGENS
+          # ========================================
+
+          for imagem in imagens_validas:
+
+              caminho = os.path.join(
+                  destino,
+                  imagem["name"]
+              )
+
+              print(
+                  "Baixando:",
+                  imagem["name"]
+              )
+
+              baixar_arquivo(
+                  imagem["id"],
+                  caminho
+              )
 
 
           # ========================================
