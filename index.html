@@ -821,6 +821,49 @@ footer{
     }
 
 }
+/* =======================================================
+   BANNER ENCARTЕ
+======================================================= */
+
+.encarte-banner{
+  width:100%;
+  padding:35px 20px;
+  background:#fff;
+  box-sizing:border-box;
+}
+
+.encarte-banner a{
+  display:block;
+  max-width:1400px;
+  margin:0 auto;
+  text-decoration:none;
+}
+
+.encarte-banner img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:12px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.encarte-banner img:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+/* CELULAR */
+@media (max-width:768px){
+
+  .encarte-banner{
+    padding:20px 10px;
+  }
+
+  .encarte-banner img{
+    border-radius:8px;
+  }
+
+}
 </style>
 </head>
 
@@ -1001,53 +1044,18 @@ footer{
   >
 
 </section>
-
 <!-- =======================================================
-     CHAMADA DO ENCARTЕ
+     BANNER ENCARTЕ
 ======================================================= -->
 
-<section class="encarte-cta">
-
-  <div class="encarte-cta-conteudo">
-
-    <div class="encarte-cta-texto">
-
-      <span class="encarte-tag">
-        📰 ENCARTE
-      </span>
-
-      <h2>
-        Confira nossas ofertas!
-      </h2>
-
-      <p>
-        Veja o nosso encarte completo com todas as promoções
-        e ofertas da Rede Mariano.
-      </p>
-
-      <a
-        href="encarte.html"
-        class="btn-encarte"
-      >
-        ABRIR ENCARTE
-        <span>→</span>
-      </a>
-
-    </div>
-
-    <div class="encarte-cta-icone">
-
-      <img
-        src="/assets/img/logo-mariano.png"
-        alt="Mariano Rede de Farmácias"
-      >
-
-    </div>
-
-  </div>
-
+<section class="encarte-banner">
+  <a href="encarte.html" aria-label="Abrir encarte da Rede Mariano">
+    <img
+      src="/assets/img/banner-encarte.png"
+      alt="Confira nosso encarte Rede Mariano"
+    >
+  </a>
 </section>
-
 
 <!-- =======================================================
      LOCALIZAÇÃO
