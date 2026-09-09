@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nossas Lojas | Rede Mariano</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:#f5f5f5;
+    color:#333;
+}
+
+/* =========================
+   TOPO
+========================= */
+
+.topo{
+    width:100%;
+    background:#C4232A;
+    padding:18px 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.topo a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    margin:0 18px;
+    transition:.3s;
+}
+
+.topo a:hover{
+    color:#FFD000;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.titulo{
+    text-align:center;
+    padding:55px 20px 30px;
+    background:white;
+}
+
+.titulo h1{
+    margin:0;
+    color:#C4232A;
+    font-size:36px;
+    font-weight:800;
+}
+
+.titulo p{
+    margin-top:12px;
+    color:#666;
+    font-size:16px;
+}
+
+/* =========================
+   LOJAS
+========================= */
+
+.lojas{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px 70px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.loja{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.10);
+
+    transition:.3s;
+}
+
+.loja:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.loja img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    display:block;
+}
+
+.loja-info{
+    padding:20px;
+    text-align:center;
+}
+
+.loja-info h2{
+    margin:0;
+    color:#C4232A;
+    font-size:21px;
+}
+
+.loja-info p{
+    margin:8px 0 0;
+    color:#666;
+    font-size:14px;
+}
+
+/* =========================
+   RODAPE
+========================= */
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:25px 20px;
+    font-size:14px;
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width:900px){
+
+    .lojas{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topo{
+        padding:15px 10px;
+    }
+
+    .topo a{
+        margin:0 8px;
+        font-size:13px;
+    }
+
+    .titulo{
+        padding:40px 15px 25px;
+    }
+
+    .titulo h1{
+        font-size:28px;
+    }
+
+    .lojas{
+        grid-template-columns:1fr;
+        padding:25px 15px 50px;
+        gap:22px;
+    }
+
+    .loja img{
+        height:230px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<header class="topo">
+
+    <a href="index.html">Início</a>
+
+    <a href="sobre.html">Sobre</a>
+
+    <a href="servicos.html">Serviços</a>
+
+    <a href="lojas.html">Nossas Lojas</a>
+
+    <a href="contato.html">Contato</a>
+
+</header>
+
+
+<!-- =========================
+     TITULO
+========================= -->
+
+<section class="titulo">
+
+    <h1>Nossas Lojas</h1>
+
+    <p>
+        Encontre uma unidade da Rede Mariano perto de você.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     FILIAIS
+========================= -->
+
+<section class="lojas">
+
+
+    <!-- AGROLÂNDIA 1 -->
+
+    <div class="loja">
+
+        <img src="assets/img/agrolandia1.png"
+             alt="Rede Mariano - Agrolândia">
+
+        <div class="loja-info">
+
+            <h2>Agrolândia</h2>
+
+            <p>Rede Mariano - Unidade 01</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- AGROLÂNDIA 2 -->
+
+    <div class="loja">
+
+        <img src="assets/img/agrolandia2.png"
+             alt="Rede Mariano - Agrolândia">
+
+        <div class="loja-info">
+
+            <h2>Agrolândia</h2>
+
+            <p>Rede Mariano - Unidade 02</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LONTRAS 1 -->
+
+    <div class="loja">
+
+        <img src="assets/img/lontras1.png"
+             alt="Rede Mariano - Lontras">
+
+        <div class="loja-info">
+
+            <h2>Lontras</h2>
+
+            <p>Rede Mariano - Unidade 01</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LONTRAS 2 -->
+
+    <div class="loja">
+
+        <img src="assets/img/lontras2.png"
+             alt="Rede Mariano - Lontras">
+
+        <div class="loja-info">
+
+            <h2>Lontras</h2>
+
+            <p>Rede Mariano - Unidade 02</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- DEMAIS LOJAS -->
+
+    <div class="loja">
+
+        <img src="assets/img/jose-boiteux.png"
+             alt="Rede Mariano - José Boiteux">
+
+        <div class="loja-info">
+
+            <h2>José Boiteux</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/dona-emma.png"
+             alt="Rede Mariano - Dona Emma">
+
+        <div class="loja-info">
+
+            <h2>Dona Emma</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/CD-mariano.jpg"
+             alt="Centro de Distribuição Mariano">
+
+        <div class="loja-info">
+
+            <h2>Centro de Distribuição</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/witmarsum.jpg"
+             alt="Rede Mariano - Witmarsum">
+
+        <div class="loja-info">
+
+            <h2>Witmarsum</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/taio.png"
+             alt="Rede Mariano - Taió">
+
+        <div class="loja-info">
+
+            <h2>Taió</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/rodeio-centro.jpg"
+             alt="Rede Mariano - Rodeio">
+
+        <div class="loja-info">
+
+            <h2>Rodeio</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/ascurra1.png"
+             alt="Rede Mariano - Ascurra">
+
+        <div class="loja-info">
+
+            <h2>Ascurra</h2>
+
+            <p>Rede Mariano - Unidade 01</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/ascurra2.png"
+             alt="Rede Mariano - Ascurra">
+
+        <div class="loja-info">
+
+            <h2>Ascurra</h2>
+
+            <p>Rede Mariano - Unidade 02</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/apiuna1.png"
+             alt="Rede Mariano - Apiúna">
+
+        <div class="loja-info">
+
+            <h2>Apiúna</h2>
+
+            <p>Rede Mariano - Unidade 01</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/apiuna2.png"
+             alt="Rede Mariano - Apiúna">
+
+        <div class="loja-info">
+
+            <h2>Apiúna</h2>
+
+            <p>Rede Mariano - Unidade 02</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/benedito-novo.png"
+             alt="Rede Mariano - Benedito Novo">
+
+        <div class="loja-info">
+
+            <h2>Benedito Novo</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/timbo1.jpg"
+             alt="Rede Mariano - Timbó">
+
+        <div class="loja-info">
+
+            <h2>Timbó</h2>
+
+            <p>Rede Mariano - Unidade 01</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/timbo2.jpg"
+             alt="Rede Mariano - Timbó">
+
+        <div class="loja-info">
+
+            <h2>Timbó</h2>
+
+            <p>Rede Mariano - Unidade 02</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/indaial-470.jpg"
+             alt="Rede Mariano - Indaial">
+
+        <div class="loja-info">
+
+            <h2>Indaial</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="loja">
+
+        <img src="assets/img/rio-dos-cedros.png"
+             alt="Rede Mariano - Rio dos Cedros">
+
+        <div class="loja-info">
+
+            <h2>Rio dos Cedros</h2>
+
+            <p>Rede Mariano</p>
+
+        </div>
+
+    </div>
+    <!-- NOVAS FILIAIS -->
+
+<div class="loja-card">
+  <img src="/assets/img/atalanta.png" alt="Mariano - Atalanta">
+  <div class="loja-info">
+    <h3>Atalanta</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/barra-do-trombudo.png" alt="Mariano - Barra do Trombudo">
+  <div class="loja-info">
+    <h3>Barra do Trombudo</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/laurentino.png" alt="Mariano - Laurentino">
+  <div class="loja-info">
+    <h3>Laurentino</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/ituporanga.png" alt="Mariano - Ituporanga">
+  <div class="loja-info">
+    <h3>Ituporanga</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/rio-do-sul-xv.png" alt="Mariano - Rio do Sul - XV">
+  <div class="loja-info">
+    <h3>Rio do Sul – XV</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/salete.png" alt="Mariano - Salete">
+  <div class="loja-info">
+    <h3>Salete</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+<div class="loja-card">
+  <img src="/assets/img/trombudo-central.png" alt="Mariano - Trombudo Central">
+  <div class="loja-info">
+    <h3>Trombudo Central</h3>
+    <p>Rede Mariano de Farmácias</p>
+  </div>
+</div>
+
+
+</section>
+
+
+<!-- =========================
+     RODAPE
+========================= -->
+
+<footer>
+
+    © 2026 Rede Mariano — Rede de Farmácias
+
+</footer>
+
+
+</body>
+
+</html>
