@@ -332,24 +332,30 @@
 
 .banner-produtos {
     width: 100%;
-    overflow: hidden;
     background: #fff;
+    overflow: hidden;
 }
 
 .banner-produtos img {
     width: 100%;
-    height: auto;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
     display: block;
 }
+
+/* CELULAR */
 @media (max-width: 768px) {
 
     .banner-produtos img {
-        width: 100%;
-        height: auto;
+        height: 160px;
+        object-fit: cover;
+        object-position: center;
     }
 
 }
 
+        
     </style>
 
 </head>
