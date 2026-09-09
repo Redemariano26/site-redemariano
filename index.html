@@ -779,6 +779,48 @@ footer{
     display:block;
     cursor:pointer;
 }
+/* =========================
+   BANNER NOSSAS FILIAIS
+========================= */
+
+.banner-filiais{
+    width:100%;
+    padding:25px 20px 35px;
+    background:#fff;
+}
+
+.banner-filiais a{
+    display:block;
+    max-width:1200px;
+    margin:0 auto;
+    text-decoration:none;
+}
+
+.banner-filiais img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:14px;
+    transition:.3s ease;
+}
+
+.banner-filiais a:hover img{
+    transform:scale(1.01);
+}
+
+/* CELULAR */
+
+@media(max-width:768px){
+
+    .banner-filiais{
+        padding:18px 10px 25px;
+    }
+
+    .banner-filiais img{
+        border-radius:10px;
+    }
+
+}
 </style>
 </head>
 
@@ -916,6 +958,14 @@ footer{
 
   </div>
 
+</section>
+
+<!-- ================= BANNER NOSSAS FILIAIS ================= -->
+
+<section class="banner-filiais">
+    <a href="lojas.html">
+        <img src="/assets/img/banner-filiais.png" alt="Conheça nossas filiais">
+    </a>
 </section>
 
 
