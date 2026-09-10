@@ -864,6 +864,58 @@ footer{
   }
 
 }
+/* =======================================================
+   DESTAQUE - PROMOÇÃO SORTEIO
+======================================================= */
+
+.banner-sorteio{
+  width:100%;
+  background:#fff;
+  padding:30px 20px 35px;
+  box-sizing:border-box;
+}
+
+.sorteio-conteudo{
+  max-width:1400px;
+  margin:0 auto;
+  text-align:center;
+}
+
+.sorteio-conteudo img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+
+.sorteio-validade{
+  margin-top:12px;
+  display:inline-block;
+  background:#C4232A;
+  color:#fff;
+  padding:9px 20px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:700;
+}
+
+@media(max-width:768px){
+
+  .banner-sorteio{
+    padding:18px 10px 25px;
+  }
+
+  .sorteio-conteudo img{
+    border-radius:9px;
+  }
+
+  .sorteio-validade{
+    font-size:12px;
+    padding:8px 15px;
+  }
+
+}
 </style>
 </head>
 
@@ -944,6 +996,22 @@ footer{
   >
 </section>
 
+<section class="banner-sorteio" id="bannerSorteio">
+
+  <div class="sorteio-conteudo">
+
+    <img
+      src="/assets/img/banner-sorteio-mariano.png"
+      alt="Promoção Valentina ImunoKids - Sorteio de 33 bicicletas"
+    >
+
+    <div class="sorteio-validade">
+      🎉 Promoção válida até 10 de outubro
+    </div>
+
+  </div>
+
+</section>
 
 <!-- =======================================================
      OFERTAS AUTOMÁTICAS
