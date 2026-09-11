@@ -915,6 +915,23 @@ footer{
     padding:8px 15px;
   }
 
+  /* =======================================================
+   LOGO DO MENU MOBILE
+======================================================= */
+
+.sidebar-logo{
+  width:100%;
+  padding:28px 20px 24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.18);
+}
+
+.sidebar-logo img{
+  width:120px;
+  height:auto;
+  display:block;
 }
 </style>
 </head>
@@ -932,13 +949,27 @@ footer{
     aria-label="Abrir menu"
   >☰</div>
 </div>
-
 <div class="mobile-sidebar" id="mobileSidebar">
+
+  <div class="sidebar-logo">
+    <img
+      src="/assets/img/logo-mariano.png"
+      alt="Mariano Rede de Farmácias"
+    >
+  </div>
+
   <a href="index.html">Início</a>
+
   <a href="sobre.html">Sobre</a>
+
   <a href="servicos.html">Serviços</a>
+
   <a href="contato.html">Contato</a>
+
+  <a href="lojas.html">🏪 Nossas lojas</a>
+
   <a href="login.html">Área do colaborador</a>
+
   <a href="encarte.html">📰 Encarte</a>
 
   <a
@@ -946,7 +977,9 @@ footer{
     target="_blank"
     rel="noopener noreferrer"
   >📸 Instagram</a>
+
 </div>
+
 
 <div
   class="mobile-overlay"
