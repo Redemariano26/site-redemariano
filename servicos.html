@@ -76,45 +76,38 @@ nav a{
 nav a:hover{
   color:#FFD000;
 }
-
-
-/* =========================
-   BANNER PRINCIPAL
-========================= */
-
-.banner-principal{
+.banner{
   width:100%;
+  max-width:1200px;
+  margin:0 auto;
   overflow:hidden;
-  background:#C4232A;
+  box-sizing:border-box;
 }
 
-.banner-principal img{
+.banner img{
   width:100%;
   height:auto;
   display:block;
+  max-width:100%;
+  object-fit:contain;
 }
+@media(max-width:768px){
 
+  .banner{
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+    padding:0;
+    overflow:hidden;
+  }
 
-/* =========================
-   FAIXA +30 FILIAIS
-========================= */
+  .banner img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
 
-.faixa-servicos{
-  width:100%;
-  background:#C91C23;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
 }
-
-.faixa-servicos img{
-  width:65%;
-  max-width:900px;
-  height:auto;
-  display:block;
-}
-
 
 /* =========================
    ÁREA DOS SERVIÇOS
