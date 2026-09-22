@@ -329,7 +329,7 @@ jobs:
 
               if os.path.isfile(caminho):
 
-              os.remove(
+                  os.remove(
                   caminho
               )
 
