@@ -1236,85 +1236,49 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-
-/* =========================================================
+/* =====================================================
    OFERTAS AUTOMÁTICAS POR DIA DA SEMANA
-========================================================= */
+===================================================== */
 
 (function(){
 
-  /*
-    0 = domingo
-    1 = segunda
-    2 = terça
-    3 = quarta
-    4 = quinta
-    5 = sexta
-    6 = sábado
-
-    Para um dia sem ofertas:
-    coloque null.
-
-    Exemplo:
-    4: null
-
-    Para adicionar ofertas:
-    pasta = pasta das imagens
-    prefixo = começo do nome
-    quantidade = quantidade total de imagens
-  */
-
   const configuracaoOfertas = {
 
-    /* DOMINGO */
+    // DOMINGO
     0: null,
 
-    /* SEGUNDA */
+    // SEGUNDA
     1: null,
 
-    /* TERÇA */
+    // TERÇA
     2: {
       pasta: "/assets/img/terca/",
       prefixo: "terca",
       quantidade: 17
     },
 
-    /* QUARTA */
+    // QUARTA
     3: {
       pasta: "/assets/img/quarta/",
       prefixo: "ofertas",
       quantidade: 14
     },
 
-    /* QUINTA */
+    // QUINTA
     4: null,
 
-    /* SEXTA */
+    // SEXTA
     5: null,
 
-    /* SÁBADO */
+    // SÁBADO
     6: null
-
   };
 
-
-  const secao =
-    document.getElementById("secOfertas");
-
-  const ofertaDoDia =
-    document.getElementById("ofertaDoDia");
-
-  const listaOfertas =
-    document.getElementById("listaOfertas");
-
-  const setaEsquerda =
-    document.getElementById("setaEsquerda");
-
-  const setaDireita =
-    document.getElementById("setaDireita");
-
-
-  /* Se algum elemento não existir, encerra */
+  const secao = document.getElementById("secOfertas");
+  const ofertaDoDia = document.getElementById("ofertaDoDia");
+  const listaOfertas = document.getElementById("listaOfertas");
+  const setaEsquerda = document.getElementById("setaEsquerda");
+  const setaDireita = document.getElementById("setaDireita");
 
   if(
     !secao ||
@@ -1326,147 +1290,71 @@ document.addEventListener("DOMContentLoaded", function(){
     return;
   }
 
-
-  /* Dia atual */
-
-  const hoje =
-    new Date().getDay();
-
-  const configuracao =
-    configuracaoOfertas[hoje];
-
-
-  /* =======================================================
-     DIA SEM OFERTAS
-  ======================================================= */
+  const hoje = new Date().getDay();
+  const configuracao = configuracaoOfertas[hoje];
 
   if(!configuracao){
-
     secao.style.display = "none";
-
     return;
-
   }
-
 
   secao.style.display = "block";
 
-
-  /* =======================================================
-     PRIMEIRA IMAGEM = OFERTA DO DIA
-  ======================================================= */
-
+  /* OFERTA DO DIA */
   ofertaDoDia.src =
     configuracao.pasta +
     configuracao.prefixo +
     "01.jpeg";
 
-
-  ofertaDoDia.onerror = function(){
-
-    ofertaDoDia.style.display = "none";
-
-  };
-
-
-  /* =======================================================
-     DEMAIS IMAGENS = CARROSSEL
-  ======================================================= */
-
+  /* DEMAIS OFERTAS */
   listaOfertas.innerHTML = "";
 
+  for(let i = 2; i <= configuracao.quantidade; i++){
 
-  for(
-    let i = 2;
-    i <= configuracao.quantidade;
-    i++
-  ){
+    const imagem = document.createElement("img");
 
-    const imagem =
-      document.createElement("img");
-      const numero = String(i).padStart(2, "0");
+    const numero = String(i).padStart(2, "0");
 
     imagem.src =
       configuracao.pasta +
       configuracao.prefixo +
-      i +
+      numero +
       ".jpeg";
 
-    imagem.className =
-      "oferta-img";
-
-    imagem.alt =
-      "Oferta " + i;
+    imagem.className = "oferta-img";
+    imagem.alt = "Oferta " + i;
 
     listaOfertas.appendChild(imagem);
-
   }
-
-
-  /* =======================================================
-     CONTROLE DO CARROSSEL
-  ======================================================= */
 
   let ofertaAtual = 0;
-
   let temporizador = null;
 
-
   function obterImagens(){
-
-    return listaOfertas
-      .querySelectorAll(".oferta-img");
-
+    return listaOfertas.querySelectorAll(".oferta-img");
   }
 
+  function moverOfertas(){
 
-  function obterPasso(){
+    const imagens = obterImagens();
 
-    const imagens =
-      obterImagens();
-
-    if(!imagens.length){
-      return 0;
+    if(imagens.length === 0){
+      return;
     }
 
-    const primeira =
-      imagens[0];
+    const primeiraImagem = imagens[0];
+
+    const larguraImagem =
+      primeiraImagem.offsetWidth;
 
     const estilo =
-      window.getComputedStyle(
-        listaOfertas
-      );
+      window.getComputedStyle(listaOfertas);
 
     const gap =
       parseFloat(estilo.gap) || 20;
-
-    return primeira.offsetWidth + gap;
-
-  }
-
-
-  function obterMaximo(){
-
-    const imagens =
-      obterImagens();
-
-    if(!imagens.length){
-      return 0;
-    }
 
     const passo =
-      obterPasso();
-
-    const estilo =
-      window.getComputedStyle(
-        listaOfertas
-      );
-
-    const gap =
-      parseFloat(estilo.gap) || 20;
-
-    const larguraTotal =
-      (imagens.length * passo) - gap;
+      larguraImagem + gap;
 
     const slider =
       listaOfertas.parentElement;
@@ -1474,196 +1362,100 @@ document.addEventListener("DOMContentLoaded", function(){
     const larguraVisivel =
       slider.offsetWidth;
 
-    return Math.max(
-      0,
-      larguraTotal - larguraVisivel
-    );
+    const larguraTotal =
+      imagens.length * passo - gap;
 
-  }
-
-
-  function moverOfertas(){
-
-    const imagens =
-      obterImagens();
-
-    if(!imagens.length){
-      return;
-    }
-
-    const passo =
-      obterPasso();
-
-    const maximo =
-      obterMaximo();
+    const maxDeslocamento =
+      Math.max(
+        0,
+        larguraTotal - larguraVisivel
+      );
 
     let deslocamento =
       ofertaAtual * passo;
 
-    if(deslocamento > maximo){
-
-      deslocamento = maximo;
-
+    if(deslocamento > maxDeslocamento){
+      deslocamento = maxDeslocamento;
     }
 
     if(deslocamento < 0){
-
       deslocamento = 0;
-
     }
 
     listaOfertas.style.transform =
-      "translateX(-" +
-      deslocamento +
-      "px)";
-
+      "translateX(-" + deslocamento + "px)";
   }
-
 
   function iniciarTemporizador(){
 
     clearTimeout(temporizador);
 
-    temporizador =
-      setTimeout(function(){
+    temporizador = setTimeout(function(){
 
-        mudarOferta(1);
+      mudarOferta(1);
 
-      }, 4000);
-
+    }, 4000);
   }
-
 
   function mudarOferta(direcao){
 
-    const imagens =
-      obterImagens();
+    const imagens = obterImagens();
 
-    if(!imagens.length){
+    if(imagens.length === 0){
       return;
     }
 
     clearTimeout(temporizador);
 
-
     ofertaAtual += direcao;
 
+    if(ofertaAtual < 0){
+      ofertaAtual = imagens.length - 1;
+    }
 
     if(ofertaAtual >= imagens.length){
-
       ofertaAtual = 0;
-
     }
-
-
-    if(ofertaAtual < 0){
-
-      ofertaAtual =
-        imagens.length - 1;
-
-    }
-
 
     moverOfertas();
 
     iniciarTemporizador();
-
   }
-
-
-  /* =======================================================
-     SETAS
-  ======================================================= */
 
   setaEsquerda.addEventListener(
     "click",
     function(){
-
       mudarOferta(-1);
-
     }
   );
-
 
   setaDireita.addEventListener(
     "click",
     function(){
-
       mudarOferta(1);
-
     }
   );
 
+  window.addEventListener(
+    "load",
+    function(){
 
-  /* =======================================================
-     QUANDO AS IMAGENS TERMINAREM DE CARREGAR
-  ======================================================= */
+      setTimeout(function(){
 
-  function iniciarCarrossel(){
+        moverOfertas();
+        iniciarTemporizador();
 
-    setTimeout(function(){
-
-      moverOfertas();
-
-      iniciarTemporizador();
-
-    }, 150);
-
-  }
-
-
-  if(document.readyState === "complete"){
-
-    iniciarCarrossel();
-
-  }else{
-
-    window.addEventListener(
-      "load",
-      iniciarCarrossel,
-      {once:true}
-    );
-
-  }
-
-
-  /* =======================================================
-     AJUSTE AO REDIMENSIONAR
-  ======================================================= */
+      }, 300);
+    }
+  );
 
   window.addEventListener(
     "resize",
     function(){
-
       moverOfertas();
-
     }
   );
 
-
-  /* =======================================================
-     PAUSA AO PASSAR O MOUSE
-     (somente computador)
-  ======================================================= */
-
-  listaOfertas.addEventListener(
-    "mouseenter",
-    function(){
-
-      clearTimeout(temporizador);
-
-    }
-  );
-
-
-  listaOfertas.addEventListener(
-    "mouseleave",
-    function(){
-
-      iniciarTemporizador();
-
-    }
-  );
 
 })();
 </script>
