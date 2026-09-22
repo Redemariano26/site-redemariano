@@ -1253,15 +1253,13 @@ document.addEventListener("DOMContentLoaded", function(){
     // TERÇA
     2: {
       pasta: "/assets/img/terca/",
-      prefixo: "terca",
-      quantidade: 17
+      prefixo: "terca"
     },
 
     // QUARTA
     3: {
       pasta: "/assets/img/quarta/",
-      prefixo: "ofertas",
-      quantidade: 14
+      prefixo: "ofertas"
     },
 
     // QUINTA
@@ -1274,11 +1272,13 @@ document.addEventListener("DOMContentLoaded", function(){
     6: null
   };
 
+
   const secao = document.getElementById("secOfertas");
   const ofertaDoDia = document.getElementById("ofertaDoDia");
   const listaOfertas = document.getElementById("listaOfertas");
   const setaEsquerda = document.getElementById("setaEsquerda");
   const setaDireita = document.getElementById("setaDireita");
+
 
   if(
     !secao ||
@@ -1290,80 +1290,187 @@ document.addEventListener("DOMContentLoaded", function(){
     return;
   }
 
+
   const hoje = new Date().getDay();
   const configuracao = configuracaoOfertas[hoje];
 
+
+  /* DIA SEM OFERTAS */
   if(!configuracao){
+
     secao.style.display = "none";
+
     return;
   }
 
+
   secao.style.display = "block";
 
-  /* OFERTA DO DIA */
-  ofertaDoDia.src =
-    configuracao.pasta +
-    configuracao.prefixo +
-    "01.jpeg";
 
-  /* DEMAIS OFERTAS */
-  listaOfertas.innerHTML = "";
+  let imagensCarregadas = [];
+  let numero = 1;
 
-  for(let i = 2; i <= configuracao.quantidade; i++){
 
-    const imagem = document.createElement("img");
+  /* =====================================================
+     PROCURA AS IMAGENS AUTOMATICAMENTE
+  ===================================================== */
 
-    const numero = String(i).padStart(2, "0");
+  function procurarImagem(){
 
-    imagem.src =
+    const numeroFormatado =
+      String(numero).padStart(2, "0");
+
+    const caminho =
       configuracao.pasta +
       configuracao.prefixo +
-      numero +
+      numeroFormatado +
       ".jpeg";
 
-    imagem.className = "oferta-img";
-    imagem.alt = "Oferta " + i;
 
-    listaOfertas.appendChild(imagem);
+    const teste =
+      new Image();
+
+
+    teste.onload = function(){
+
+      imagensCarregadas.push(caminho);
+
+      numero++;
+
+      procurarImagem();
+
+    };
+
+
+    teste.onerror = function(){
+
+      montarOfertas();
+
+    };
+
+
+    teste.src = caminho;
   }
+
+
+  /* =====================================================
+     MONTA AS OFERTAS
+  ===================================================== */
+
+  function montarOfertas(){
+
+    if(imagensCarregadas.length === 0){
+
+      secao.style.display = "none";
+
+      return;
+    }
+
+
+    /* PRIMEIRA IMAGEM */
+
+    ofertaDoDia.src =
+      imagensCarregadas[0];
+
+
+    /* DEMAIS IMAGENS */
+
+    listaOfertas.innerHTML = "";
+
+
+    for(
+      let i = 1;
+      i < imagensCarregadas.length;
+      i++
+    ){
+
+      const imagem =
+        document.createElement("img");
+
+
+      imagem.src =
+        imagensCarregadas[i];
+
+
+      imagem.className =
+        "oferta-img";
+
+
+      imagem.alt =
+        "Oferta " + (i + 1);
+
+
+      listaOfertas.appendChild(imagem);
+
+    }
+
+
+    iniciarCarrossel();
+
+  }
+
+
+  /* =====================================================
+     CARROSSEL
+  ===================================================== */
 
   let ofertaAtual = 0;
   let temporizador = null;
 
+
   function obterImagens(){
-    return listaOfertas.querySelectorAll(".oferta-img");
+
+    return listaOfertas.querySelectorAll(
+      ".oferta-img"
+    );
+
   }
+
 
   function moverOfertas(){
 
-    const imagens = obterImagens();
+    const imagens =
+      obterImagens();
+
 
     if(imagens.length === 0){
       return;
     }
 
-    const primeiraImagem = imagens[0];
+
+    const primeiraImagem =
+      imagens[0];
+
 
     const larguraImagem =
       primeiraImagem.offsetWidth;
 
+
     const estilo =
-      window.getComputedStyle(listaOfertas);
+      window.getComputedStyle(
+        listaOfertas
+      );
+
 
     const gap =
       parseFloat(estilo.gap) || 20;
 
+
     const passo =
       larguraImagem + gap;
+
 
     const slider =
       listaOfertas.parentElement;
 
+
     const larguraVisivel =
       slider.offsetWidth;
 
+
     const larguraTotal =
       imagens.length * passo - gap;
+
 
     const maxDeslocamento =
       Math.max(
@@ -1371,90 +1478,142 @@ document.addEventListener("DOMContentLoaded", function(){
         larguraTotal - larguraVisivel
       );
 
+
     let deslocamento =
       ofertaAtual * passo;
 
-    if(deslocamento > maxDeslocamento){
-      deslocamento = maxDeslocamento;
+
+    if(
+      deslocamento >
+      maxDeslocamento
+    ){
+
+      deslocamento =
+        maxDeslocamento;
+
     }
 
-    if(deslocamento < 0){
-      deslocamento = 0;
-    }
 
     listaOfertas.style.transform =
-      "translateX(-" + deslocamento + "px)";
+      "translateX(-" +
+      deslocamento +
+      "px)";
+
   }
+
 
   function iniciarTemporizador(){
 
-    clearTimeout(temporizador);
+    clearTimeout(
+      temporizador
+    );
 
-    temporizador = setTimeout(function(){
 
-      mudarOferta(1);
+    temporizador =
+      setTimeout(
+        function(){
 
-    }, 4000);
+          mudarOferta(1);
+
+        },
+        4000
+      );
+
   }
 
-  function mudarOferta(direcao){
 
-    const imagens = obterImagens();
+  function mudarOferta(
+    direcao
+  ){
+
+    const imagens =
+      obterImagens();
+
 
     if(imagens.length === 0){
       return;
     }
 
-    clearTimeout(temporizador);
 
-    ofertaAtual += direcao;
+    clearTimeout(
+      temporizador
+    );
 
-    if(ofertaAtual < 0){
-      ofertaAtual = imagens.length - 1;
+
+    ofertaAtual +=
+      direcao;
+
+
+    if(
+      ofertaAtual < 0
+    ){
+
+      ofertaAtual =
+        imagens.length - 1;
+
     }
 
-    if(ofertaAtual >= imagens.length){
+
+    if(
+      ofertaAtual >=
+      imagens.length
+    ){
+
       ofertaAtual = 0;
+
     }
+
 
     moverOfertas();
 
     iniciarTemporizador();
+
   }
 
-  setaEsquerda.addEventListener(
-    "click",
-    function(){
-      mudarOferta(-1);
-    }
-  );
 
-  setaDireita.addEventListener(
-    "click",
-    function(){
-      mudarOferta(1);
-    }
-  );
+  function iniciarCarrossel(){
 
-  window.addEventListener(
-    "load",
-    function(){
+    ofertaAtual = 0;
 
-      setTimeout(function(){
+    setaEsquerda.onclick =
+      function(){
+
+        mudarOferta(-1);
+
+      };
+
+
+    setaDireita.onclick =
+      function(){
+
+        mudarOferta(1);
+
+      };
+
+
+    window.addEventListener(
+      "resize",
+      moverOfertas
+    );
+
+
+    setTimeout(
+      function(){
 
         moverOfertas();
+
         iniciarTemporizador();
 
-      }, 300);
-    }
-  );
+      },
+      300
+    );
 
-  window.addEventListener(
-    "resize",
-    function(){
-      moverOfertas();
-    }
-  );
+  }
+
+
+  /* COMEÇA A PROCURAR */
+
+  procurarImagem();
 
 
 })();
