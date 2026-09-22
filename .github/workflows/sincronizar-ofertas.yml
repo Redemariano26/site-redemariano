@@ -42,7 +42,6 @@ jobs:
           from googleapiclient.discovery import build
           from googleapiclient.http import MediaIoBaseDownload
 
-
           # ========================================
           # CONFIGURAÇÃO
           # ========================================
@@ -63,7 +62,6 @@ jobs:
               "DOMINGO": "assets/img/domingo",
           }
 
-
           # ========================================
           # CONEXÃO COM GOOGLE DRIVE
           # ========================================
@@ -78,7 +76,6 @@ jobs:
               "v3",
               credentials=credentials
           )
-
 
           # ========================================
           # FUNÇÃO PARA ENCONTRAR PASTAS
@@ -113,7 +110,6 @@ jobs:
 
               return arquivos[0]["id"]
 
-
           # ========================================
           # FUNÇÃO PARA LISTAR IMAGENS
           # ========================================
@@ -137,7 +133,6 @@ jobs:
 
               return resultado.get("files", [])
 
-
           # ========================================
           # FUNÇÃO PARA BAIXAR ARQUIVO
           # ========================================
@@ -160,7 +155,6 @@ jobs:
                   while not concluido:
 
                       _, concluido = downloader.next_chunk()
-
 
           # ========================================
           # LOCALIZAR PASTA PRINCIPAL
@@ -188,7 +182,6 @@ jobs:
               raiz_id
           )
 
-
           # ========================================
           # LOCALIZAR PASTA OFERTAS
           # ========================================
@@ -215,7 +208,6 @@ jobs:
               ofertas_id
           )
 
-
           # ========================================
           # PROCESSAR CADA DIA
           # ========================================
@@ -228,6 +220,7 @@ jobs:
               print("========================================")
 
               # Procurar o dia DENTRO da pasta OFERTAS
+
               pasta_id = encontrar_pasta(
                   nome_pasta,
                   ofertas_id
@@ -246,7 +239,6 @@ jobs:
                   "Pasta encontrada:",
                   pasta_id
               )
-
 
               # ========================================
               # LISTAR IMAGENS DO DIA
@@ -271,12 +263,10 @@ jobs:
                   )
               ]
 
-
               print(
                   "Imagens encontradas:",
                   len(imagens_validas)
               )
-
 
               # ========================================
               # CRIAR PASTA LOCAL
@@ -287,79 +277,74 @@ jobs:
                   exist_ok=True
               )
 
+              # ========================================
+              # ATUALIZAR SOMENTE SE HOUVER IMAGENS
+              # ========================================
 
-            # ========================================
-          # ATUALIZAR SOMENTE SE HOUVER IMAGENS
-          # ========================================
+              if not imagens_validas:
 
-          if not imagens_validas:
+                  print(
+                      "Nenhuma imagem encontrada no Drive."
+                  )
 
-              print(
-                  "Nenhuma imagem encontrada no Drive."
-              )
+                  print(
+                      "As imagens existentes no site serão mantidas."
+                  )
 
-              print(
-                  "As imagens existentes no site serão mantidas."
-              )
-
-              continue
-
-
-          print(
-              "Novas imagens encontradas:",
-              len(imagens_validas)
-          )
-
-
-          # ========================================
-          # LIMPAR IMAGENS ANTIGAS
-          # SOMENTE QUANDO HOUVER NOVAS IMAGENS
-          # ========================================
-
-          arquivos_existentes = os.listdir(
-              destino
-          )
-
-          for arquivo in arquivos_existentes:
-
-              caminho = os.path.join(
-                  destino,
-                  arquivo
-              )
-
-              if os.path.isfile(caminho):
-
-              os.remove(
-                  caminho
-              )
+                  continue
 
               print(
-                  "Removido:",
-                  arquivo
+                  "Novas imagens encontradas:",
+                  len(imagens_validas)
               )
 
+              # ========================================
+              # LIMPAR IMAGENS ANTIGAS
+              # SOMENTE QUANDO HOUVER NOVAS IMAGENS
+              # ========================================
 
-          # ========================================
-          # BAIXAR NOVAS IMAGENS
-          # ========================================
-
-          for imagem in imagens_validas:
-
-              caminho = os.path.join(
-                  destino,
-                  imagem["name"]
+              arquivos_existentes = os.listdir(
+                  destino
               )
 
-              print(
-                  "Baixando:",
-                  imagem["name"]
-              )
+              for arquivo in arquivos_existentes:
 
-              baixar_arquivo(
-                  imagem["id"],
-                  caminho
-              )
+                  caminho = os.path.join(
+                      destino,
+                      arquivo
+                  )
 
+                  if os.path.isfile(caminho):
+
+                      os.remove(
+                          caminho
+                      )
+
+                      print(
+                          "Removido:",
+                          arquivo
+                      )
+
+              # ========================================
+              # BAIXAR NOVAS IMAGENS
+              # ========================================
+
+              for imagem in imagens_validas:
+
+                  caminho = os.path.join(
+                      destino,
+                      imagem["name"]
+                  )
+
+                  print(
+                      "Baixando:",
+                      imagem["name"]
+                  )
+
+                  baixar_arquivo(
+                      imagem["id"],
+                      caminho
+                  )
 
           # ========================================
           # FINALIZAÇÃO
