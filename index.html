@@ -1359,7 +1359,7 @@ document.addEventListener("DOMContentLoaded", function(){
   ofertaDoDia.src =
     configuracao.pasta +
     configuracao.prefixo +
-    "1.jpeg";
+    "01.jpeg";
 
 
   ofertaDoDia.onerror = function(){
@@ -1384,6 +1384,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const imagem =
       document.createElement("img");
+      const numero = String(i).padStart(2, "0");
 
     imagem.src =
       configuracao.pasta +
