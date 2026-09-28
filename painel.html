@@ -2,182 +2,947 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Painel Interno - Rede Mariano</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Promoções - Rede Mariano</title>
   <link rel="icon" href="/assets/img/favicon.png">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f6fb;
+      color: #242424;
     }
 
     header {
-      background: #c62828;
+      background: #C4232A;
       color: white;
-      padding: 18px;
+      padding: 22px 18px;
       text-align: center;
-      font-size: 20px;
-      font-weight: bold;
     }
 
-    .user-bar{
-      text-align:center;
-      background:#ffe5e5;
-      padding:8px;
-      font-size:14px;
+    header h1 {
+      margin: 0;
+      font-size: 24px;
     }
 
-    .container {
-      padding: 40px;
-      max-width: 900px;
-      margin: auto;
+    header p {
+      margin: 7px 0 0;
+      font-size: 14px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+    .userbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #ffe5e5;
+      padding: 12px 5%;
+      font-size: 14px;
     }
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      text-align: center;
-      text-decoration: none;
-      color: #222;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      transition: 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .logout {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    .logout a {
-      color: #c62828;
-      text-decoration: none;
+    .userbar button,
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      background: #C4232A;
+      color: white;
+      padding: 11px 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .admin-box {
-      margin-top: 30px;
-      background: #fff3cd;
-      padding: 20px;
-      border-radius: 10px;
+    .userbar button:hover,
+    .btn:hover {
+      background: #a91d23;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 28px auto;
+      padding: 0 18px;
+    }
+
+    .welcome {
+      margin-bottom: 22px;
+    }
+
+    .welcome h2 {
+      margin: 0 0 7px;
+      color: #333;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .panel h3 {
+      margin: 0 0 18px;
+      color: #C4232A;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d5d5d5;
+      border-radius: 8px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fafafa;
+      border: 1px solid #eee;
+      padding: 11px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .check input {
+      width: auto;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .btn.secondary {
+      background: #555;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .promo-card {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+    .promo-card h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin: 5px 0 12px;
+      background: #eee;
+    }
+
+    .status.available {
+      background: #d8f3df;
+      color: #17652c;
+    }
+
+    .status.scheduled {
+      background: #fff0c2;
+      color: #7a5900;
+    }
+
+    .status.ended {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .status.manual {
+      background: #e2e3ff;
+      color: #33358c;
+    }
+
+    .cat-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .cat {
+      border: 1px solid #e4e4e4;
+      background: #f8f8f8;
+      border-radius: 7px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .promo-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .small-btn {
+      border: 0;
+      border-radius: 7px;
+      padding: 9px 11px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #C4232A;
+      color: white;
+    }
+
+    .small-btn.gray {
+      background: #666;
+    }
+
+    .empty {
+      padding: 24px;
       text-align: center;
+      background: white;
+      border: 1px dashed #ccc;
+      border-radius: 12px;
+      color: #666;
+    }
+
+    .notice {
+      padding: 12px 14px;
+      background: #fff4d6;
+      border-left: 4px solid #d9a400;
+      border-radius: 7px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media(max-width: 650px) {
+      header h1 {
+        font-size: 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .userbar {
+        padding: 12px 18px;
+      }
+
+      main {
+        margin-top: 20px;
+      }
+
+      .panel {
+        padding: 17px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>Painel Interno - Rede Mariano</header>
-<div class="user-bar" id="userBar"></div>
+  <header>
+    <h1>Portal de Promoções — Rede Mariano</h1>
+    <p>A mais queridinha do povo</p>
+  </header>
 
-<div class="container">
-  <div class="grid" id="cards"></div>
-
-  <div id="adminArea"></div>
-
-  <div class="logout">
-    <a onclick="logout()">🚪 Sair</a>
+  <div class="userbar">
+    <span id="userInfo">Carregando usuário...</span>
+    <button type="button" onclick="logout()">🚪 Sair</button>
   </div>
-</div>
 
-<script>
-// ================= CHECAR LOGIN =================
-const user = JSON.parse(localStorage.getItem("usuarioLogado"));
+  <main>
 
-if (!user) {
-  window.location.href = "login.html"; // corrigido
-}
+    <section class="welcome">
+      <h2>Materiais promocionais</h2>
+      <p class="muted">
+        Consulte as campanhas e encontre os materiais organizados por categoria.
+      </p>
+    </section>
 
-// ================= MOSTRAR USUÁRIO =================
-document.getElementById("userBar").innerText =
-  "Logado como: " + user.email + (user.tipo === "admin" ? " 👑 Admin" : "");
-
-// ================= MÓDULOS =================
-const modulos = {
-  financeiro: {
-    nome: "📊 Financeiro",
-    link: "https://google.com"
-  },
-  info: {
-    nome: "🤖 Informações",
-    link: "https://info.redemariano.com.br/"
-  },
-  agenda: {
-    nome: "📈 Agenda",
-    link: "https://agenda.redemariano.com.br/"
-  },
-  cotas: { // 👈 NOVO
-    nome: "💰Cotas",
-    link: "https://cotas.redemariano.com.br/"
-  }
-};
-
-// ================= RENDERIZAR CARDS =================
-const container = document.getElementById("cards");
-
-// protege caso usuário não tenha acessos definidos
-let acessos = [];
-
-if (user.tipo === "admin") {
-  acessos = Object.keys(modulos);
-} else {
-  acessos = user.acessos || [];
-}
-
-acessos.forEach(mod => {
-  const data = modulos[mod];
-  if (!data) return; // evita erro
-
-  const a = document.createElement("a");
-  a.className = "card";
-  a.href = data.link;
-  a.target = "_blank";
-  a.innerText = data.nome;
-
-  container.appendChild(a);
-});
-
-// ================= ÁREA ADMIN =================
-if (user.tipo === "admin") {
-  const adminDiv = document.getElementById("adminArea");
-  adminDiv.innerHTML = `
-    <div class="admin-box">
-      <h3>🔐 Painel Admin</h3>
-      <button onclick="verDados()">Ver dados do usuário</button>
-      <br><br>
-      <button onclick="limparSessao()">Limpar sessão (debug)</button>
+    <div class="notice">
+      <strong>Versão inicial de demonstração:</strong>
+      os cadastros ficam salvos somente neste navegador.
+      Eles ainda não são compartilhados com as outras farmácias.
+      Não utilize materiais confidenciais nesta etapa.
     </div>
-  `;
-}
 
-function verDados() {
-  alert(JSON.stringify(user, null, 2));
-}
+    <!-- ÁREA ADMINISTRATIVA -->
 
-function limparSessao(){
-  localStorage.clear();
-  location.reload();
-}
+    <section id="adminPanel" class="panel hidden">
 
-// ================= LOGOUT =================
-function logout() {
-  localStorage.removeItem("usuarioLogado");
-  window.location.href = "login.html";
-}
-</script>
+      <h3>🔐 Administração — Cadastrar promoção</h3>
+
+      <form id="promoForm">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="promoName">Nome da promoção *</label>
+            <input
+              id="promoName"
+              required
+              placeholder="Ex.: Terça do Bebê"
+            >
+          </div>
+
+          <div class="field">
+            <label for="promoCover">Nome/descrição da capa</label>
+            <input
+              id="promoCover"
+              placeholder="Ex.: Campanha de setembro"
+            >
+          </div>
+
+          <div class="field full">
+            <label for="promoDescription">Descrição</label>
+            <textarea
+              id="promoDescription"
+              placeholder="Informações sobre a promoção"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="promoStart">Data e hora de início *</label>
+            <input
+              id="promoStart"
+              type="datetime-local"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="promoEnd">Data e hora de encerramento *</label>
+            <input
+              id="promoEnd"
+              type="datetime-local"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="releaseMode">Forma de liberação *</label>
+            <select id="releaseMode">
+              <option value="auto">
+                Automática, conforme a data e hora
+              </option>
+              <option value="manual">
+                Manual, pelo administrador
+              </option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Categorias da promoção</label>
+            <div class="checks" id="categoryChecks"></div>
+          </div>
+
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="submit">
+            ＋ Criar promoção
+          </button>
+
+          <button class="btn secondary" type="reset">
+            Limpar formulário
+          </button>
+        </div>
+
+      </form>
+
+    </section>
+
+    <!-- LISTA DE PROMOÇÕES -->
+
+    <section>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+
+        <h3 style="margin:0;color:#C4232A">
+          📂 Promoções cadastradas
+        </h3>
+
+        <span class="muted" id="promoCount"></span>
+
+      </div>
+
+      <div id="promoList" class="promo-grid"></div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Rede Mariano de Farmácias • Portal de Promoções
+  </footer>
+
+  <script>
+
+    // ============================
+    // CONFIGURAÇÕES
+    // ============================
+
+    const CATEGORIAS = [
+      "Feed",
+      "Stories",
+      "Status",
+      "TVs Internas",
+      "Reels",
+      "Impressão"
+    ];
+
+    const user = JSON.parse(
+      localStorage.getItem("usuarioLogado") || "null"
+    );
+
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("userInfo").textContent =
+        "Logado como: " +
+        (user.email || "Colaborador") +
+        (user.tipo === "admin" ? " 👑 Administrador" : "");
+    }
+
+    const isAdmin = !!user && user.tipo === "admin";
+
+    if (isAdmin) {
+      document.getElementById("adminPanel").classList.remove("hidden");
+    }
+
+    // ============================
+    // CRIAR CATEGORIAS
+    // ============================
+
+    const categoryChecks =
+      document.getElementById("categoryChecks");
+
+    CATEGORIAS.forEach((cat, i) => {
+
+      const label = document.createElement("label");
+
+      label.className = "check";
+
+      label.innerHTML = `
+        <input
+          type="checkbox"
+          name="categories"
+          value="${cat}"
+          ${i === 0 ? "checked" : ""}
+        >
+        ${cat}
+      `;
+
+      categoryChecks.appendChild(label);
+
+    });
+
+    // ============================
+    // ARMAZENAMENTO LOCAL
+    // ============================
+
+    function getPromotions() {
+      try {
+        return JSON.parse(
+          localStorage.getItem("marianoPromocoes") || "[]"
+        );
+      } catch {
+        return [];
+      }
+    }
+
+    function savePromotions(items) {
+      localStorage.setItem(
+        "marianoPromocoes",
+        JSON.stringify(items)
+      );
+    }
+
+    // ============================
+    // STATUS DA PROMOÇÃO
+    // ============================
+
+    function getStatus(promo) {
+
+      const now = new Date();
+      const end = new Date(promo.end);
+
+      if (now > end) {
+        return {
+          label: "ENCERRADA",
+          cls: "ended"
+        };
+      }
+
+      if (
+        promo.releaseMode === "manual" &&
+        !promo.released
+      ) {
+        return {
+          label: "AGUARDANDO LIBERAÇÃO",
+          cls: "manual"
+        };
+      }
+
+      const start = new Date(promo.start);
+
+      if (now < start) {
+        return {
+          label: "PROGRAMADA",
+          cls: "scheduled"
+        };
+      }
+
+      return {
+        label: "DISPONÍVEL",
+        cls: "available"
+      };
+
+    }
+
+    // ============================
+    // FORMATAR DATA
+    // ============================
+
+    function formatDate(value) {
+
+      if (!value) return "—";
+
+      return new Date(value).toLocaleString(
+        "pt-BR",
+        {
+          dateStyle: "short",
+          timeStyle: "short"
+        }
+      );
+
+    }
+
+    // ============================
+    // MOSTRAR PROMOÇÕES
+    // ============================
+
+    function renderPromotions() {
+
+      const list = document.getElementById("promoList");
+
+      const items = getPromotions().sort(
+        (a, b) => new Date(a.start) - new Date(b.start)
+      );
+
+      document.getElementById("promoCount").textContent =
+        `${items.length} promoção(ões)`;
+
+      list.innerHTML = "";
+
+      if (!items.length) {
+
+        list.innerHTML = `
+          <div class="empty" style="grid-column:1/-1">
+            Nenhuma promoção cadastrada ainda.
+          </div>
+        `;
+
+        return;
+
+      }
+
+      items.forEach(promo => {
+
+        const status = getStatus(promo);
+
+        const card = document.createElement("article");
+
+        card.className = "promo-card";
+
+        const cats = (promo.categories || [])
+          .map(cat => `<span class="cat">${escapeHtml(cat)}</span>`)
+          .join("");
+
+        card.innerHTML = `
+          <h4>${escapeHtml(promo.name)}</h4>
+
+          ${promo.cover
+            ? `<p class="muted">${escapeHtml(promo.cover)}</p>`
+            : ""
+          }
+
+          <span class="status ${status.cls}">
+            ${status.label}
+          </span>
+
+          ${promo.description
+            ? `<p class="muted">${escapeHtml(promo.description)}</p>`
+            : ""
+          }
+
+          <p class="muted">
+            <strong>Início:</strong> ${formatDate(promo.start)}
+            <br>
+            <strong>Término:</strong> ${formatDate(promo.end)}
+          </p>
+
+          <p class="muted">
+            <strong>Liberação:</strong>
+            ${promo.releaseMode === "auto" ? "Automática" : "Manual"}
+          </p>
+
+          <div class="cat-list">
+            ${cats}
+          </div>
+
+          <div class="promo-actions">
+
+            <button
+              class="small-btn"
+              onclick="openCategories('${promo.id}')"
+            >
+              Abrir categorias
+            </button>
+
+            ${
+              isAdmin &&
+              promo.releaseMode === "manual" &&
+              !promo.released &&
+              status.cls !== "ended"
+              ? `
+                <button
+                  class="small-btn gray"
+                  onclick="releasePromo('${promo.id}')"
+                >
+                  Liberar agora
+                </button>
+              `
+              : ""
+            }
+
+            ${
+              isAdmin
+              ? `
+                <button
+                  class="small-btn gray"
+                  onclick="deletePromo('${promo.id}')"
+                >
+                  Excluir
+                </button>
+              `
+              : ""
+            }
+
+          </div>
+
+          <div
+            id="details-${promo.id}"
+            class="hidden"
+            style="margin-top:14px;padding-top:12px;border-top:1px solid #eee"
+          ></div>
+        `;
+
+        list.appendChild(card);
+
+      });
+
+    }
+
+    // ============================
+    // ABRIR CATEGORIAS
+    // ============================
+
+    function openCategories(id) {
+
+      const promo = getPromotions().find(
+        p => p.id === id
+      );
+
+      const box = document.getElementById(
+        "details-" + id
+      );
+
+      if (!promo || !box) return;
+
+      if (!box.classList.contains("hidden")) {
+        box.classList.add("hidden");
+        return;
+      }
+
+      const status = getStatus(promo);
+
+      box.innerHTML = `
+        <strong>
+          Categorias de ${escapeHtml(promo.name)}
+        </strong>
+
+        <p class="muted">
+          Nesta etapa, as categorias são apenas a estrutura inicial.
+          O envio e o download dos arquivos serão implementados
+          na próxima fase.
+        </p>
+
+        ${(promo.categories || [])
+          .map(cat => `
+            <div
+              class="cat"
+              style="display:block;margin-top:7px"
+            >
+              📁 ${escapeHtml(cat)}
+            </div>
+          `)
+          .join("")
+        }
+
+        ${
+          status.cls === "ended"
+          ? `
+            <p class="muted" style="margin-top:10px">
+              Promoção encerrada: downloads desativados.
+            </p>
+          `
+          : ""
+        }
+      `;
+
+      box.classList.remove("hidden");
+
+    }
+
+    // ============================
+    // LIBERAR PROMOÇÃO MANUALMENTE
+    // ============================
+
+    function releasePromo(id) {
+
+      const items = getPromotions();
+
+      const promo = items.find(p => p.id === id);
+
+      if (!promo) return;
+
+      promo.released = true;
+
+      savePromotions(items);
+
+      renderPromotions();
+
+    }
+
+    // ============================
+    // EXCLUIR PROMOÇÃO
+    // ============================
+
+    function deletePromo(id) {
+
+      if (!confirm("Deseja realmente excluir esta promoção?")) {
+        return;
+      }
+
+      savePromotions(
+        getPromotions().filter(p => p.id !== id)
+      );
+
+      renderPromotions();
+
+    }
+
+    // ============================
+    // CADASTRAR PROMOÇÃO
+    // ============================
+
+    document.getElementById("promoForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        if (!isAdmin) {
+          alert("Somente o administrador pode cadastrar promoções.");
+          return;
+        }
+
+        const name =
+          document.getElementById("promoName").value.trim();
+
+        const start =
+          document.getElementById("promoStart").value;
+
+        const end =
+          document.getElementById("promoEnd").value;
+
+        if (!name || !start || !end) {
+          alert("Preencha o nome, o início e o encerramento.");
+          return;
+        }
+
+        if (new Date(end) <= new Date(start)) {
+          alert(
+            "A data de encerramento deve ser posterior à data de início."
+          );
+          return;
+        }
+
+        const categories = [
+          ...document.querySelectorAll(
+            'input[name="categories"]:checked'
+          )
+        ].map(el => el.value);
+
+        if (!categories.length) {
+          alert("Selecione pelo menos uma categoria.");
+          return;
+        }
+
+        const items = getPromotions();
+
+        items.push({
+
+          id: (
+            crypto.randomUUID
+              ? crypto.randomUUID()
+              : String(Date.now())
+          ),
+
+          name,
+
+          cover:
+            document.getElementById("promoCover").value.trim(),
+
+          description:
+            document.getElementById("promoDescription").value.trim(),
+
+          start,
+          end,
+
+          releaseMode:
+            document.getElementById("releaseMode").value,
+
+          released: false,
+
+          categories,
+
+          createdAt: new Date().toISOString()
+
+        });
+
+        savePromotions(items);
+
+        this.reset();
+
+        document.querySelector(
+          'input[name="categories"][value="Feed"]'
+        ).checked = true;
+
+        renderPromotions();
+
+        alert("Promoção cadastrada neste navegador.");
+
+      });
+
+    // ============================
+    // PROTEGER TEXTO EXIBIDO
+    // ============================
+
+    function escapeHtml(value) {
+
+      return String(value ?? "").replace(
+        /[&<>"']/g,
+        char => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[char])
+      );
+
+    }
+
+    // ============================
+    // SAIR DO SISTEMA
+    // ============================
+
+    function logout() {
+
+      localStorage.removeItem("usuarioLogado");
+
+      window.location.href = "login.html";
+
+    }
+
+    // ============================
+    // INICIAR PAINEL
+    // ============================
+
+    renderPromotions();
+
+  </script>
 
 </body>
 </html>
