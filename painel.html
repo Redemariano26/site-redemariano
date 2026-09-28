@@ -828,17 +828,22 @@ async function openCategories(id) {
 
   for (const categoria of promo.categories || []) {
     const arquivos = await buscarArquivos(promo.id, categoria);
+    const area = document.createElement("details");
 
-    const area = document.createElement("div");
     area.style.cssText =
-      "margin-top:16px;padding:14px;background:#fafafa;" +
+      "margin-top:12px;padding:14px;background:#fafafa;" +
       "border:1px solid #eee;border-radius:10px;";
 
-    const titulo = document.createElement("h4");
-    titulo.textContent = "📁 " + categoria;
-    titulo.style.margin = "0 0 12px";
-    area.appendChild(titulo);
+    // Cabeçalho clicável
+    const titulo = document.createElement("summary");
 
+    titulo.textContent = "📁 " + categoria;
+
+    titulo.style.cssText =
+      "font-size:16px;font-weight:bold;cursor:pointer;" +
+      "padding:4px;list-style-position:inside;";
+
+    area.appendChild(titulo);
     // Botões de upload e ZIP
     const botoes = document.createElement("div");
     botoes.style.cssText =
