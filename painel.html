@@ -445,7 +445,7 @@
   <footer>
     Rede Mariano de Farmácias • Portal de Promoções
   </footer>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
 
     // ============================
@@ -713,68 +713,364 @@
       });
 
     }
+    // =====================================
+// ARMAZENAMENTO LOCAL DOS ARQUIVOS
+// =====================================
 
-    // ============================
-    // ABRIR CATEGORIAS
-    // ============================
+let bancoArquivos;
 
-    function openCategories(id) {
+function abrirBancoArquivos() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("MarianoArquivos", 1);
 
-      const promo = getPromotions().find(
-        p => p.id === id
-      );
+    request.onupgradeneeded = function () {
+      const db = request.result;
 
-      const box = document.getElementById(
-        "details-" + id
-      );
-
-      if (!promo || !box) return;
-
-      if (!box.classList.contains("hidden")) {
-        box.classList.add("hidden");
-        return;
+      if (!db.objectStoreNames.contains("arquivos")) {
+        db.createObjectStore("arquivos", {
+          keyPath: "id"
+        });
       }
+    };
 
-      const status = getStatus(promo);
+    request.onsuccess = function () {
+      bancoArquivos = request.result;
+      resolve(bancoArquivos);
+    };
 
-      box.innerHTML = `
-        <strong>
-          Categorias de ${escapeHtml(promo.name)}
-        </strong>
+    request.onerror = function () {
+      reject(request.error);
+    };
+  });
+}
 
-        <p class="muted">
-          Nesta etapa, as categorias são apenas a estrutura inicial.
-          O envio e o download dos arquivos serão implementados
-          na próxima fase.
-        </p>
+// Salvar arquivo
+async function salvarArquivo(arquivo) {
+  const db = await abrirBancoArquivos();
 
-        ${(promo.categories || [])
-          .map(cat => `
-            <div
-              class="cat"
-              style="display:block;margin-top:7px"
-            >
-              📁 ${escapeHtml(cat)}
-            </div>
-          `)
-          .join("")
-        }
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("arquivos", "readwrite");
 
-        ${
-          status.cls === "ended"
-          ? `
-            <p class="muted" style="margin-top:10px">
-              Promoção encerrada: downloads desativados.
-            </p>
-          `
-          : ""
-        }
-      `;
+    transaction.objectStore("arquivos").put(arquivo);
 
-      box.classList.remove("hidden");
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
 
+// Buscar arquivos de uma categoria
+async function buscarArquivos(promoId, categoria) {
+  const db = await abrirBancoArquivos();
+
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("arquivos", "readonly");
+    const request = transaction.objectStore("arquivos").getAll();
+
+    request.onsuccess = function () {
+      const arquivos = request.result.filter(arquivo =>
+        arquivo.promoId === promoId &&
+        arquivo.categoria === categoria
+      );
+
+      resolve(arquivos);
+    };
+
+    request.onerror = () => reject(request.error);
+  });
+}
+
+// Excluir arquivo
+async function excluirArquivo(id) {
+  const db = await abrirBancoArquivos();
+
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("arquivos", "readwrite");
+
+    transaction.objectStore("arquivos").delete(id);
+
+    transaction.oncomplete = () => resolve();
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
+
+// Gerar identificador
+function gerarIdArquivo() {
+  return crypto.randomUUID
+    ? crypto.randomUUID()
+    : String(Date.now()) + Math.random().toString(16).slice(2);
+}
+   
+    // =====================================
+// ABRIR CATEGORIAS E MOSTRAR ARQUIVOS
+// =====================================
+
+async function openCategories(id) {
+  const promo = getPromotions().find(p => p.id === id);
+  const box = document.getElementById("details-" + id);
+
+  if (!promo || !box) return;
+
+  if (!box.classList.contains("hidden")) {
+    box.classList.add("hidden");
+    return;
+  }
+
+  const status = getStatus(promo);
+
+  const podeBaixar = isAdmin || status.cls === "available";
+
+  box.innerHTML = `
+    <strong>Categorias de ${escapeHtml(promo.name)}</strong>
+    <p class="muted">
+      Selecione uma categoria para visualizar seus materiais.
+    </p>
+  `;
+
+  for (const categoria of promo.categories || []) {
+    const arquivos = await buscarArquivos(promo.id, categoria);
+
+    const area = document.createElement("div");
+    area.style.cssText =
+      "margin-top:16px;padding:14px;background:#fafafa;" +
+      "border:1px solid #eee;border-radius:10px;";
+
+    const titulo = document.createElement("h4");
+    titulo.textContent = "📁 " + categoria;
+    titulo.style.margin = "0 0 12px";
+    area.appendChild(titulo);
+
+    // Botões de upload e ZIP
+    const botoes = document.createElement("div");
+    botoes.style.cssText =
+      "display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;";
+
+    if (isAdmin) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.multiple = true;
+      input.accept = "image/*,video/*,.pdf";
+      input.style.display = "none";
+
+      const botaoUpload = document.createElement("button");
+      botaoUpload.className = "small-btn";
+      botaoUpload.textContent = "📤 Enviar arquivos";
+
+      botaoUpload.onclick = () => input.click();
+
+      input.onchange = async () => {
+        await uploadFiles(promo.id, categoria, input.files);
+        input.value = "";
+        await openCategories(id);
+      };
+
+      botoes.appendChild(botaoUpload);
+      botoes.appendChild(input);
     }
 
+    const botaoZip = document.createElement("button");
+    botaoZip.className = "small-btn gray";
+    botaoZip.textContent = "📦 Baixar todos em ZIP";
+    botaoZip.disabled = !podeBaixar || arquivos.length === 0;
+
+    botaoZip.onclick = () => baixarZip(promo.id, categoria);
+
+    botoes.appendChild(botaoZip);
+    area.appendChild(botoes);
+
+    // Lista de arquivos
+    const lista = document.createElement("div");
+
+    if (!arquivos.length) {
+      const vazio = document.createElement("p");
+      vazio.className = "muted";
+      vazio.textContent = "Nenhum arquivo enviado nesta categoria.";
+      lista.appendChild(vazio);
+    }
+
+    arquivos.forEach(arquivo => {
+      const linha = document.createElement("div");
+
+      linha.style.cssText =
+        "display:flex;align-items:center;justify-content:space-between;" +
+        "gap:10px;flex-wrap:wrap;padding:10px 0;" +
+        "border-top:1px solid #eee;";
+
+      const nome = document.createElement("span");
+      nome.textContent = "📄 " + arquivo.nome;
+      nome.style.cssText = "font-size:13px;word-break:break-word;";
+
+      const acoes = document.createElement("div");
+      acoes.style.cssText = "display:flex;gap:6px;flex-wrap:wrap;";
+
+      const botaoBaixar = document.createElement("button");
+      botaoBaixar.className = "small-btn";
+      botaoBaixar.textContent = "⬇️ Baixar";
+      botaoBaixar.disabled = !podeBaixar;
+
+      botaoBaixar.onclick = () => baixarArquivo(arquivo.id);
+
+      acoes.appendChild(botaoBaixar);
+
+      if (isAdmin) {
+        const botaoExcluir = document.createElement("button");
+        botaoExcluir.className = "small-btn gray";
+        botaoExcluir.textContent = "🗑️ Excluir";
+
+        botaoExcluir.onclick = async () => {
+          if (!confirm("Deseja excluir este arquivo?")) return;
+
+          await excluirArquivo(arquivo.id);
+          await openCategories(id);
+        };
+
+        acoes.appendChild(botaoExcluir);
+      }
+
+      linha.appendChild(nome);
+      linha.appendChild(acoes);
+      lista.appendChild(linha);
+    });
+
+    area.appendChild(lista);
+    box.appendChild(area);
+  }
+
+  if (status.cls === "ended" && !isAdmin) {
+    const aviso = document.createElement("p");
+    aviso.className = "muted";
+    aviso.style.marginTop = "12px";
+    aviso.textContent =
+      "Esta promoção foi encerrada. Os materiais permanecem visíveis, mas os downloads estão desativados.";
+
+    box.appendChild(aviso);
+  }
+
+  box.classList.remove("hidden");
+}
+// =====================================
+// ENVIAR ARQUIVOS
+// =====================================
+
+async function uploadFiles(promoId, categoria, files) {
+  if (!isAdmin) {
+    alert("Somente o administrador pode enviar arquivos.");
+    return;
+  }
+
+  if (!files || files.length === 0) return;
+
+  try {
+    for (const file of files) {
+      const registro = {
+        id: gerarIdArquivo(),
+        promoId: promoId,
+        categoria: categoria,
+        nome: file.name,
+        tipo: file.type || "application/octet-stream",
+        tamanho: file.size,
+        blob: file,
+        createdAt: new Date().toISOString()
+      };
+
+      await salvarArquivo(registro);
+    }
+
+    alert("Arquivos enviados com sucesso!");
+  } catch (erro) {
+    console.error(erro);
+    alert(
+      "Não foi possível salvar os arquivos. " +
+      "O armazenamento do navegador pode estar cheio."
+    );
+  }
+}
+
+// =====================================
+// BAIXAR ARQUIVO INDIVIDUAL
+// =====================================
+
+async function baixarArquivo(id) {
+  try {
+    const db = await abrirBancoArquivos();
+
+    const arquivo = await new Promise((resolve, reject) => {
+      const tx = db.transaction("arquivos", "readonly");
+      const request = tx.objectStore("arquivos").get(id);
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+
+    if (!arquivo) {
+      alert("Arquivo não encontrado.");
+      return;
+    }
+
+    const url = URL.createObjectURL(arquivo.blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = arquivo.nome;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  } catch (erro) {
+    console.error(erro);
+    alert("Não foi possível baixar o arquivo.");
+  }
+}
+
+// =====================================
+// BAIXAR CATEGORIA EM ZIP
+// =====================================
+
+async function baixarZip(promoId, categoria) {
+  if (typeof JSZip === "undefined") {
+    alert(
+      "A biblioteca ZIP não foi carregada. " +
+      "Verifique sua conexão com a internet."
+    );
+    return;
+  }
+
+  try {
+    const arquivos = await buscarArquivos(promoId, categoria);
+
+    if (!arquivos.length) {
+      alert("Esta categoria não possui arquivos.");
+      return;
+    }
+
+    const zip = new JSZip();
+
+    arquivos.forEach(arquivo => {
+      zip.file(arquivo.nome, arquivo.blob);
+    });
+
+    const conteudo = await zip.generateAsync({
+      type: "blob"
+    });
+
+    const url = URL.createObjectURL(conteudo);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download =
+      categoria.replace(/[^a-z0-9]/gi, "_") + ".zip";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  } catch (erro) {
+    console.error(erro);
+    alert("Não foi possível gerar o arquivo ZIP.");
+  }
+}
     // ============================
     // LIBERAR PROMOÇÃO MANUALMENTE
     // ============================
@@ -941,7 +1237,6 @@
     // ============================
 
     renderPromotions();
-
   </script>
 
 </body>
