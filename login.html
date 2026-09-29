@@ -426,100 +426,114 @@ button:hover{
   </div>
 
 </section>
-
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 
 <script>
 
 /* =========================
-   USUÁRIOS CADASTRADOS
+   CONFIGURAÇÃO DO FIREBASE
 ========================= */
 
-const usuarios = [
+const firebaseConfig = {
+  apiKey: "AIzaSyAJUVe3-r-N6ImLbhGmfyHAcXhBoDeeX28",
+  authDomain: "portal-promocional-mariano.firebaseapp.com",
+  projectId: "portal-promocional-mariano",
+  storageBucket: "portal-promocional-mariano.firebasestorage.app",
+  messagingSenderId: "216204039580",
+  appId: "1:216204039580:web:561e9faf871e1c5333a459",
+  measurementId: "G-2P9Y5VWZGZ"
+};
 
-  {
-    email: "admin@rede.com",
-    senha: "20262@",
-    tipo: "admin",
-    acessos: [
-      "financeiro",
-      "agenda",
-      "info",
-      "Cotas"
-    ]
-  },
+/* =========================
+   INICIALIZAR FIREBASE
+========================= */
 
-  {
-    email: "cotas",
-    senha: "2026",
-    tipo: "user",
-    acessos: [
-      "Cotas"
-    ]
-  }
+firebase.initializeApp(firebaseConfig);
 
-];
-
+const auth = firebase.auth();
 
 /* =========================
    LOGIN
 ========================= */
 
-function login(){
+async function login() {
 
-  const email =
-    document.getElementById("email").value;
+  const email = document
+    .getElementById("email")
+    .value
+    .trim()
+    .toLowerCase();
 
-  const senha =
-    document.getElementById("senha").value;
+  const senha = document
+    .getElementById("senha")
+    .value;
 
+  if (!email || !senha) {
+    alert("Preencha o e-mail e a senha.");
+    return;
+  }
 
-  const user =
-    usuarios.find(
-      u =>
-        u.email === email &&
-        u.senha === senha
+  try {
+
+    const resultado = await auth.signInWithEmailAndPassword(
+      email,
+      senha
     );
 
+    const usuarioFirebase = resultado.user;
 
-  if(!user){
+    const user = {
+      email: usuarioFirebase.email,
+      uid: usuarioFirebase.uid,
+      tipo: usuarioFirebase.email === "admin@rede.com"
+        ? "admin"
+        : "user",
+      acessos: usuarioFirebase.email === "admin@rede.com"
+        ? ["admin"]
+        : ["promocoes"]
+    };
 
-    alert("Email ou senha inválidos");
+    localStorage.setItem(
+      "usuarioLogado",
+      JSON.stringify(user)
+    );
 
-    return;
+    window.location.href = "painel.html";
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    if (
+      erro.code === "auth/invalid-credential" ||
+      erro.code === "auth/wrong-password" ||
+      erro.code === "auth/user-not-found"
+    ) {
+      alert("E-mail ou senha inválidos.");
+    } else {
+      alert("Não foi possível entrar. Verifique sua conexão e tente novamente.");
+    }
 
   }
 
-
-  localStorage.setItem(
-    "usuarioLogado",
-    JSON.stringify(user)
-  );
-
-
-  window.location.href =
-    "painel.html";
-
 }
-
 
 /* =========================
    ENTER PARA ENTRAR
 ========================= */
 
-document.addEventListener(
-  "keydown",
-  function(event){
+document.addEventListener("keydown", function(event) {
 
-    if(event.key === "Enter"){
-
-      login();
-
-    }
-
+  if (event.key === "Enter") {
+    login();
   }
-);
+
+});
 
 </script>
+
 
 
 </body>
