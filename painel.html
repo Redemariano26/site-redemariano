@@ -989,18 +989,19 @@ async function uploadFiles(promoId, categoria, files) {
     );
   }
 }
-
 // =====================================
 // BAIXAR ARQUIVO INDIVIDUAL
 // =====================================
 
 async function baixarArquivo(id) {
+  let url = null;
+
   try {
     const db = await abrirBancoArquivos();
 
     const arquivo = await new Promise((resolve, reject) => {
-      const tx = db.transaction("arquivos", "readonly");
-      const request = tx.objectStore("arquivos").get(id);
+      const transaction = db.transaction("arquivos", "readonly");
+      const request = transaction.objectStore("arquivos").get(id);
 
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
@@ -1011,22 +1012,37 @@ async function baixarArquivo(id) {
       return;
     }
 
-    const url = URL.createObjectURL(arquivo.blob);
+    if (!arquivo.blob) {
+      alert("O arquivo não possui conteúdo armazenado.");
+      return;
+    }
+
+    const blob = new Blob(
+      [arquivo.blob],
+      { type: arquivo.tipo || "application/octet-stream" }
+    );
+
+    url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = arquivo.nome;
+    link.download = arquivo.nome || "arquivo";
+    link.style.display = "none";
 
     document.body.appendChild(link);
     link.click();
     link.remove();
 
-    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 10000);
+
   } catch (erro) {
-    console.error(erro);
-    alert("Não foi possível baixar o arquivo.");
+    console.error("Erro ao baixar arquivo:", erro);
+    alert("Não foi possível baixar o arquivo. Verifique o console do navegador.");
   }
 }
+
 
 // =====================================
 // BAIXAR CATEGORIA EM ZIP
