@@ -843,11 +843,11 @@
     }
 
     async function buscarArquivos(promoId, categoria) {
-      const idToken = await obterTokenFirebase();
-
+      // A listagem é somente leitura via JSONP.
+      // Não enviamos o token Firebase nesta chamada para evitar
+      // interferência na URL/execução do JSONP.
       const resposta = await jsonpRequest({
         action: "listarArquivosDrive",
-        idToken: idToken,
         promoId: promoId,
         categoria: categoria
       });
