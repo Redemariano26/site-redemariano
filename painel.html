@@ -1002,7 +1002,7 @@
     // ABRIR CATEGORIAS E MOSTRAR ARQUIVOS
     // =====================================
 
-    async function openCategories(id, forcarAtualizacao = false) {
+    async function openCategories(id, forcarAtualizacao = false, categoriaAlvo = null) {
       const promo = getPromotions().find(p => p.id === id);
       const box = document.getElementById("details-" + id);
 
@@ -1028,7 +1028,11 @@
         </p>
       `;
 
-      for (const categoria of promo.categories || []) {
+      const categoriasParaCarregar = categoriaAlvo
+        ? (promo.categories || []).filter(c => c === categoriaAlvo)
+        : (promo.categories || []);
+
+      for (const categoria of categoriasParaCarregar) {
 
         const area = document.createElement("details");
         area.style.cssText =
@@ -1063,7 +1067,7 @@
           input.onchange = async () => {
             await uploadFiles(promo.id, categoria, input.files);
             input.value = "";
-            await openCategories(id, true);
+            await openCategories(id, true, categoria);
           };
 
           botoes.appendChild(botaoUpload);
