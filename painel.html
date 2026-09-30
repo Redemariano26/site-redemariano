@@ -801,7 +801,8 @@
         const script = document.createElement("script");
         const query = new URLSearchParams({
           ...params,
-          prefix: callbackName
+          prefix: callbackName,
+          _ts: Date.now()
         });
 
         let finalizado = false;
@@ -1028,9 +1029,10 @@
         </p>
       `;
 
+      const categoriasUnicas = [...new Set((promo.categories || []).filter(Boolean))];
       const categoriasParaCarregar = categoriaAlvo
-        ? (promo.categories || []).filter(c => c === categoriaAlvo)
-        : (promo.categories || []);
+        ? categoriasUnicas.filter(c => c === categoriaAlvo)
+        : categoriasUnicas;
 
       for (const categoria of categoriasParaCarregar) {
 
