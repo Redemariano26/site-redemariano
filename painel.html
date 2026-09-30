@@ -782,384 +782,382 @@
 
     }
     // =====================================
-// ARMAZENAMENTO LOCAL DOS ARQUIVOS
-// =====================================
-
-let bancoArquivos;
-
-function abrirBancoArquivos() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("MarianoArquivos", 1);
-
-    request.onupgradeneeded = function () {
-      const db = request.result;
-
-      if (!db.objectStoreNames.contains("arquivos")) {
-        db.createObjectStore("arquivos", {
-          keyPath: "id"
-        });
-      }
-    };
-
-    request.onsuccess = function () {
-      bancoArquivos = request.result;
-      resolve(bancoArquivos);
-    };
-
-    request.onerror = function () {
-      reject(request.error);
-    };
-  });
-}
-
-// Salvar arquivo
-async function salvarArquivo(arquivo) {
-  const db = await abrirBancoArquivos();
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("arquivos", "readwrite");
-
-    transaction.objectStore("arquivos").put(arquivo);
-
-    transaction.oncomplete = () => resolve();
-    transaction.onerror = () => reject(transaction.error);
-  });
-}
-
-// Buscar arquivos de uma categoria
-async function buscarArquivos(promoId, categoria) {
-  const db = await abrirBancoArquivos();
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("arquivos", "readonly");
-    const request = transaction.objectStore("arquivos").getAll();
-
-    request.onsuccess = function () {
-      const arquivos = request.result.filter(arquivo =>
-        arquivo.promoId === promoId &&
-        arquivo.categoria === categoria
-      );
-
-      resolve(arquivos);
-    };
-
-    request.onerror = () => reject(request.error);
-  });
-}
-
-// Excluir arquivo
-async function excluirArquivo(id) {
-  const db = await abrirBancoArquivos();
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("arquivos", "readwrite");
-
-    transaction.objectStore("arquivos").delete(id);
-
-    transaction.oncomplete = () => resolve();
-    transaction.onerror = () => reject(transaction.error);
-  });
-}
-
-// Gerar identificador
-function gerarIdArquivo() {
-  return crypto.randomUUID
-    ? crypto.randomUUID()
-    : String(Date.now()) + Math.random().toString(16).slice(2);
-}
-   
+    // ARQUIVOS NO GOOGLE DRIVE
     // =====================================
-// ABRIR CATEGORIAS E MOSTRAR ARQUIVOS
-// =====================================
 
-async function openCategories(id) {
-  const promo = getPromotions().find(p => p.id === id);
-  const box = document.getElementById("details-" + id);
+    const APPS_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbxN8BQM5naclocsKPXtHkPDlBKGk9IaKB-Rm3CO8NFjjdiUcWEmFmZ5go18ET1CC-WWjw/exec";
 
-  if (!promo || !box) return;
-
-  if (!box.classList.contains("hidden")) {
-    box.classList.add("hidden");
-    return;
-  }
-
-  const status = getStatus(promo);
-
-  const podeBaixar = isAdmin || status.cls === "available";
-
-  box.innerHTML = `
-    <strong>Categorias de ${escapeHtml(promo.name)}</strong>
-    <p class="muted">
-      Selecione uma categoria para visualizar seus materiais.
-    </p>
-  `;
-
-  for (const categoria of promo.categories || []) {
-    const arquivos = await buscarArquivos(promo.id, categoria);
-    const area = document.createElement("details");
-
-    area.style.cssText =
-      "margin-top:12px;padding:14px;background:#fafafa;" +
-      "border:1px solid #eee;border-radius:10px;";
-
-    // Cabeçalho clicável
-    const titulo = document.createElement("summary");
-
-    titulo.textContent = "📁 " + categoria;
-
-    titulo.style.cssText =
-      "font-size:16px;font-weight:bold;cursor:pointer;" +
-      "padding:4px;list-style-position:inside;";
-
-    area.appendChild(titulo);
-    // Botões de upload e ZIP
-    const botoes = document.createElement("div");
-    botoes.style.cssText =
-      "display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;";
-
-    if (isAdmin) {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.multiple = true;
-      input.accept = "image/*,video/*,.pdf";
-      input.style.display = "none";
-
-      const botaoUpload = document.createElement("button");
-      botaoUpload.className = "small-btn";
-      botaoUpload.textContent = "📤 Enviar arquivos";
-
-      botaoUpload.onclick = () => input.click();
-
-      input.onchange = async () => {
-        await uploadFiles(promo.id, categoria, input.files);
-        input.value = "";
-        await openCategories(id);
-      };
-
-      botoes.appendChild(botaoUpload);
-      botoes.appendChild(input);
+    async function obterTokenFirebase() {
+      const usuarioFirebase = await obterUsuarioFirebase();
+      return await usuarioFirebase.getIdToken();
     }
 
-    const botaoZip = document.createElement("button");
-    botaoZip.className = "small-btn gray";
-    botaoZip.textContent = "📦 Baixar todos em ZIP";
-    botaoZip.disabled = !podeBaixar || arquivos.length === 0;
+    function jsonpRequest(params) {
+      return new Promise((resolve, reject) => {
+        const callbackName =
+          "marianoJsonp_" + Date.now() + "_" + Math.random().toString(36).slice(2);
 
-    botaoZip.onclick = () => baixarZip(promo.id, categoria);
+        const script = document.createElement("script");
+        const query = new URLSearchParams({
+          ...params,
+          prefix: callbackName
+        });
 
-    botoes.appendChild(botaoZip);
-    area.appendChild(botoes);
+        let finalizado = false;
 
-    // Lista de arquivos
-    const lista = document.createElement("div");
-
-    if (!arquivos.length) {
-      const vazio = document.createElement("p");
-      vazio.className = "muted";
-      vazio.textContent = "Nenhum arquivo enviado nesta categoria.";
-      lista.appendChild(vazio);
-    }
-
-    arquivos.forEach(arquivo => {
-      const linha = document.createElement("div");
-
-      linha.style.cssText =
-        "display:flex;align-items:center;justify-content:space-between;" +
-        "gap:10px;flex-wrap:wrap;padding:10px 0;" +
-        "border-top:1px solid #eee;";
-
-      const nome = document.createElement("span");
-      nome.textContent = "📄 " + arquivo.nome;
-      nome.style.cssText = "font-size:13px;word-break:break-word;";
-
-      const acoes = document.createElement("div");
-      acoes.style.cssText = "display:flex;gap:6px;flex-wrap:wrap;";
-
-      const botaoBaixar = document.createElement("button");
-      botaoBaixar.className = "small-btn";
-      botaoBaixar.textContent = "⬇️ Baixar";
-      botaoBaixar.disabled = !podeBaixar;
-
-      botaoBaixar.onclick = () => baixarArquivo(arquivo.id);
-
-      acoes.appendChild(botaoBaixar);
-
-      if (isAdmin) {
-        const botaoExcluir = document.createElement("button");
-        botaoExcluir.className = "small-btn gray";
-        botaoExcluir.textContent = "🗑️ Excluir";
-
-        botaoExcluir.onclick = async () => {
-          if (!confirm("Deseja excluir este arquivo?")) return;
-
-          await excluirArquivo(arquivo.id);
-          await openCategories(id);
+        const limpar = () => {
+          finalizado = true;
+          clearTimeout(timer);
+          delete window[callbackName];
+          script.remove();
         };
 
-        acoes.appendChild(botaoExcluir);
+        window[callbackName] = (resposta) => {
+          limpar();
+
+          if (resposta && resposta.sucesso === false) {
+            reject(new Error(resposta.erro || "Erro no Apps Script."));
+            return;
+          }
+
+          resolve(resposta);
+        };
+
+        script.onerror = () => {
+          if (finalizado) return;
+          limpar();
+          reject(new Error("Não foi possível consultar os arquivos no servidor."));
+        };
+
+        const timer = setTimeout(() => {
+          if (finalizado) return;
+          limpar();
+          reject(new Error("Tempo esgotado ao consultar os arquivos."));
+        }, 30000);
+
+        script.src = APPS_SCRIPT_URL + "?" + query.toString();
+        document.head.appendChild(script);
+      });
+    }
+
+    async function buscarArquivos(promoId, categoria) {
+      const idToken = await obterTokenFirebase();
+
+      const resposta = await jsonpRequest({
+        action: "listarArquivosDrive",
+        idToken: idToken,
+        promoId: promoId,
+        categoria: categoria
+      });
+
+      return resposta.arquivos || [];
+    }
+
+    function enviarFormularioAppsScript(payload) {
+      return new Promise((resolve, reject) => {
+        const frameName =
+          "marianoUploadFrame_" + Date.now() + "_" + Math.random().toString(36).slice(2);
+
+        const iframe = document.createElement("iframe");
+        iframe.name = frameName;
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = APPS_SCRIPT_URL;
+        form.target = frameName;
+        form.style.display = "none";
+
+        const campo = document.createElement("input");
+        campo.type = "hidden";
+        campo.name = "payload";
+        campo.value = JSON.stringify(payload);
+
+        form.appendChild(campo);
+        document.body.appendChild(form);
+
+        let finalizado = false;
+
+        const limpar = () => {
+          finalizado = true;
+          clearTimeout(timer);
+          form.remove();
+          setTimeout(() => iframe.remove(), 1000);
+        };
+
+        iframe.onload = () => {
+          if (finalizado) return;
+          limpar();
+          resolve();
+        };
+
+        iframe.onerror = () => {
+          if (finalizado) return;
+          limpar();
+          reject(new Error("Não foi possível enviar o arquivo ao servidor."));
+        };
+
+        const timer = setTimeout(() => {
+          if (finalizado) return;
+          limpar();
+          reject(new Error("Tempo esgotado durante o envio do arquivo."));
+        }, 120000);
+
+        form.submit();
+      });
+    }
+
+    async function uploadFiles(promoId, categoria, files) {
+      if (!isAdmin) {
+        alert("Somente o administrador pode enviar arquivos.");
+        return;
       }
 
-      linha.appendChild(nome);
-      linha.appendChild(acoes);
-      lista.appendChild(linha);
-    });
+      if (!files || files.length === 0) return;
 
-    area.appendChild(lista);
-    box.appendChild(area);
-  }
+      try {
+        const idToken = await obterTokenFirebase();
 
-  if (status.cls === "ended" && !isAdmin) {
-    const aviso = document.createElement("p");
-    aviso.className = "muted";
-    aviso.style.marginTop = "12px";
-    aviso.textContent =
-      "Esta promoção foi encerrada. Os materiais permanecem visíveis, mas os downloads estão desativados.";
+        for (const file of files) {
 
-    box.appendChild(aviso);
-  }
+          // Nesta primeira etapa, limitar o teste a arquivos de até 15 MB.
+          if (file.size > 15 * 1024 * 1024) {
+            throw new Error(
+              "O arquivo " + file.name +
+              " é maior que 15 MB. Vamos testar primeiro com arquivos menores."
+            );
+          }
 
-  box.classList.remove("hidden");
-}
-// =====================================
-// ENVIAR ARQUIVOS
-// =====================================
+          const base64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
 
-async function uploadFiles(promoId, categoria, files) {
-  if (!isAdmin) {
-    alert("Somente o administrador pode enviar arquivos.");
-    return;
-  }
+            reader.onload = () => {
+              const resultado = String(reader.result || "");
+              const separador = resultado.indexOf(",");
+              resolve(
+                separador >= 0
+                  ? resultado.substring(separador + 1)
+                  : resultado
+              );
+            };
 
-  if (!files || files.length === 0) return;
+            reader.onerror = () =>
+              reject(new Error("Não foi possível ler o arquivo " + file.name + "."));
 
-  try {
-    for (const file of files) {
-      const registro = {
-        id: gerarIdArquivo(),
-        promoId: promoId,
-        categoria: categoria,
-        nome: file.name,
-        tipo: file.type || "application/octet-stream",
-        tamanho: file.size,
-        blob: file,
-        createdAt: new Date().toISOString()
-      };
+            reader.readAsDataURL(file);
+          });
 
-      await salvarArquivo(registro);
+          await enviarFormularioAppsScript({
+            action: "salvarArquivoDrive",
+            idToken: idToken,
+            promoId: promoId,
+            categoria: categoria,
+            nome: file.name,
+            tipo: file.type || "application/octet-stream",
+            base64: base64
+          });
+        }
+
+        alert("Arquivo(s) enviado(s) para o Google Drive com sucesso!");
+
+      } catch (erro) {
+        console.error(erro);
+        alert("Não foi possível enviar o arquivo: " + erro.message);
+      }
     }
 
-    alert("Arquivos enviados com sucesso!");
-  } catch (erro) {
-    console.error(erro);
-    alert(
-      "Não foi possível salvar os arquivos. " +
-      "O armazenamento do navegador pode estar cheio."
-    );
-  }
-}
-// =====================================
-// BAIXAR ARQUIVO INDIVIDUAL
-// =====================================
+    async function excluirArquivo(id) {
+      if (!isAdmin) {
+        throw new Error("Somente o administrador pode excluir arquivos.");
+      }
 
-async function baixarArquivo(id) {
-  let url = null;
+      const idToken = await obterTokenFirebase();
 
-  try {
-    const db = await abrirBancoArquivos();
-
-    const arquivo = await new Promise((resolve, reject) => {
-      const transaction = db.transaction("arquivos", "readonly");
-      const request = transaction.objectStore("arquivos").get(id);
-
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
-    });
-
-    if (!arquivo) {
-      alert("Arquivo não encontrado.");
-      return;
+      await enviarFormularioAppsScript({
+        action: "excluirArquivoDrive",
+        idToken: idToken,
+        id: id
+      });
     }
 
-    if (!arquivo.blob) {
-      alert("O arquivo não possui conteúdo armazenado.");
-      return;
+    async function baixarArquivo(id, url) {
+      if (!url) {
+        alert("Link do arquivo não encontrado.");
+        return;
+      }
+
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    const blob = new Blob(
-      [arquivo.blob],
-      { type: arquivo.tipo || "application/octet-stream" }
-    );
-
-    url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = arquivo.nome || "arquivo";
-    link.style.display = "none";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 10000);
-
-  } catch (erro) {
-    console.error("Erro ao baixar arquivo:", erro);
-    alert("Não foi possível baixar o arquivo. Verifique o console do navegador.");
-  }
-}
-
-
-// =====================================
-// BAIXAR CATEGORIA EM ZIP
-// =====================================
-
-async function baixarZip(promoId, categoria) {
-  if (typeof JSZip === "undefined") {
-    alert(
-      "A biblioteca ZIP não foi carregada. " +
-      "Verifique sua conexão com a internet."
-    );
-    return;
-  }
-
-  try {
-    const arquivos = await buscarArquivos(promoId, categoria);
-
-    if (!arquivos.length) {
-      alert("Esta categoria não possui arquivos.");
-      return;
+    async function baixarZip(promoId, categoria) {
+      alert(
+        "O download em ZIP será ativado na próxima etapa. " +
+        "Por enquanto, use o botão Baixar de cada arquivo."
+      );
     }
 
-    const zip = new JSZip();
+    // =====================================
+    // ABRIR CATEGORIAS E MOSTRAR ARQUIVOS
+    // =====================================
 
-    arquivos.forEach(arquivo => {
-      zip.file(arquivo.nome, arquivo.blob);
-    });
+    async function openCategories(id) {
+      const promo = getPromotions().find(p => p.id === id);
+      const box = document.getElementById("details-" + id);
 
-    const conteudo = await zip.generateAsync({
-      type: "blob"
-    });
+      if (!promo || !box) return;
 
-    const url = URL.createObjectURL(conteudo);
+      if (!box.classList.contains("hidden")) {
+        box.classList.add("hidden");
+        return;
+      }
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download =
-      categoria.replace(/[^a-z0-9]/gi, "_") + ".zip";
+      const status = getStatus(promo);
+      const podeBaixar = isAdmin || status.cls === "available";
 
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+      box.innerHTML = `
+        <strong>Categorias de ${escapeHtml(promo.name)}</strong>
+        <p class="muted">
+          Selecione uma categoria para visualizar seus materiais.
+        </p>
+      `;
 
-    setTimeout(() => URL.revokeObjectURL(url), 30000);
-  } catch (erro) {
-    console.error(erro);
-    alert("Não foi possível gerar o arquivo ZIP.");
-  }
-}
+      for (const categoria of promo.categories || []) {
+
+        const area = document.createElement("details");
+        area.style.cssText =
+          "margin-top:12px;padding:14px;background:#fafafa;" +
+          "border:1px solid #eee;border-radius:10px;";
+
+        const titulo = document.createElement("summary");
+        titulo.textContent = "📁 " + categoria;
+        titulo.style.cssText =
+          "font-size:16px;font-weight:bold;cursor:pointer;" +
+          "padding:4px;list-style-position:inside;";
+
+        area.appendChild(titulo);
+
+        const botoes = document.createElement("div");
+        botoes.style.cssText =
+          "display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;";
+
+        if (isAdmin) {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.multiple = true;
+          input.accept = "image/*,video/*,.pdf";
+          input.style.display = "none";
+
+          const botaoUpload = document.createElement("button");
+          botaoUpload.className = "small-btn";
+          botaoUpload.textContent = "📤 Enviar arquivos";
+
+          botaoUpload.onclick = () => input.click();
+
+          input.onchange = async () => {
+            await uploadFiles(promo.id, categoria, input.files);
+            input.value = "";
+            await openCategories(id);
+            await openCategories(id);
+          };
+
+          botoes.appendChild(botaoUpload);
+          botoes.appendChild(input);
+        }
+
+        const botaoZip = document.createElement("button");
+        botaoZip.className = "small-btn gray";
+        botaoZip.textContent = "📦 Baixar todos em ZIP";
+        botaoZip.disabled = true;
+        botaoZip.title = "ZIP será ativado na próxima etapa.";
+
+        botoes.appendChild(botaoZip);
+        area.appendChild(botoes);
+
+        const lista = document.createElement("div");
+
+        try {
+          const arquivos = await buscarArquivos(promo.id, categoria);
+
+          if (!arquivos.length) {
+            const vazio = document.createElement("p");
+            vazio.className = "muted";
+            vazio.textContent = "Nenhum arquivo enviado nesta categoria.";
+            lista.appendChild(vazio);
+          }
+
+          arquivos.forEach(arquivo => {
+            const linha = document.createElement("div");
+            linha.style.cssText =
+              "display:flex;align-items:center;justify-content:space-between;" +
+              "gap:10px;flex-wrap:wrap;padding:10px 0;" +
+              "border-top:1px solid #eee;";
+
+            const nome = document.createElement("span");
+            nome.textContent = "📄 " + arquivo.nome;
+            nome.style.cssText = "font-size:13px;word-break:break-word;";
+
+            const acoes = document.createElement("div");
+            acoes.style.cssText = "display:flex;gap:6px;flex-wrap:wrap;";
+
+            const botaoBaixar = document.createElement("button");
+            botaoBaixar.className = "small-btn";
+            botaoBaixar.textContent = "⬇️ Baixar";
+            botaoBaixar.disabled = !podeBaixar;
+            botaoBaixar.onclick = () => baixarArquivo(arquivo.id, arquivo.url);
+            acoes.appendChild(botaoBaixar);
+
+            if (isAdmin) {
+              const botaoExcluir = document.createElement("button");
+              botaoExcluir.className = "small-btn gray";
+              botaoExcluir.textContent = "🗑️ Excluir";
+
+              botaoExcluir.onclick = async () => {
+                if (!confirm("Deseja excluir este arquivo?")) return;
+
+                try {
+                  await excluirArquivo(arquivo.id);
+                  await openCategories(id);
+                  await openCategories(id);
+                } catch (erro) {
+                  console.error(erro);
+                  alert("Não foi possível excluir o arquivo: " + erro.message);
+                }
+              };
+
+              acoes.appendChild(botaoExcluir);
+            }
+
+            linha.appendChild(nome);
+            linha.appendChild(acoes);
+            lista.appendChild(linha);
+          });
+
+        } catch (erro) {
+          console.error(erro);
+          const falha = document.createElement("p");
+          falha.className = "muted";
+          falha.textContent = "Não foi possível carregar os arquivos: " + erro.message;
+          lista.appendChild(falha);
+        }
+
+        area.appendChild(lista);
+        box.appendChild(area);
+      }
+
+      if (status.cls === "ended" && !isAdmin) {
+        const aviso = document.createElement("p");
+        aviso.className = "muted";
+        aviso.style.marginTop = "12px";
+        aviso.textContent =
+          "Esta promoção foi encerrada. Os materiais permanecem visíveis, mas os downloads estão desativados.";
+        box.appendChild(aviso);
+      }
+
+      box.classList.remove("hidden");
+    }
+
     // ============================
     // LIBERAR PROMOÇÃO MANUALMENTE
     // ============================
