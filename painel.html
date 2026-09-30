@@ -536,6 +536,10 @@
     async function carregarPromocoes() {
       try {
 
+        // Aguarda o Firebase confirmar a sessão antes de consultar o Firestore.
+        // Isso evita a consulta ocorrer enquanto currentUser ainda está null.
+        await obterUsuarioFirebase();
+
         const snapshot = await db
           .collection(PROMO_COLLECTION)
           .get();
@@ -1357,8 +1361,14 @@ async function baixarZip(promoId, categoria) {
     // INICIAR PAINEL
     // ============================
 
-    renderPromotions();
-    carregarPromocoes();
+    // Primeiro aguarda a autenticação do Firebase; depois carrega o banco.
+    firebase.auth().onAuthStateChanged(function(usuarioFirebase) {
+      if (!usuarioFirebase) {
+        window.location.href = "login.html";
+        return;
+      }
+      carregarPromocoes();
+    });
   </script>
 
 </body>
