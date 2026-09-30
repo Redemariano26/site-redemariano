@@ -330,10 +330,8 @@
     </section>
 
     <div class="notice">
-      <strong>Versão inicial de demonstração:</strong>
-      os cadastros ficam salvos somente neste navegador.
-      Eles ainda não são compartilhados com as outras farmácias.
-      Não utilize materiais confidenciais nesta etapa.
+      <strong>Portal conectado:</strong> as promoções são armazenadas no banco central e ficam compartilhadas entre as farmácias.
+      Nesta etapa, os arquivos das categorias ainda estão armazenados localmente neste navegador.
     </div>
 
     <!-- ÁREA ADMINISTRATIVA -->
@@ -445,11 +443,13 @@
   <footer>
     Rede Mariano de Farmácias • Portal de Promoções
   </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
 
     // ============================
-    // CONFIGURAÇÕES
+    // CONFIGURAÇÕES E CONEXÃO COM O BANCO
     // ============================
 
     const CATEGORIAS = [
@@ -460,6 +460,23 @@
       "Reels",
       "Impressão"
     ];
+
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbxN8BQM5naclocsKPXtHkPDlBKGk9IaKB-Rm3CO8NFjjdiUcWEmFmZ5go18ET1CC-WWjw/exec";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAJUVe3-r-N6ImLbhGmfyHAcXhBoDeeX28",
+      authDomain: "portal-promocional-mariano.firebaseapp.com",
+      projectId: "portal-promocional-mariano",
+      storageBucket: "portal-promocional-mariano.firebasestorage.app",
+      messagingSenderId: "216204039580",
+      appId: "1:216204039580:web:561e9faf871e1c5333a459",
+      measurementId: "G-2P9Y5VWZGZ"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
     const user = JSON.parse(
       localStorage.getItem("usuarioLogado") || "null"
@@ -478,6 +495,109 @@
 
     if (isAdmin) {
       document.getElementById("adminPanel").classList.remove("hidden");
+    }
+
+    // Cache compartilhado das promoções carregadas do Apps Script
+    let promocoesCache = [];
+
+    async function obterUsuarioFirebase() {
+
+      const atual = firebase.auth().currentUser;
+
+      if (atual) {
+        return atual;
+      }
+
+      return await new Promise((resolve, reject) => {
+
+        const unsubscribe = firebase.auth().onAuthStateChanged(
+          function(usuarioFirebase) {
+
+            unsubscribe();
+
+            if (!usuarioFirebase) {
+              reject(new Error(
+                "Sessão do Firebase não encontrada. Faça login novamente."
+              ));
+              return;
+            }
+
+            resolve(usuarioFirebase);
+          },
+          function(erro) {
+            unsubscribe();
+            reject(erro);
+          }
+        );
+      });
+    }
+
+    async function obterTokenFirebase() {
+      const usuarioFirebase = await obterUsuarioFirebase();
+      return await usuarioFirebase.getIdToken(true);
+    }
+
+    async function apiRequest(action, dados = {}) {
+
+      const idToken = await obterTokenFirebase();
+
+      const resposta = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action: action,
+          idToken: idToken,
+          ...dados
+        })
+      });
+
+      const texto = await resposta.text();
+
+      let resultado;
+
+      try {
+        resultado = JSON.parse(texto);
+      } catch (erro) {
+        throw new Error(
+          "Resposta inválida do Apps Script: " + texto.substring(0, 300)
+        );
+      }
+
+      if (!resultado.sucesso) {
+        throw new Error(resultado.erro || "Erro no Apps Script.");
+      }
+
+      return resultado;
+    }
+
+    function getPromotions() {
+      return promocoesCache;
+    }
+
+    async function carregarPromocoes() {
+      try {
+        const resultado = await apiRequest("listarPromocoes");
+
+        promocoesCache = Array.isArray(resultado.promocoes)
+          ? resultado.promocoes
+          : [];
+
+        renderPromotions();
+
+      } catch (erro) {
+        console.error("Erro ao carregar promoções:", erro);
+
+        document.getElementById("promoList").innerHTML = `
+          <div class="empty" style="grid-column:1/-1">
+            Não foi possível carregar as promoções.
+            <br><small>${escapeHtml(erro.message)}</small>
+          </div>
+        `;
+
+        document.getElementById("promoCount").textContent = "Erro ao carregar";
+      }
     }
 
     // ============================
@@ -506,27 +626,6 @@
       categoryChecks.appendChild(label);
 
     });
-
-    // ============================
-    // ARMAZENAMENTO LOCAL
-    // ============================
-
-    function getPromotions() {
-      try {
-        return JSON.parse(
-          localStorage.getItem("marianoPromocoes") || "[]"
-        );
-      } catch {
-        return [];
-      }
-    }
-
-    function savePromotions(items) {
-      localStorage.setItem(
-        "marianoPromocoes",
-        JSON.stringify(items)
-      );
-    }
 
     // ============================
     // STATUS DA PROMOÇÃO
@@ -596,7 +695,7 @@
 
       const list = document.getElementById("promoList");
 
-      const items = getPromotions().sort(
+      const items = getPromotions().slice().sort(
         (a, b) => new Date(a.start) - new Date(b.start)
       );
 
@@ -1096,38 +1195,40 @@ async function baixarZip(promoId, categoria) {
     // LIBERAR PROMOÇÃO MANUALMENTE
     // ============================
 
-    function releasePromo(id) {
+    async function releasePromo(id) {
 
-      const items = getPromotions();
+      try {
 
-      const promo = items.find(p => p.id === id);
+        await apiRequest("liberarPromocao", { id: id });
 
-      if (!promo) return;
+        await carregarPromocoes();
 
-      promo.released = true;
-
-      savePromotions(items);
-
-      renderPromotions();
-
+      } catch (erro) {
+        console.error(erro);
+        alert("Não foi possível liberar a promoção: " + erro.message);
+      }
     }
 
     // ============================
     // EXCLUIR PROMOÇÃO
     // ============================
 
-    function deletePromo(id) {
+    async function deletePromo(id) {
 
       if (!confirm("Deseja realmente excluir esta promoção?")) {
         return;
       }
 
-      savePromotions(
-        getPromotions().filter(p => p.id !== id)
-      );
+      try {
 
-      renderPromotions();
+        await apiRequest("excluirPromocao", { id: id });
 
+        await carregarPromocoes();
+
+      } catch (erro) {
+        console.error(erro);
+        alert("Não foi possível excluir a promoção: " + erro.message);
+      }
     }
 
     // ============================
@@ -1135,7 +1236,7 @@ async function baixarZip(promoId, categoria) {
     // ============================
 
     document.getElementById("promoForm")
-      .addEventListener("submit", function(event) {
+      .addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
@@ -1176,9 +1277,7 @@ async function baixarZip(promoId, categoria) {
           return;
         }
 
-        const items = getPromotions();
-
-        items.push({
+        const promocao = {
 
           id: (
             crypto.randomUUID
@@ -1186,7 +1285,7 @@ async function baixarZip(promoId, categoria) {
               : String(Date.now())
           ),
 
-          name,
+          name: name,
 
           cover:
             document.getElementById("promoCover").value.trim(),
@@ -1194,31 +1293,46 @@ async function baixarZip(promoId, categoria) {
           description:
             document.getElementById("promoDescription").value.trim(),
 
-          start,
-          end,
+          start: start,
+
+          end: end,
 
           releaseMode:
             document.getElementById("releaseMode").value,
 
           released: false,
 
-          categories,
+          categories: categories,
 
           createdAt: new Date().toISOString()
 
-        });
+        };
 
-        savePromotions(items);
+        try {
 
-        this.reset();
+          await apiRequest("cadastrarPromocao", {
+            promocao: promocao
+          });
 
-        document.querySelector(
-          'input[name="categories"][value="Feed"]'
-        ).checked = true;
+          this.reset();
 
-        renderPromotions();
+          document.querySelector(
+            'input[name="categories"][value="Feed"]'
+          ).checked = true;
 
-        alert("Promoção cadastrada neste navegador.");
+          await carregarPromocoes();
+
+          alert("Promoção cadastrada com sucesso no banco central.");
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          alert(
+            "Não foi possível cadastrar a promoção: " +
+            erro.message
+          );
+        }
 
       });
 
@@ -1258,6 +1372,7 @@ async function baixarZip(promoId, categoria) {
     // ============================
 
     renderPromotions();
+    carregarPromocoes();
   </script>
 
 </body>
