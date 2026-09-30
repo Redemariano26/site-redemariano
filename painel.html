@@ -1002,15 +1002,20 @@
     // ABRIR CATEGORIAS E MOSTRAR ARQUIVOS
     // =====================================
 
-    async function openCategories(id) {
+    async function openCategories(id, forcarAtualizacao = false) {
       const promo = getPromotions().find(p => p.id === id);
       const box = document.getElementById("details-" + id);
 
       if (!promo || !box) return;
 
-      if (!box.classList.contains("hidden")) {
+      if (!box.classList.contains("hidden") && !forcarAtualizacao) {
         box.classList.add("hidden");
         return;
+      }
+
+      if (forcarAtualizacao) {
+        box.innerHTML = "";
+        box.classList.remove("hidden");
       }
 
       const status = getStatus(promo);
@@ -1058,8 +1063,7 @@
           input.onchange = async () => {
             await uploadFiles(promo.id, categoria, input.files);
             input.value = "";
-            await openCategories(id);
-            await openCategories(id);
+            await openCategories(id, true);
           };
 
           botoes.appendChild(botaoUpload);
@@ -1118,8 +1122,7 @@
 
                 try {
                   await excluirArquivo(arquivo.id);
-                  await openCategories(id);
-                  await openCategories(id);
+                  await openCategories(id, true);
                 } catch (erro) {
                   console.error(erro);
                   alert("Não foi possível excluir o arquivo: " + erro.message);
