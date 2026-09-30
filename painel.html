@@ -445,6 +445,7 @@
   </footer>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script>
 
@@ -461,9 +462,6 @@
       "Impressão"
     ];
 
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbxN8BQM5naclocsKPXtHkPDlBKGk9IaKB-Rm3CO8NFjjdiUcWEmFmZ5go18ET1CC-WWjw/exec";
-
     const firebaseConfig = {
       apiKey: "AIzaSyAJUVe3-r-N6ImLbhGmfyHAcXhBoDeeX28",
       authDomain: "portal-promocional-mariano.firebaseapp.com",
@@ -477,6 +475,9 @@
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
+
+    const db = firebase.firestore();
+    const PROMO_COLLECTION = "Promo";
 
     const user = JSON.parse(
       localStorage.getItem("usuarioLogado") || "null"
@@ -497,7 +498,7 @@
       document.getElementById("adminPanel").classList.remove("hidden");
     }
 
-    // Cache compartilhado das promoções carregadas do Apps Script
+    // Cache compartilhado das promoções carregadas do Firestore
     let promocoesCache = [];
 
     async function obterUsuarioFirebase() {
@@ -532,57 +533,17 @@
       });
     }
 
-    async function obterTokenFirebase() {
-      const usuarioFirebase = await obterUsuarioFirebase();
-      return await usuarioFirebase.getIdToken(true);
-    }
-
-    async function apiRequest(action, dados = {}) {
-
-      const idToken = await obterTokenFirebase();
-
-      const resposta = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          action: action,
-          idToken: idToken,
-          ...dados
-        })
-      });
-
-      const texto = await resposta.text();
-
-      let resultado;
-
-      try {
-        resultado = JSON.parse(texto);
-      } catch (erro) {
-        throw new Error(
-          "Resposta inválida do Apps Script: " + texto.substring(0, 300)
-        );
-      }
-
-      if (!resultado.sucesso) {
-        throw new Error(resultado.erro || "Erro no Apps Script.");
-      }
-
-      return resultado;
-    }
-
-    function getPromotions() {
-      return promocoesCache;
-    }
-
     async function carregarPromocoes() {
       try {
-        const resultado = await apiRequest("listarPromocoes");
 
-        promocoesCache = Array.isArray(resultado.promocoes)
-          ? resultado.promocoes
-          : [];
+        const snapshot = await db
+          .collection(PROMO_COLLECTION)
+          .get();
+
+        promocoesCache = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
         renderPromotions();
 
@@ -598,6 +559,10 @@
 
         document.getElementById("promoCount").textContent = "Erro ao carregar";
       }
+    }
+
+    function getPromotions() {
+      return promocoesCache;
     }
 
     // ============================
@@ -1199,7 +1164,16 @@ async function baixarZip(promoId, categoria) {
 
       try {
 
-        await apiRequest("liberarPromocao", { id: id });
+        if (!isAdmin) {
+          throw new Error("Apenas o administrador pode liberar promoções.");
+        }
+
+        await db
+          .collection(PROMO_COLLECTION)
+          .doc(id)
+          .update({
+            released: true
+          });
 
         await carregarPromocoes();
 
@@ -1221,7 +1195,14 @@ async function baixarZip(promoId, categoria) {
 
       try {
 
-        await apiRequest("excluirPromocao", { id: id });
+        if (!isAdmin) {
+          throw new Error("Apenas o administrador pode excluir promoções.");
+        }
+
+        await db
+          .collection(PROMO_COLLECTION)
+          .doc(id)
+          .delete();
 
         await carregarPromocoes();
 
@@ -1310,9 +1291,14 @@ async function baixarZip(promoId, categoria) {
 
         try {
 
-          await apiRequest("cadastrarPromocao", {
-            promocao: promocao
-          });
+          if (!isAdmin) {
+            throw new Error("Apenas o administrador pode cadastrar promoções.");
+          }
+
+          await db
+            .collection(PROMO_COLLECTION)
+            .doc(promocao.id)
+            .set(promocao);
 
           this.reset();
 
